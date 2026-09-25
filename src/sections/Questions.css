@@ -1,0 +1,109 @@
+.qs {
+  position: relative;
+  height: 420vh;
+  background: var(--night);
+  color: var(--paper);
+  scroll-margin-top: var(--nav-h);
+}
+.qs__sticky {
+  position: sticky;
+  top: var(--nav-h);
+  height: calc(100vh - var(--nav-h));
+  height: calc(100svh - var(--nav-h));
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+.qs__bg {
+  position: absolute;
+  left: 0;
+  bottom: -0.2em;
+  font-size: clamp(10rem, 30vw, 30rem);
+  line-height: 1;
+  color: rgba(236, 230, 218, 0.035);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.qs__head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-top: 28px;
+  color: var(--stone-2);
+}
+.qs__head h2 {
+  margin: 0;
+  color: var(--paper);
+}
+.qs__count {
+  margin-left: auto;
+  color: var(--bronze-2);
+  font-size: 12px;
+}
+
+.qs__stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.qs__pair {
+  width: 100%;
+  display: grid;
+  gap: clamp(28px, 5vh, 56px);
+}
+.qs__q {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 1rem + 4.2vw, 5.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  max-width: 14em;
+}
+.qs__q--plato {
+  color: #dfe6ec;
+}
+.qs__q--aris {
+  font-style: italic;
+  color: #efd6c8;
+  margin-left: auto;
+  text-align: right;
+}
+.qs__tag {
+  display: block;
+  margin-bottom: 14px;
+  font-family: var(--f-sans);
+  font-style: normal;
+}
+.qs__q--plato .qs__tag {
+  color: var(--plato-2);
+}
+.qs__q--aris .qs__tag {
+  color: var(--aris-2);
+}
+
+.qs__foot {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 28px;
+}
+.qs__track {
+  flex: 1;
+  height: 1px;
+  background: var(--rule-night);
+}
+.qs__bar {
+  height: 1px;
+  background: var(--bronze-2);
+  transform-origin: 0 50%;
+}
+.qs__hint {
+  color: var(--stone-2);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 10px;
+}

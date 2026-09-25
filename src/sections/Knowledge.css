@@ -1,0 +1,256 @@
+.know {
+  padding-bottom: var(--section-pad);
+}
+.know .room-head {
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+
+.know__track {
+  position: relative;
+  height: 340vh;
+}
+.know__sticky {
+  position: sticky;
+  top: var(--nav-h);
+  min-height: calc(100vh - var(--nav-h));
+  display: flex;
+  align-items: center;
+}
+.know__stage {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vh, 36px);
+  padding-block: 24px;
+}
+
+.know__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.know__steps li {
+  flex: 1;
+}
+.know__step {
+  appearance: none;
+  background: none;
+  border: 0;
+  width: 100%;
+  text-align: left;
+  padding: 10px 0;
+  cursor: pointer;
+  position: relative;
+  color: var(--muted);
+}
+.know__step::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--bronze);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease);
+}
+.know__step.is-past::after,
+.know__step.is-on::after {
+  transform: scaleX(1);
+}
+.know__step.is-past::after {
+  opacity: 0.45;
+}
+.know__stepnum {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 1.15rem;
+}
+.know__step.is-on {
+  color: var(--ink);
+}
+.know__step:hover {
+  color: var(--bronze-deep);
+}
+
+.know__row {
+  display: grid;
+  gap: 6px;
+}
+.know__rowhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.know__row--plato .know__mode {
+  color: var(--plato);
+}
+.know__row--aris .know__mode {
+  color: var(--aris);
+}
+.know__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.know__row--plato .know__svg {
+  max-height: 30vh;
+}
+.know__row--aris .know__svg {
+  max-height: 17vh;
+}
+
+.know__text {
+  margin: 0;
+  max-width: 50em;
+  min-height: 3.2em;
+  font-size: 0.98rem;
+  text-wrap: pretty;
+}
+.know__text strong {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.12rem;
+}
+.know__row--plato .know__text strong {
+  color: var(--plato-deep);
+}
+.know__row--aris .know__text strong {
+  color: var(--aris-deep);
+}
+.know__text .cite {
+  white-space: nowrap;
+  margin-left: 6px;
+}
+
+/* glyphs */
+.kg-glyph {
+  fill: none;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.kg-glyph--plato {
+  stroke: var(--plato);
+}
+.kg-glyph--plato .kg-solid {
+  fill: var(--plato);
+}
+.kg-glyph--aris {
+  stroke: var(--aris);
+}
+.kg-glyph--aris .kg-solid {
+  fill: var(--aris);
+  stroke: none;
+}
+.kg-faint {
+  opacity: 0.6;
+}
+.kg-arrow {
+  fill: none;
+  stroke-width: 1.3;
+}
+.kg-arrow--plato {
+  stroke: var(--plato);
+}
+.kg-arrow--aris {
+  stroke: var(--aris);
+}
+.kg-ground {
+  stroke: var(--rule-strong);
+  stroke-width: 1;
+}
+.kg-ground--aris {
+  stroke: var(--rule);
+  stroke-dasharray: 2 4;
+}
+.kg-riser {
+  stroke: var(--plato);
+  opacity: 0.18;
+  stroke-dasharray: 1 4;
+}
+.kg-lab {
+  fill: var(--muted);
+  transition: fill 0.4s;
+}
+.kg-lab.is-on {
+  fill: var(--ink);
+}
+.kg-gr {
+  fill: var(--bronze-deep);
+}
+
+/* ---------- panel ---------- */
+
+.know__panel {
+  margin-top: clamp(40px, 6vw, 80px);
+  row-gap: 48px;
+  border-top: 1px solid var(--rule-strong);
+  padding-top: 40px;
+}
+.know__start {
+  grid-column: span 6;
+}
+.know__start .display {
+  margin: 12px 0 0;
+  font-size: var(--t-lg);
+  line-height: 1.2;
+  max-width: 16em;
+}
+.know__start--plato .display {
+  color: var(--plato-deep);
+}
+.know__start--aris .display {
+  color: var(--aris-deep);
+}
+.know__caveat {
+  grid-column: 4 / span 7;
+  padding: 28px 0 0;
+  border-top: 1px solid var(--rule);
+}
+.know__caveat p {
+  margin: 10px 0 0;
+  max-width: 42em;
+}
+
+@media (max-width: 900px), (max-height: 700px) {
+  .know__track {
+    height: auto;
+  }
+  .know__sticky {
+    position: static;
+    min-height: 0;
+  }
+  .know__row--plato .know__svg,
+  .know__row--aris .know__svg {
+    max-height: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .know__svg {
+    min-width: 640px;
+  }
+  .know__row {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+  .know__rowhead,
+  .know__text {
+    position: sticky;
+    left: 0;
+    max-width: calc(100vw - 2 * var(--gutter));
+  }
+  .know__start,
+  .know__caveat {
+    grid-column: 1 / -1;
+  }
+  .know__text .cite {
+    white-space: normal;
+  }
+}

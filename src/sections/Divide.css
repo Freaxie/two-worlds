@@ -1,0 +1,116 @@
+/* shared diagram typography (used by all rooms) */
+.dg-name {
+  font-family: var(--f-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+.dg-greek {
+  font-family: var(--f-greek);
+  font-size: 15px;
+}
+.dg-mono {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+}
+.dg-sup {
+  font-size: 11px;
+}
+.c-plato {
+  color: var(--plato);
+}
+.c-aris {
+  color: var(--aris);
+}
+
+/* ---------- split ---------- */
+
+.divide__split {
+  row-gap: 64px;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.divide__col {
+  padding-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.divide__col--plato {
+  grid-column: 1 / span 6;
+  padding-right: clamp(0px, 3vw, 48px);
+}
+.divide__col--aris {
+  grid-column: 7 / span 6;
+  padding-left: clamp(0px, 3vw, 48px);
+  border-left: 1px solid var(--rule-strong);
+  margin-left: calc(var(--col-gap) / -2);
+  padding-left: calc(var(--col-gap) / 2 + clamp(0px, 3vw, 48px));
+}
+
+.divide__sticky {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 2;
+  padding-block: 16px 10px;
+  background: var(--paper);
+  margin-bottom: 8px;
+}
+
+.divide__claim {
+  margin: 0;
+  font-size: var(--t-xl);
+  line-height: 1.02;
+}
+.divide__col--plato .divide__claim {
+  color: var(--plato-deep);
+}
+.divide__col--aris .divide__claim {
+  color: var(--aris-deep);
+}
+
+.divide__fig {
+  margin: 16px 0 0;
+}
+.divide__svg {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  overflow: visible;
+}
+.divide__fig figcaption {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+.divide__fn {
+  color: var(--plato);
+  font-weight: 600;
+}
+
+.divide__coda {
+  margin-top: clamp(80px, 10vw, 140px);
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+}
+.divide__coda p {
+  margin: 0 auto;
+  max-width: 20em;
+  text-align: center;
+  font-size: var(--t-xl);
+  line-height: 1.12;
+}
+
+@media (max-width: 900px) {
+  .divide__col--plato,
+  .divide__col--aris {
+    grid-column: 1 / -1;
+    padding-inline: 0;
+    margin-left: 0;
+    border-left: 0;
+  }
+  .divide__col--aris {
+    border-top: 1px solid var(--rule-strong);
+  }
+}

@@ -1,0 +1,120 @@
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+/* ---------- Room header ---------- */
+
+.room-head {
+  align-items: start;
+  margin-bottom: clamp(56px, 8vw, 120px);
+}
+
+.room-head__num {
+  grid-column: 1 / span 3;
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: var(--t-3xl);
+  line-height: 0.78;
+  color: var(--bronze);
+  letter-spacing: -0.07em;
+  font-variation-settings: 'opsz' 96;
+  margin-top: 0.02em;
+}
+
+.room-head__meta {
+  grid-column: 4 / span 9;
+}
+
+.room-head__eyebrow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 14px;
+  margin-bottom: clamp(20px, 2.4vw, 32px);
+  color: var(--muted);
+}
+
+.room-head__dash {
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.room-head__greek {
+  font-size: 1.05rem;
+  color: var(--bronze-deep);
+  margin-left: 4px;
+  cursor: help;
+}
+
+.room-head__title {
+  margin: 0;
+  font-size: var(--t-2xl);
+  max-width: 13em;
+}
+
+.room-head__lede {
+  margin-top: clamp(24px, 3vw, 40px);
+  max-width: 36em;
+}
+
+.room-head--night .room-head__eyebrow {
+  color: var(--stone-2);
+}
+.room-head--night .room-head__greek {
+  color: var(--bronze-2);
+}
+.room-head--night .room-head__num {
+  color: var(--bronze-2);
+}
+.room-head--night .lede {
+  color: rgba(236, 230, 218, 0.78);
+}
+
+@media (max-width: 900px) {
+  .room-head__num {
+    grid-column: 1 / -1;
+    font-size: clamp(3.4rem, 18vw, 6rem);
+    margin-bottom: 20px;
+  }
+  .room-head__meta {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Side tag ---------- */
+
+.side-tag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.side-tag__mark {
+  width: 9px;
+  height: 9px;
+  flex: none;
+}
+.side-tag--plato {
+  color: var(--plato);
+}
+.side-tag--plato .side-tag__mark {
+  border: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+.side-tag--aris {
+  color: var(--aris);
+}
+.side-tag--aris .side-tag__mark {
+  background: currentColor;
+  border-radius: 50%;
+}
+.side-tag__extra {
+  margin-left: 4px;
+}
+
+.line-inner {
+  display: block;
+}

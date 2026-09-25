@@ -1,0 +1,248 @@
+.soul__split {
+  border-top: 1px solid var(--rule-strong);
+  row-gap: 56px;
+}
+.soul__col {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.soul__col--plato {
+  grid-column: 1 / span 6;
+  padding-right: clamp(0px, 2vw, 32px);
+}
+.soul__col--aris {
+  grid-column: 7 / span 6;
+  border-left: 1px solid var(--rule-strong);
+  margin-left: calc(var(--col-gap) / -2);
+  padding-left: calc(var(--col-gap) / 2 + clamp(0px, 2vw, 32px));
+}
+
+.soul__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 32px);
+  align-items: center;
+}
+.soul__fig {
+  width: 100%;
+  height: auto;
+  max-height: 440px;
+  overflow: visible;
+}
+
+.soul__torso {
+  stroke: var(--plato);
+  stroke-width: 1;
+  opacity: 0.45;
+  transition: opacity 0.5s var(--ease);
+}
+.soul__torso line:not(:first-child) {
+  stroke-dasharray: 2 4;
+}
+.soul__torso text {
+  fill: var(--plato);
+  stroke: none;
+  font-size: 8px;
+}
+.soul__torso.is-on {
+  opacity: 1;
+}
+.soul__zone {
+  fill: var(--paper);
+  stroke: var(--plato);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  transition: fill 0.5s var(--ease);
+}
+.soul__zone.is-on {
+  fill: rgba(76, 103, 128, 0.16);
+  stroke-dasharray: none;
+}
+.soul__zl {
+  fill: var(--ink);
+  font-size: 11px;
+}
+.soul__zg {
+  fill: var(--plato-deep);
+  font-size: 13px;
+}
+.soul__up {
+  fill: none;
+  stroke: var(--plato);
+  stroke-width: 1.2;
+  opacity: 0.45;
+  transition: opacity 0.4s, stroke-width 0.4s;
+}
+.soul__up.is-on {
+  opacity: 1;
+  stroke-width: 2;
+}
+
+.soul__poly {
+  fill: transparent;
+  stroke: var(--aris);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  transition: fill 0.5s var(--ease);
+}
+.soul__poly.is-in {
+  stroke-dasharray: none;
+  fill: rgba(161, 84, 58, 0.07);
+}
+.soul__poly.is-on {
+  stroke-width: 2;
+}
+.soul__pl {
+  fill: var(--aris-deep);
+}
+.soul__pl--s {
+  font-size: 8px;
+}
+.soul__cap {
+  fill: var(--muted);
+  font-size: 8.5px;
+}
+
+.soul__ladder {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.soul__ladder--up {
+  flex-direction: column-reverse;
+}
+.soul__ladder--up .soul__arrow {
+  transform: rotate(180deg);
+}
+.soul__ladder li {
+  display: flex;
+  flex-direction: column;
+}
+.soul__ladder--up li {
+  flex-direction: column-reverse;
+}
+.soul__lvl {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-left: 1px solid var(--rule-strong);
+  padding: 8px 0 8px 16px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: border-color 0.3s;
+}
+.soul__lvl-en {
+  font-family: var(--f-display);
+  font-size: 1.3rem;
+  line-height: 1.15;
+  transition: color 0.3s;
+}
+.soul__lvl-gr {
+  font-size: 0.98rem;
+  color: var(--muted);
+}
+.soul__lvl-who {
+  color: var(--muted);
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.soul__arrow {
+  padding-left: 12px;
+  color: var(--stone);
+  font-size: 13px;
+  line-height: 1.2;
+  display: inline-block;
+  width: fit-content;
+}
+.soul__col--plato .soul__lvl.is-on {
+  border-left: 2px solid var(--plato);
+}
+.soul__col--plato .soul__lvl.is-on .soul__lvl-en {
+  color: var(--plato-deep);
+  font-style: italic;
+}
+.soul__col--aris .soul__lvl.is-on {
+  border-left: 2px solid var(--aris);
+}
+.soul__col--aris .soul__lvl.is-on .soul__lvl-en {
+  color: var(--aris-deep);
+  font-style: italic;
+}
+
+.soul__text {
+  min-height: 7em;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+.soul__text p {
+  margin: 0;
+  max-width: 36em;
+}
+
+.soul__foot {
+  margin-top: clamp(64px, 8vw, 112px);
+  padding-top: 36px;
+  border-top: 1px solid var(--rule);
+  row-gap: 40px;
+  align-items: end;
+}
+.soul__def {
+  grid-column: 1 / span 7;
+}
+.soul__def .quote {
+  color: var(--aris-deep);
+}
+.soul__def .note {
+  margin-top: 16px;
+}
+.soul__specimen {
+  grid-column: 9 / span 4;
+  color: var(--ink-2);
+}
+.soul__cuttle {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  opacity: 0.8;
+}
+.soul__specimen .cite {
+  margin: 12px 0 0;
+}
+
+@media (max-width: 1100px) {
+  .soul__body {
+    grid-template-columns: 1fr;
+  }
+  .soul__fig {
+    max-height: 320px;
+  }
+}
+@media (max-width: 900px) {
+  .soul__col--plato,
+  .soul__col--aris,
+  .soul__def,
+  .soul__specimen {
+    grid-column: 1 / -1;
+  }
+  .soul__col--aris {
+    border-left: 0;
+    margin-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .soul__body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+@media (max-width: 520px) {
+  .soul__body {
+    grid-template-columns: 1fr;
+  }
+}

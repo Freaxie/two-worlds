@@ -1,0 +1,285 @@
+.onto-map {
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule);
+  padding-block: 20px 12px;
+}
+.onto-map__heads {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--col-gap);
+}
+.onto-map__heads > :last-child {
+  padding-left: 4%;
+}
+
+.onto-svg {
+  width: 100%;
+  height: auto;
+  margin-top: 8px;
+  overflow: visible;
+}
+
+.onto-node {
+  cursor: pointer;
+  outline: none;
+}
+.onto-node text {
+  fill: var(--ink);
+  transition: fill 0.3s var(--ease);
+}
+.onto-node .onto-small {
+  fill: var(--muted);
+}
+.onto-node--plato .onto-gk {
+  fill: var(--plato-deep);
+}
+.onto-node--aris .onto-gk {
+  fill: var(--aris-deep);
+}
+.onto-small {
+  fill: var(--muted);
+}
+
+.onto-hit {
+  fill: transparent;
+  stroke: none;
+}
+.onto-hit--ring {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 18;
+  pointer-events: stroke;
+}
+
+.onto-band {
+  fill: var(--plato-mist);
+  stroke: var(--plato);
+  stroke-width: 1;
+  opacity: 0.7;
+  transition: opacity 0.3s var(--ease), fill 0.3s var(--ease);
+}
+
+.onto-mark {
+  fill: var(--paper);
+  stroke: var(--plato);
+  stroke-width: 1.2;
+  transition: fill 0.35s var(--ease), stroke-width 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.onto-mark--solid {
+  fill: var(--plato);
+}
+.onto-mark--faint {
+  stroke-dasharray: 2 2;
+  opacity: 0.7;
+}
+.onto-mark--aris {
+  stroke: var(--aris);
+}
+.onto-mark--aris.onto-mark--solid {
+  fill: var(--aris);
+}
+.onto-mark--dashed {
+  stroke-dasharray: 2.5 2.5;
+  fill: var(--aris-mist);
+}
+
+.onto-orbit {
+  fill: none;
+  stroke: var(--aris);
+  stroke-width: 1;
+  stroke-dasharray: 1 5;
+  opacity: 0.7;
+}
+
+/* states */
+.onto-node.is-hover text,
+.onto-node:focus-visible text {
+  fill: var(--bronze-deep);
+}
+.onto-node:focus-visible .onto-hit {
+  stroke: var(--bronze);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 3;
+}
+.onto-node.is-sel .onto-mark {
+  stroke-width: 2.2;
+}
+.onto-node.is-sel text.dg-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+.onto-node.is-sel .onto-band {
+  opacity: 1;
+  fill: #d3dadd;
+}
+.onto-node.is-partner .onto-mark {
+  stroke: var(--bronze);
+}
+.onto-node.is-partner text.dg-name {
+  fill: var(--bronze-deep);
+}
+
+.onto-bridge {
+  fill: none;
+  stroke: var(--bronze);
+  stroke-width: 1.4;
+  stroke-dasharray: 5 4;
+  pointer-events: none;
+}
+
+/* narrow-screen list */
+.onto-list {
+  display: none;
+}
+.onto-list ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.onto-chip {
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 11px 0;
+  font-family: var(--f-display);
+  font-size: 1.15rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+.onto-chip::after {
+  content: '→';
+  font-family: var(--f-sans);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.onto-chip.is-sel {
+  font-style: italic;
+}
+.onto-chip.is-sel::after {
+  opacity: 1;
+}
+.onto-chip--plato.is-sel {
+  color: var(--plato-deep);
+}
+.onto-chip--aris.is-sel {
+  color: var(--aris-deep);
+}
+
+/* ---------- detail panel ---------- */
+
+.onto-panel {
+  margin-top: 48px;
+  min-height: 340px;
+}
+.onto-panel__inner {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: 40px;
+}
+.onto-panel__main {
+  grid-column: 1 / span 7;
+}
+.onto-panel__name {
+  margin: 18px 0 6px;
+  font-size: var(--t-xl);
+}
+.onto-panel__greek {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin: 0 0 28px;
+}
+.onto-panel__greek .greek {
+  font-size: 1.35rem;
+  color: var(--bronze-deep);
+}
+.onto-panel__greek .mono {
+  color: var(--muted);
+}
+.onto-panel__dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 9.5rem 1fr;
+  gap: 16px 24px;
+  max-width: 44rem;
+}
+.onto-panel__dl dt {
+  padding-top: 5px;
+}
+.onto-panel__dl dd {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.onto-panel__across {
+  grid-column: 9 / span 4;
+  padding: 24px 0 0 24px;
+  border-left: 1px solid var(--bronze);
+  align-self: start;
+}
+.onto-panel__across .label {
+  color: var(--bronze-deep);
+  margin: 0 0 12px;
+}
+.onto-panel__across p {
+  margin: 0 0 16px;
+  font-size: 0.97rem;
+}
+.onto-panel__partner {
+  font-size: var(--t-lg);
+  margin-bottom: 14px;
+  text-align: left;
+}
+.onto-panel__across--plato .onto-panel__partner {
+  color: var(--plato-deep);
+}
+.onto-panel__across--aris .onto-panel__partner {
+  color: var(--aris-deep);
+}
+.onto-panel__partner:hover .display {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+@media (max-width: 1000px) {
+  .onto-panel__main,
+  .onto-panel__across {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .onto-svg,
+  .onto-map__heads {
+    display: none;
+  }
+  .onto-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .onto-map {
+    border-bottom: 0;
+  }
+  .onto-panel__dl {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .onto-panel__dl dd {
+    margin-bottom: 14px;
+  }
+  .onto-panel__across {
+    padding-left: 16px;
+  }
+}

@@ -1,0 +1,376 @@
+.hero {
+  position: relative;
+  height: clamp(680px, 100svh, 1040px);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--paper);
+}
+
+.hero__half {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  overflow: hidden;
+}
+.hero__half--plato {
+  left: 0;
+  background: var(--night);
+  color: var(--paper);
+}
+.hero__half--aris {
+  right: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.hero__art {
+  position: absolute;
+  inset: -4% 0 0 0;
+}
+.hero-art {
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise line {
+    stroke-dasharray: 2 14;
+    animation: rise 9s linear infinite;
+  }
+}
+@keyframes rise {
+  to {
+    stroke-dashoffset: 160;
+  }
+}
+
+/* ---------- busts ---------- */
+
+.hero__bust {
+  position: absolute;
+  bottom: -3%;
+  height: 60%;
+  aspect-ratio: 320 / 540;
+  max-width: 44%;
+  z-index: 2;
+}
+.hero__bust svg {
+  width: 100%;
+  height: 100%;
+}
+.hero__bust > div {
+  height: 100%;
+}
+.hero__bust--plato {
+  right: clamp(4px, 1.6vw, 36px);
+  filter: drop-shadow(-30px 20px 50px rgba(0, 0, 0, 0.45));
+}
+.hero__bust--aris {
+  left: clamp(4px, 1.6vw, 36px);
+  filter: drop-shadow(24px 24px 36px rgba(70, 50, 30, 0.2));
+}
+
+/* ---------- seam ---------- */
+
+.hero__seam {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  margin-left: -0.5px;
+  background: linear-gradient(to bottom, transparent, var(--bronze-2) 12%, var(--bronze-2) 88%, transparent);
+  z-index: 3;
+  transform-origin: 50% 50%;
+}
+
+/* ---------- title: one sentence, two worlds ---------- */
+
+.hero__typewrap {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+.hero__type {
+  position: absolute;
+  inset: 0;
+}
+.hero__type--light {
+  color: var(--paper);
+  clip-path: inset(0 50% 0 0);
+}
+.hero__type--dark {
+  color: var(--ink);
+  clip-path: inset(0 0 0 50%);
+}
+
+.hero__titleblock {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: clamp(96px, 14vh, 150px);
+  text-align: center;
+  font-size: clamp(3.2rem, 8.2vw, 9.4rem);
+}
+
+.hero__title {
+  margin: 0;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-variation-settings: 'opsz' 96;
+  white-space: nowrap;
+}
+.hero__word {
+  display: inline-block;
+  margin-inline: 0.12em;
+}
+
+.hero__subtitle {
+  margin: 0.5em 0 0;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: clamp(1.15rem, 0.9rem + 0.9vw, 1.75rem);
+  letter-spacing: 0.01em;
+}
+
+/* ---------- theses ---------- */
+
+.hero__thesis {
+  position: absolute;
+  bottom: clamp(72px, 11vh, 128px);
+  width: min(320px, calc(25vw - var(--gutter) - 12px));
+  z-index: 3;
+}
+.hero__thesis--plato {
+  left: var(--gutter);
+}
+.hero__thesis--aris {
+  right: var(--gutter);
+  text-align: right;
+}
+.hero__who {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid currentColor;
+  border-color: color-mix(in srgb, currentColor 30%, transparent);
+}
+.hero__thesis--aris .hero__who {
+  justify-content: flex-end;
+}
+.hero__thesis--plato .label {
+  color: var(--plato-2);
+}
+.hero__thesis--aris .label {
+  color: var(--aris);
+}
+.hero__who .mono {
+  opacity: 0.66;
+}
+.hero__claim {
+  margin: 0;
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: clamp(1.3rem, 0.9rem + 1vw, 1.85rem);
+  line-height: 1.22;
+  text-wrap: balance;
+}
+.hero__claimnote {
+  display: block;
+  margin-top: 12px;
+  opacity: 0.55;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+
+.hero__corner {
+  position: absolute;
+  top: 26px;
+  margin: 0;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  opacity: 0.7;
+  z-index: 3;
+}
+.hero__corner--plato {
+  left: var(--gutter);
+}
+.hero__corner--aris {
+  right: var(--gutter);
+}
+
+/* ---------- enter ---------- */
+
+.hero__enter {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px 8px;
+  text-decoration: none;
+  color: var(--bronze-2);
+  background: var(--night);
+  box-shadow: 0 0 0 1px rgba(184, 148, 90, 0.4);
+  transition: background 0.4s var(--ease), color 0.4s var(--ease);
+}
+.hero__enter:hover {
+  background: var(--bronze-deep);
+  color: var(--paper);
+}
+.hero__arrow {
+  font-size: 15px;
+  line-height: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero__arrow {
+    animation: drift 2.8s var(--ease) infinite;
+  }
+}
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(-2px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 1;
+  }
+}
+
+/* ---------- tablet ---------- */
+
+@media (max-width: 1100px) {
+  .hero__bust {
+    height: 56%;
+  }
+  .hero__claim {
+    font-size: 1.2rem;
+  }
+}
+
+/* ---------- phone: the worlds stack, sky above earth ---------- */
+
+@media (max-width: 760px) {
+  .hero {
+    height: max(720px, 100svh);
+    max-height: 940px;
+  }
+  .hero__half {
+    width: 100%;
+    height: 50%;
+    left: 0;
+    right: 0;
+  }
+  .hero__half--plato {
+    top: 0;
+    bottom: auto;
+  }
+  .hero__half--aris {
+    top: 50%;
+    bottom: auto;
+  }
+  .hero__seam {
+    left: 0;
+    right: 0;
+    top: 50%;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    margin: -0.5px 0 0;
+    background: linear-gradient(to right, transparent, var(--bronze-2) 12%, var(--bronze-2) 88%, transparent);
+  }
+  .hero__type--light {
+    clip-path: inset(0 0 50% 0);
+  }
+  .hero__type--dark {
+    clip-path: inset(50% 0 0 0);
+  }
+  .hero__titleblock {
+    top: 50%;
+    font-size: clamp(3rem, 16vw, 5.4rem);
+    transform: translateY(-1.05em);
+  }
+  .hero__title {
+    white-space: normal;
+    line-height: 1;
+  }
+  .hero__word--2 {
+    display: block;
+    margin-top: 0.1em;
+  }
+  .hero__subtitle {
+    margin-top: 0.6em;
+    font-size: 1.1rem;
+  }
+
+  .hero__bust {
+    height: 74%;
+    max-width: 48%;
+    bottom: auto;
+  }
+  .hero__bust--plato {
+    right: -2%;
+    top: 20%;
+  }
+  .hero__bust--aris {
+    left: auto;
+    right: -2%;
+    top: 22%;
+  }
+  .hero__bust--plato,
+  .hero__bust--aris {
+    opacity: 0.9;
+  }
+
+  .hero__thesis {
+    width: 54%;
+    bottom: auto;
+  }
+  .hero-art .divided-line {
+    display: none;
+  }
+  .hero__art {
+    opacity: 0.7;
+  }
+  .hero__thesis--plato {
+    top: 56px;
+  }
+  .hero__corner--plato {
+    font-size: 9.5px;
+  }
+  .hero__thesis--aris {
+    left: var(--gutter);
+    right: auto;
+    text-align: left;
+    bottom: 104px;
+    top: auto;
+  }
+  .hero__thesis--aris .hero__who {
+    justify-content: flex-start;
+  }
+  .hero__claim {
+    font-size: 1.2rem;
+  }
+  .hero__claimnote {
+    display: none;
+  }
+  .hero__corner {
+    top: 20px;
+  }
+  .hero__corner--aris {
+    display: none;
+  }
+}
