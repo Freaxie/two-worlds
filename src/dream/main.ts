@@ -175,7 +175,25 @@ for (const s of shots) {
   s.update(0, 0)
   renderer.compile(s.scene, s.camera)
 }
-setPlaying(playing)
-label()
-wake()
-requestAnimationFrame(frame)
+
+if (params.has('record')) {
+  // offline rendering for scripts/record.mjs: time is stepped exactly, one frame per call
+  ui.root.hidden = true
+  Object.assign(window, {
+    renderAt(t: number) {
+      const n = Math.floor(t / BEAT)
+      index = n % shots.length
+      shotStart = n * BEAT
+      cutAt = n > 0 ? shotStart : -10
+      time = t
+      render()
+      return stage.toDataURL('image/jpeg', 0.94)
+    },
+    loopLength: BEAT * shots.length,
+  })
+} else {
+  setPlaying(playing)
+  label()
+  wake()
+  requestAnimationFrame(frame)
+}
