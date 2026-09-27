@@ -30,8 +30,8 @@ export interface Assets {
 export async function loadAssets(onProgress: (f: number) => void): Promise<Assets> {
   const manager = new THREE.LoadingManager()
   manager.onProgress = (_url, done, total) => onProgress(done / total)
-  const gltf = new GLTFLoader(manager)
-  const hdr = new HDRLoader(manager).setDataType(THREE.HalfFloatType)
+  const gltf = new GLTFLoader()
+  const hdr = new HDRLoader().setDataType(THREE.HalfFloatType)
   const uhdr = new UltraHDRLoader(manager).setDataType(THREE.HalfFloatType)
   const tex = new THREE.TextureLoader(manager)
   const file = new THREE.FileLoader(manager).setResponseType('arraybuffer')
@@ -49,13 +49,38 @@ export async function loadAssets(onProgress: (f: number) => void): Promise<Asset
     return found as THREE.Mesh
   }
 
+  // .glb and .hdr come in as raw bytes and are parsed here. Hosts that won't
+  // serve those types can carry a base64 copy alongside (name + '.b64.txt').
+  const bytes = async (name: string): Promise<ArrayBuffer> => {
+    manager.itemStart(name)
+    try {
+      const direct = await fetch(BASE + name)
+      if (direct.ok) return await direct.arrayBuffer()
+      const b64 = await fetch(BASE + name + '.b64.txt')
+      if (!b64.ok) throw new Error(`missing asset ${name}`)
+      const bin = atob((await b64.text()).trim())
+      const out = new Uint8Array(bin.length)
+      for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i)
+      return out.buffer
+    } finally {
+      manager.itemEnd(name)
+    }
+  }
+  const model = async (name: string) => firstMesh((await gltf.parseAsync(await bytes(name), '')).scene)
+  const radiance = async (name: string) => {
+    const t = new THREE.DataTexture()
+    // same steps DataTextureLoader.load takes after parsing
+    ;(hdr as unknown as { _applyTexData(t: THREE.DataTexture, d: unknown): void })._applyTexData(t, hdr.parse(await bytes(name)))
+    return equirect(t)
+  }
+
   const [sunrise, night, dawn, clear, oxalis, fish, grass, cloud, waterNormals, score] = await Promise.all([
     uhdr.loadAsync(BASE + 'spruit_sunrise_2k.hdr.jpg').then(equirect),
     uhdr.loadAsync(BASE + 'moonless_golf_2k.hdr.jpg').then(equirect),
-    hdr.loadAsync(BASE + 'blouberg_sunrise_2_1k.hdr').then(equirect),
-    hdr.loadAsync(BASE + 'quarry_01_1k.hdr').then(equirect),
-    gltf.loadAsync(BASE + 'oxalis.glb').then((g) => firstMesh(g.scene)),
-    gltf.loadAsync(BASE + 'barramundi.glb').then((g) => firstMesh(g.scene)),
+    radiance('blouberg_sunrise_2_1k.hdr'),
+    radiance('quarry_01_1k.hdr'),
+    model('oxalis.glb'),
+    model('barramundi.glb'),
     tex.loadAsync(BASE + 'grass.jpg'),
     tex.loadAsync(BASE + 'cloud.webp'),
     tex.loadAsync(BASE + 'waternormals.jpg'),
