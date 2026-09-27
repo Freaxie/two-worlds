@@ -1,33 +1,24 @@
 /* ------------------------------------------------------------------
    BLUE HOUR — the projector
-   Paints the current shot to an offscreen canvas, pushes it through
-   the lens, and cuts to the next shot on a steady beat.
+   Renders the current 3D shot, blooms it, tone-maps it, bends it
+   through the lens, and cuts to the next shot on a steady beat.
 ------------------------------------------------------------------- */
 
 import './dream.css'
-import { createLens } from './lens'
-import { SHOTS } from './shots'
-import { clamp, ease, lerp, makeSprites, type Frame } from './paint'
+import * as THREE from 'three'
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import { LensShader } from './lens'
+import { buildShots, clock } from './world/shots'
 
 const params = new URLSearchParams(location.search)
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
-const BEAT = reduced ? 5 : Number(params.get('beat')) || 1.7
-const MAX_SCENE = 1152
+const BEAT = reduced ? 7 : Number(params.get('beat')) || 3.4
 
 const stage = document.getElementById('stage') as HTMLCanvasElement
-const scene = document.createElement('canvas')
-const scratch = document.createElement('canvas')
-const ctx = scene.getContext('2d')!
-const sprites = makeSprites()
-let lens = null as ReturnType<typeof createLens>
-try {
-  lens = createLens(stage)
-} catch (e) {
-  console.error(e)
-}
-// without WebGL, show the painted frame directly
-const out = lens ? null : stage.getContext('2d')
-
 const ui = {
   root: document.getElementById('ui')!,
   num: document.getElementById('shot-num')!,
@@ -38,83 +29,83 @@ const ui = {
   next: document.getElementById('next') as HTMLButtonElement,
 }
 
-let F: Frame
+let renderer: THREE.WebGLRenderer
+try {
+  renderer = new THREE.WebGLRenderer({ canvas: stage, antialias: false, powerPreference: 'high-performance' })
+} catch {
+  ui.title.textContent = 'This reel needs WebGL, which this browser has turned off.'
+  throw new Error('WebGL unavailable')
+}
+renderer.toneMapping = THREE.ACESFilmicToneMapping
+renderer.outputColorSpace = THREE.SRGBColorSpace
+
+const shots = buildShots(renderer)
+
+const composer = new EffectComposer(renderer)
+const renderPass = new RenderPass(shots[0].scene, shots[0].camera)
+const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.42, 0.6, 0.9)
+const lens = new ShaderPass(LensShader)
+composer.addPass(renderPass)
+composer.addPass(bloom)
+composer.addPass(new OutputPass())
+composer.addPass(lens)
+
+/* ---------- sizing ---------- */
+
 /** drops when the device can't keep up, trading sharpness for a steady frame rate */
 let quality = 1
-let painters: ((c: CanvasRenderingContext2D, t: number, p: number) => void)[] = []
 
 function resize() {
-  const vw = innerWidth
-  const vh = innerHeight
-  const s = Math.min(1, MAX_SCENE / Math.max(vw, vh)) * quality
-  const W = Math.round(vw * s)
-  const H = Math.round(vh * s)
-  scene.width = scratch.width = W
-  scene.height = scratch.height = H
-  const u = Math.min(W, H)
-  F = { W, H, u, cx: W / 2, cy: H / 2, ext: Math.hypot(W, H) * 0.62 }
-  const dpr = Math.min(devicePixelRatio || 1, 2)
-  const ow = Math.min(2400, Math.round(vw * dpr))
-  const oh = Math.round((ow / vw) * vh)
-  if (lens) lens.resize(ow, oh)
-  else {
-    stage.width = ow
-    stage.height = oh
+  const w = innerWidth
+  const h = innerHeight
+  const pr = Math.min(devicePixelRatio || 1, 1.5) * quality
+  renderer.setPixelRatio(pr)
+  renderer.setSize(w, h, false)
+  composer.setPixelRatio(pr)
+  composer.setSize(w, h)
+  lens.uniforms.uRes.value.set(w * pr, h * pr)
+  for (const s of shots) {
+    s.camera.aspect = w / h
+    // keep the vertical framing on phones by widening the lens instead of cropping
+    s.camera.zoom = w < h ? w / h + 0.25 : 1
+    s.camera.updateProjectionMatrix()
   }
-  // compose each shot for this frame size (painters are cheap to build)
-  painters = SHOTS.map((s) => s.compose(F, sprites, scratch))
 }
 
-/* ---------- playback state ---------- */
+/* ---------- playback ---------- */
 
-let index = clamp(Math.floor(Number(params.get('shot')) || 1) - 1, 0, SHOTS.length - 1)
-let clock = 0
+let index = Math.min(shots.length - 1, Math.max(0, Math.floor(Number(params.get('shot')) || 1) - 1))
+let time = 0
 let shotStart = -(Number(params.get('t')) || 0)
 let cutAt = -10
 let playing = !params.has('still')
 let last = performance.now()
 
 function go(i: number) {
-  index = (i + SHOTS.length) % SHOTS.length
-  shotStart = clock
-  cutAt = reduced ? -10 : clock
+  index = (i + shots.length) % shots.length
+  shotStart = time
+  cutAt = reduced ? -10 : time
   label()
 }
 
 function label() {
-  ui.num.textContent = `${String(index + 1).padStart(2, '0')} / ${SHOTS.length}`
-  ui.title.textContent = SHOTS[index].title
+  ui.num.textContent = `${String(index + 1).padStart(2, '0')} / ${String(shots.length).padStart(2, '0')}`
+  ui.title.textContent = shots[index].title
   ui.ticks.querySelectorAll('i').forEach((el, i) => el.classList.toggle('on', i === index))
 }
 
-function paint() {
-  const shot = SHOTS[index]
-  const p = clamp((clock - shotStart) / BEAT)
-  const e = ease(p)
-  const cam = shot.cam
-  const damp = reduced ? 0.4 : 1
-  // the lens magnifies the centre by (1 + k), so the camera pulls back to compensate
-  const k = 0.55 * (cam.lens ?? 1)
-  const zoom = (lerp(cam.zoom[0], cam.zoom[1], e) * 0.8) / (1 + k * 0.7)
-  const roll = (lerp(cam.roll[0], cam.roll[1], e) * damp * Math.PI) / 180
-  let px = lerp(cam.pan[0][0], cam.pan[1][0], e) * damp
-  let py = lerp(cam.pan[0][1], cam.pan[1][1], e) * damp
-  if (cam.shake && !reduced) {
-    px += Math.sin(clock * 23) * cam.shake + Math.sin(clock * 37) * cam.shake * 0.5
-    py += Math.cos(clock * 19) * cam.shake
-  }
-
-  ctx.setTransform(1, 0, 0, 1, 0, 0)
-  ctx.globalAlpha = 1
-  ctx.globalCompositeOperation = 'source-over'
-  ctx.translate(F.cx, F.cy)
-  ctx.rotate(roll)
-  ctx.scale(zoom, zoom)
-  ctx.translate(-F.cx + px * F.u, -F.cy + py * F.u)
-  painters[index](ctx, clock, p)
-
-  if (lens) lens.render(scene, clock, clock - cutAt, k)
-  else out!.drawImage(scene, 0, 0, stage.width, stage.height)
+function render() {
+  const s = shots[index]
+  const p = Math.min(1, (time - shotStart) / BEAT)
+  clock.uTime.value = time
+  s.update(time, reduced ? 0.5 + (p - 0.5) * 0.3 : p)
+  renderPass.scene = s.scene
+  renderPass.camera = s.camera
+  renderer.toneMappingExposure = s.exposure
+  lens.uniforms.uTime.value = time
+  lens.uniforms.uCut.value = time - cutAt
+  lens.uniforms.uK.value = s.lens
+  composer.render()
 }
 
 let slow = 0
@@ -122,23 +113,22 @@ let avg = 1 / 60
 
 function frame(now: number) {
   const raw = (now - last) / 1000
-  const dt = Math.min(0.05, raw)
   last = now
   if (raw < 0.5) {
     avg += (raw - avg) * 0.05
-    slow = avg > 1 / 36 ? slow + raw : 0
-    if (slow > 1.2 && quality > 0.55) {
-      quality *= 0.85
+    slow = avg > 1 / 32 ? slow + raw : 0
+    if (slow > 1.5 && quality > 0.5) {
+      quality *= 0.8
       slow = 0
       avg = 1 / 60
       resize()
     }
   }
   if (playing) {
-    clock += dt
-    if (clock - shotStart >= BEAT) go(index + 1)
+    time += Math.min(0.05, raw)
+    if (time - shotStart >= BEAT) go(index + 1)
   }
-  paint()
+  render()
   requestAnimationFrame(frame)
 }
 
@@ -146,7 +136,6 @@ function frame(now: number) {
 
 function setPlaying(v: boolean) {
   playing = v
-  ui.play.setAttribute('aria-pressed', String(!v))
   ui.play.setAttribute('aria-label', v ? 'Pause' : 'Play')
   ui.play.dataset.state = v ? 'playing' : 'paused'
 }
@@ -154,7 +143,7 @@ function setPlaying(v: boolean) {
 ui.play.onclick = () => setPlaying(!playing)
 ui.prev.onclick = () => go(index - 1)
 ui.next.onclick = () => go(index + 1)
-SHOTS.forEach((s, i) => {
+shots.forEach((s, i) => {
   const b = document.createElement('i')
   b.title = s.title
   b.onclick = () => go(i)
@@ -178,9 +167,14 @@ function wake() {
 }
 addEventListener('pointermove', wake)
 addEventListener('pointerdown', wake)
-
 addEventListener('resize', resize)
+
 resize()
+// compile every shot's shaders up front so cuts don't stutter
+for (const s of shots) {
+  s.update(0, 0)
+  renderer.compile(s.scene, s.camera)
+}
 setPlaying(playing)
 label()
 wake()
