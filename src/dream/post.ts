@@ -245,8 +245,8 @@ export interface Look {
   sun?: THREE.Vector3
 }
 
-export function createPipeline(renderer: THREE.WebGLRenderer) {
-  const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 4 })
+export function createPipeline(renderer: THREE.WebGLRenderer, samples = 4) {
+  const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples })
   target.depthTexture = new THREE.DepthTexture(1, 1)
   target.depthTexture.type = THREE.FloatType
 

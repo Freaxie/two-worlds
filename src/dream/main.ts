@@ -46,7 +46,8 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.outputColorSpace = THREE.SRGBColorSpace
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFShadowMap
-const pipeline = createPipeline(renderer)
+// ?msaa=0 trades edge smoothing for speed, useful when rendering offline on a CPU
+const pipeline = createPipeline(renderer, Number(params.get('msaa') ?? 4))
 
 let shots: Shot[] = []
 let LOOP = BEAT

@@ -1,6 +1,7 @@
 // Renders the Blue Hour reel to an MP4 with its score, frame by frame, from the single-file build.
 // Usage: npm run build:dream && node scripts/record.mjs [out.mp4] [size] [fps] [loops]
 // Needs Chrome (set CHROME to its path) and ffmpeg on PATH (or set FFMPEG).
+// MSAA=0 speeds up software-GL renders; CRF sets the H.264 quality (lower is better).
 import puppeteer from 'puppeteer-core'
 import { mkdirSync, writeFileSync, rmSync, readFileSync, existsSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
@@ -30,7 +31,7 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage()
 await page.setViewport({ width: +size, height: +size, deviceScaleFactor: 1 })
 page.on('pageerror', (e) => console.log('PAGE ERROR', e.message))
-await page.goto(`http://localhost:${port}/dream.html?record`, { timeout: 0 })
+await page.goto(`http://localhost:${port}/dream.html?record&msaa=${process.env.MSAA ?? 4}`, { timeout: 0 })
 await page.waitForFunction('window.renderAt', { timeout: 0 })
 
 const total = Math.round((await page.evaluate('window.loopLength')) * +fps * +loops)
