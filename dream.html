@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="A dream reel in six shots, where the built world and the grown world trade places. Rendered live in Three.js with an original score." />
+    <meta name="theme-color" content="#050716" />
+    <title>Blue Hour</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+  </head>
+  <body>
+    <canvas id="stage" role="img" aria-label="A looping dream reel in six shots: a sunrise meadow of pink flowers under glass towers, a glass fish over a night city, a tower in a cloud sea, a mirror lake, glowing blue flowers above the clouds and a floating island."></canvas>
+
+    <div id="loader" class="loader">
+      <div class="loader__card">
+        <h1 class="loader__title">Blue Hour</h1>
+        <p class="loader__sub">Six shots where the built world and the grown world trade places, with an original score.</p>
+        <div class="loader__track" aria-hidden="true"><span id="loader-bar"></span></div>
+        <p id="loader-status" class="mono" role="status">Loading skies, models and score · 0%</p>
+        <div class="loader__actions">
+          <button id="start" type="button" class="btn btn--primary">Play with sound</button>
+          <button id="start-muted" type="button" class="btn">Watch muted</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="ui" class="ui is-idle">
+      <header class="mark">
+        <span class="mark__name">Blue Hour</span>
+        <span class="mono">A dream reel in six shots</span>
+      </header>
+      <footer class="foot">
+        <div class="slate" aria-live="polite">
+          <span id="shot-num" class="mono">01 / 06</span>
+          <span id="shot-title" class="slate__title"></span>
+          <div id="ticks" class="ticks" aria-hidden="true"></div>
+        </div>
+        <p class="note mono">Rendered live in Three.js. Space pauses, arrows step, M mutes.<br />Skies: Poly Haven · Models: Khronos glTF samples · Score: original</p>
+        <div class="transport">
+          <button id="sound" type="button" aria-label="Sound on" aria-pressed="false" data-state="off">
+            <svg class="i-on" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10L5 10H2zM11 5.5a3.5 3.5 0 0 1 0 5M12.5 3.5a6 6 0 0 1 0 9" /></svg>
+            <svg class="i-off" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10L5 10H2zM11 6l4 4M15 6l-4 4" /></svg>
+          </button>
+          <button id="prev" type="button" aria-label="Previous shot">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path class="fill" d="M3 2h2v12H3zM14 2v12L6 8z" /></svg>
+          </button>
+          <button id="play" type="button" aria-label="Pause" data-state="playing">
+            <svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path class="fill" d="M3 2h4v12H3zM9 2h4v12H9z" /></svg>
+            <svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path class="fill" d="M4 2v12l10-6z" /></svg>
+          </button>
+          <button id="next" type="button" aria-label="Next shot">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path class="fill" d="M11 2h2v12h-2zM2 2v12l8-6z" /></svg>
+          </button>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/dream/main.ts"></script>
+  </body>
+</html>
