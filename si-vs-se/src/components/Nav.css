@@ -1,0 +1,100 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 150;
+  background: var(--paper);
+}
+
+.nav__bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 52px;
+  padding: 0 var(--gutter);
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+.nav__mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.04em;
+}
+
+.nav__vs {
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
+.nav__current {
+  flex: 1;
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav__n {
+  color: var(--se);
+  margin-right: 6px;
+}
+
+.nav__index {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2px;
+}
+
+.nav__index a {
+  display: block;
+  padding: 6px 7px;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.3s var(--ease);
+}
+
+.nav__index a:hover {
+  color: var(--ink);
+}
+
+.nav__index a[aria-current='true'] {
+  color: var(--se);
+}
+
+.nav__track {
+  position: relative;
+  height: 1px;
+  background: var(--rule);
+}
+
+.nav__past {
+  position: absolute;
+  inset: 0;
+  height: 3px;
+  top: -1px;
+  background: var(--si);
+  transform-origin: 0 50%;
+}
+
+.nav__now {
+  position: absolute;
+  top: -4px;
+  width: 9px;
+  height: 9px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--se);
+}
+
+@media (max-width: 760px) {
+  .nav__index {
+    display: none;
+  }
+}

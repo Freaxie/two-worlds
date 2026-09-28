@@ -1,0 +1,227 @@
+.mem {
+  background: var(--ink);
+  color: var(--paper);
+  padding-bottom: 0;
+}
+
+.mem__track {
+  height: 380vh;
+  position: relative;
+}
+
+.mem__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: 52px;
+  overflow: hidden;
+}
+
+.mem__grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: clamp(20px, 3vw, 48px);
+  row-gap: 20px;
+}
+
+.mem__half {
+  position: relative;
+  display: grid;
+}
+
+.mem__svg {
+  width: 100%;
+  max-height: 64svh;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.mem__half--se .mem__svg {
+  overflow: hidden;
+  background: #151512;
+}
+
+.mem__axis {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  background: rgba(241, 237, 228, 0.18);
+}
+
+.mem__half--si {
+  grid-template-columns: minmax(200px, 0.55fr) 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.mem__half--si .mem__svg {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.mem__list {
+  grid-column: 1;
+  grid-row: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 3px;
+  color: var(--si-3);
+  font-size: 10px;
+  pointer-events: none;
+}
+
+.mem__dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: 1px;
+}
+
+.mem__past {
+  fill: none;
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.mem__past--0 { stroke: #5f9a78; }
+.mem__past--1 { stroke: #8fae98; }
+.mem__past--2 { stroke: #3f7d5a; }
+
+.mem__composite {
+  fill: #1d4a33;
+}
+
+.mem__present {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 2;
+}
+
+.mem__se-cup {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.mem__steam {
+  fill: none;
+  stroke: var(--se);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.mem__surface {
+  fill: #2a1a14;
+  stroke: var(--paper);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.mem__ring {
+  fill: none;
+  stroke: var(--se);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.mem__bubble {
+  fill: none;
+  stroke: var(--se-2);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.mem__particle {
+  fill: var(--se);
+}
+
+.mem__micro-t {
+  font-family: var(--f-mono);
+  fill: var(--paper);
+  letter-spacing: 0.04em;
+}
+
+.mem__reticle {
+  stroke: var(--se);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.mem__read {
+  display: grid;
+  gap: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.mem__read--si {
+  grid-column: 1;
+  color: var(--si-3);
+}
+
+.mem__read--se {
+  grid-column: 3;
+  color: var(--se);
+}
+
+.mem__num {
+  font-weight: 700;
+  font-size: clamp(2.4rem, 1rem + 4vw, 5rem);
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+}
+
+.mem__sub {
+  color: rgba(241, 237, 228, 0.55);
+  max-width: 36ch;
+}
+
+@media (max-width: 760px) {
+  .mem__grid {
+    grid-template-columns: 1fr;
+    row-gap: 8px;
+  }
+  .mem__axis {
+    display: none;
+  }
+  .mem__half--si,
+  .mem__half--se,
+  .mem__read--si,
+  .mem__read--se {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .mem__half--se {
+    margin-top: 12px;
+  }
+  .mem__svg {
+    max-height: 30svh;
+  }
+  .mem__num {
+    font-size: 2rem;
+  }
+  .mem__half--si {
+    grid-template-columns: 1fr;
+  }
+  .mem__half--si .mem__svg {
+    grid-column: 1;
+  }
+  .mem__half--si { order: 1; }
+  .mem__read--si { order: 2; }
+  .mem__half--se { order: 3; }
+  .mem__read--se { order: 4; }
+  .mem__list {
+    display: none;
+  }
+  .mem__sub {
+    font-size: 9px;
+  }
+}

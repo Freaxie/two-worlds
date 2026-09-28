@@ -1,0 +1,108 @@
+.tg__loop {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  padding: 20px 0;
+  margin-bottom: clamp(60px, 8vw, 120px);
+}
+
+.tg__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.tg__stratum {
+  stroke: var(--si);
+  stroke-opacity: 0.25;
+  stroke-width: 18;
+}
+
+.tg__expect {
+  fill: none;
+  stroke: var(--si);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 6;
+}
+
+.tg__now {
+  stroke: var(--se);
+  stroke-width: 2;
+}
+
+.tg__ring {
+  fill: none;
+  stroke: var(--se);
+  stroke-width: 2;
+  transition: opacity 0.2s;
+}
+
+.tg__label {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tg__label--si {
+  fill: var(--si);
+}
+
+.tg__label--se {
+  fill: var(--se);
+}
+
+.tg__cases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--col-gap);
+}
+
+.tg__case {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding-top: 16px;
+  border-top: 1px solid var(--ink);
+}
+
+.tg__line {
+  font-family: var(--f-serif);
+  font-size: 1.55rem;
+  line-height: 1.12;
+}
+
+.tg__fn {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 0.8em;
+  letter-spacing: -0.03em;
+  margin-right: 4px;
+}
+
+.tg__coda {
+  margin-top: clamp(80px, 10vw, 160px);
+  margin-left: calc(100% / 12 * 3);
+}
+
+.tg__coda p {
+  font-size: var(--t-xl);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  max-width: 20ch;
+}
+
+.tg__coda em {
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 900px) {
+  .tg__cases {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .tg__coda {
+    margin-left: 0;
+  }
+}

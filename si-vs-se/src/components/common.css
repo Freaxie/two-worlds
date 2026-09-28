@@ -1,0 +1,108 @@
+/* ---------- Room header ---------- */
+
+.room-head {
+  row-gap: 24px;
+  margin-bottom: clamp(56px, 8vw, 120px);
+}
+
+.room-head__n {
+  grid-column: 1 / span 2;
+  font-family: var(--f-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 2rem + 4vw, 7rem);
+  letter-spacing: -0.06em;
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--ink);
+}
+
+.room-head__body {
+  grid-column: 4 / span 9;
+}
+
+.room-head__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.room-head__dash {
+  width: 40px;
+  height: 1px;
+  background: currentColor;
+}
+
+.room-head__title {
+  font-weight: 700;
+  font-size: var(--t-2xl);
+  letter-spacing: -0.055em;
+  line-height: 0.88;
+  max-width: 13ch;
+}
+
+.room-head__title em {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.room-head__lede {
+  margin-top: 32px;
+  color: var(--ink-2);
+}
+
+.room-head--ink {
+  color: var(--paper);
+}
+
+.room-head--ink .room-head__n {
+  -webkit-text-stroke-color: var(--paper);
+}
+
+.room-head--ink .room-head__lede {
+  color: rgba(241, 237, 228, 0.72);
+}
+
+@media (max-width: 760px) {
+  .room-head__n,
+  .room-head__body {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Tag ---------- */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tag__mark {
+  width: 10px;
+  height: 10px;
+}
+
+.tag--si .tag__mark {
+  border: 2px solid var(--si);
+  border-radius: 50%;
+}
+
+.tag--si {
+  color: var(--si);
+}
+
+.tag--se .tag__mark {
+  background: var(--se);
+  border-radius: 50%;
+}
+
+.tag--se {
+  color: var(--se);
+}
+
+.tag__extra::before {
+  content: '/ ';
+}

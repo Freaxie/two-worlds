@@ -1,0 +1,216 @@
+.ex__bar {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(20px, 4vw, 64px);
+  margin-bottom: 28px;
+  min-height: 4.4em;
+}
+
+.ex__caption {
+  font-size: var(--t-md);
+  line-height: 1.35;
+  max-width: 52ch;
+  letter-spacing: -0.01em;
+}
+
+.ex__stage {
+  position: relative;
+  overflow: hidden;
+  background: #bdbab1;
+  --mx: 50%;
+  --my: 50%;
+}
+
+.ex__svg {
+  display: block;
+  width: 100%;
+  height: min(62.5vw, 76svh);
+  overflow: hidden;
+}
+
+/* The photograph itself changes character: slow for Si, instant for Se */
+.ex__photo {
+  filter: grayscale(1);
+  transition: filter 1.8s var(--ease);
+}
+
+.ex__stage--si .ex__photo {
+  filter: grayscale(1) contrast(0.8) brightness(1.05) blur(1.2px);
+}
+
+.ex__stage--se .ex__photo {
+  filter: grayscale(1) contrast(1.5) brightness(1.02);
+  transition: filter 0.1s linear;
+}
+
+.ex__beam {
+  fill: #fff;
+  opacity: 0.22;
+  transition: opacity 0.6s;
+}
+
+.ex__stage--se .ex__beam {
+  opacity: 0.38;
+  animation: shimmer 2.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  50% { opacity: 0.26; }
+}
+
+.ex__grain {
+  mix-blend-mode: overlay;
+}
+
+.ex__tint {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--si);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 1.8s var(--ease);
+}
+
+.ex__stage--si .ex__tint {
+  opacity: 0.6;
+}
+
+.ex__focus {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--mx) var(--my), transparent 0 90px, rgba(14, 14, 12, 0.42) 280px);
+  transition: opacity 0.1s linear;
+}
+
+.ex__stage--se .ex__focus {
+  opacity: 1;
+}
+
+.ex__stage--se {
+  cursor: crosshair;
+}
+
+/* Si marks */
+.ex__ghost * {
+  fill: none !important;
+  stroke: #f1ede4 !important;
+  stroke-width: 1.5 !important;
+  stroke-opacity: 0.8;
+}
+
+.ex__ghost--usual * {
+  stroke-dasharray: 6 5;
+}
+
+.ex__si-line {
+  stroke: #f1ede4;
+  stroke-width: 1;
+}
+
+.ex__si-pin {
+  fill: #f1ede4;
+}
+
+.ex__si-note {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 26px;
+  fill: #f1ede4;
+}
+
+.ex__si-note--sm {
+  font-size: 19px;
+}
+
+.ex__si-card {
+  fill: var(--si-deep);
+}
+
+.ex__si-flag {
+  font-family: var(--f-mono);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  fill: #f1ede4;
+}
+
+.ex__si-arrow {
+  fill: none;
+  stroke: #f1ede4;
+  stroke-width: 1.5;
+}
+
+/* Se marks */
+.ex__steam {
+  fill: none;
+  stroke: var(--se);
+  stroke-width: 3;
+}
+
+.ex__dust {
+  fill: var(--se);
+}
+
+.ex__second {
+  stroke: var(--se);
+  stroke-width: 2;
+}
+
+.ex__se-box {
+  fill: none;
+  stroke: var(--se);
+  stroke-opacity: 0.55;
+}
+
+.ex__se-corner {
+  fill: none;
+  stroke: var(--se);
+  stroke-width: 4;
+}
+
+.ex__se-tagbg {
+  fill: var(--se);
+}
+
+.ex__se-tag {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  fill: #fff;
+  letter-spacing: 0.04em;
+}
+
+.ex__se-draft {
+  fill: none;
+  stroke: var(--se);
+  stroke-width: 2.5;
+}
+
+.ex__wave {
+  fill: var(--se);
+}
+
+.ex__legend {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+@media (max-width: 760px) {
+  .ex__bar {
+    flex-direction: column;
+    gap: 16px;
+    min-height: 9em;
+  }
+  .ex__caption {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ex__stage--se .ex__beam {
+    animation: none;
+  }
+}
