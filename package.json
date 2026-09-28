@@ -7,7 +7,8 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
-        "build:single": "tsc && vite build --mode single"
+        "build:single": "tsc && vite build --mode single",
+        "build:functions": "node cognitive-functions/build.mjs"
     },
     "devDependencies": {
         "@types/react": "^19.3.0",
