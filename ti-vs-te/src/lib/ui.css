@@ -1,0 +1,73 @@
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+.line-inner {
+  display: block;
+  will-change: transform;
+}
+
+/* ---------- Part header ---------- */
+
+.part-head {
+  position: relative;
+  row-gap: clamp(28px, 3.5vw, 48px);
+  margin-bottom: clamp(64px, 9vw, 136px);
+}
+
+.part-head__meta {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.part-head__rule {
+  flex: 0 0 clamp(40px, 8vw, 120px);
+  height: 1px;
+  background: currentColor;
+  transform-origin: left;
+}
+
+.part-head__title {
+  grid-column: 1 / span 10;
+  font-size: var(--t-2xl);
+}
+
+.part-head__lede {
+  grid-column: 6 / span 6;
+}
+
+.part-head--ink .lede {
+  color: rgba(241, 238, 231, 0.78);
+}
+
+@media (max-width: 860px) {
+  .part-head__title,
+  .part-head__lede {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Tags ---------- */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.tag--ti {
+  color: var(--ti);
+}
+.tag--te {
+  color: var(--te);
+}
+.tag__extra {
+  color: var(--muted);
+  margin-left: 4px;
+}
+.mark {
+  flex: none;
+}
