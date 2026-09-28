@@ -15,6 +15,16 @@ npx serve cognitive-functions/dist
 | `/fi-fe.html`  | `exhibitions/fi-fe.html`, Inner Values × Shared Values |
 | `/si-se.html`  | `exhibitions/si-se.html`, Experience × Presence  |
 
+## Deploying to Vercel
+
+`vercel.json` in this folder holds the whole setup (no dependencies, no framework):
+
+1. In Vercel, **Add New → Project** and import this repository.
+2. Set **Root Directory** to `cognitive-functions`. Vercel picks up the build command and output folder from `vercel.json`.
+3. Deploy. The lobby is served at `/`, and the rooms at `/ti-te`, `/ni-ne`, `/fi-fe` and `/si-se`.
+
+Or, from a machine with the Vercel CLI: `cd cognitive-functions && vercel --prod`.
+
 ## How the rooms stay intact
 
 The four exhibitions are compiled single-file React builds, copied here verbatim from their published
