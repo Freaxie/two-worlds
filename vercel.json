@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "",
+  "buildCommand": "node cognitive-functions/build.mjs",
+  "outputDirectory": "cognitive-functions/dist",
+  "cleanUrls": true
+}
