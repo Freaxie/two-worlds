@@ -1,0 +1,112 @@
+.notopp__it {
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.notopp__svg {
+  width: 100%;
+  height: auto;
+  max-width: 1100px;
+  margin: 0 auto clamp(60px, 8vw, 120px);
+}
+
+.notopp__lobe {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 34px;
+}
+.notopp__lobe--fi {
+  fill: var(--fi-deep);
+}
+.notopp__lobe--fe {
+  fill: var(--fe-deep);
+}
+.notopp__cross {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  fill: var(--muted);
+}
+
+.notopp__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 48px var(--col-gap);
+}
+
+.notopp__card {
+  border-top: 1px solid var(--ink);
+  padding-top: 14px;
+}
+.notopp__card:nth-child(1) {
+  grid-column: 1 / span 5;
+}
+.notopp__card:nth-child(2) {
+  grid-column: 7 / span 5;
+  margin-top: 80px;
+}
+.notopp__card:nth-child(3) {
+  grid-column: 2 / span 4;
+}
+.notopp__card:nth-child(4) {
+  grid-column: 8 / span 5;
+  margin-top: 80px;
+}
+.notopp__card--fi .label {
+  color: var(--fi);
+}
+.notopp__card--fe .label {
+  color: var(--fe-deep);
+}
+.notopp__card h3 {
+  margin: 10px 0 10px;
+  font-size: var(--t-lg);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+.notopp__card p {
+  margin: 0;
+  color: var(--ink-2);
+  max-width: 28em;
+}
+
+.notopp__both {
+  margin: clamp(100px, 14vw, 200px) 0 0;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+.notopp__quote {
+  grid-column: 2 / span 10;
+  margin: 0;
+  font-size: var(--t-xl);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-indent: -0.4em;
+}
+.notopp__cap {
+  grid-column: 2 / span 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: baseline;
+  margin-top: 28px;
+  font-size: var(--t-md);
+}
+
+@media (max-width: 900px) {
+  .notopp__card:nth-child(n) {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+  .notopp__quote,
+  .notopp__cap {
+    grid-column: 1 / -1;
+  }
+  .notopp__lobe {
+    font-size: 44px;
+  }
+}
