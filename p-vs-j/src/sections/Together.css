@@ -1,0 +1,216 @@
+.tog__controls {
+  display: inline-flex;
+  border: 1px solid var(--ink);
+  margin-bottom: 28px;
+}
+
+.tog__btn {
+  background: none;
+  border: 0;
+  padding: 11px 18px;
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.3s, color 0.3s;
+}
+
+.tog__btn + .tog__btn {
+  border-left: 1px solid var(--ink);
+}
+
+.tog__btn[aria-checked='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.tog__btn--p[aria-checked='true'] {
+  background: var(--p);
+  color: var(--ink);
+}
+
+.tog__btn--j[aria-checked='true'] {
+  background: var(--j);
+}
+
+.tog__fig {
+  position: relative;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  overflow: hidden;
+  padding-bottom: 92px;
+}
+
+.tog__svg {
+  width: 100%;
+  height: auto;
+}
+
+.tog__wall {
+  fill: var(--ink);
+}
+
+.tog__line--j {
+  stroke: var(--j);
+  stroke-width: 5;
+}
+
+.tog__line--p {
+  stroke: var(--ink);
+  stroke-width: 1.8;
+}
+
+.tog__line--feeler {
+  stroke: var(--p-deep);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+}
+
+.tog__line--ghost {
+  stroke: var(--j);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 6;
+  opacity: 0.6;
+}
+
+.tog__feeler-end {
+  fill: var(--paper);
+  stroke: var(--p-deep);
+  stroke-width: 1.2;
+}
+
+.tog__blocked {
+  stroke: var(--j);
+  stroke-width: 3;
+}
+
+.tog__start {
+  fill: var(--ink);
+}
+
+.tog__flag line {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.tog__flag path {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.tog__flag--reached path {
+  fill: var(--j);
+  stroke: var(--j);
+}
+
+.tog__particle--both {
+  fill: var(--ink);
+}
+
+.tog__particle--p {
+  fill: var(--p);
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+
+.tog__particle--j {
+  fill: var(--j);
+}
+
+.tog__stages {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  height: 72px;
+}
+
+.tog__stage {
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  transition: opacity 0.4s;
+}
+
+.tog__stage[data-dim] {
+  opacity: 0.18;
+}
+
+.tog__stage-t {
+  font-weight: 800;
+  font-size: var(--t-md);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.tog__stage--p .tog__stage-t {
+  font-style: italic;
+}
+
+.tog__stage--j .tog__stage-t {
+  font-weight: 900;
+  color: var(--j);
+}
+
+.tog__caption {
+  margin-top: 40px;
+  row-gap: 40px;
+  align-items: start;
+}
+
+.tog__cap {
+  grid-column: 1 / span 6;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 160px;
+}
+
+.tog__cap-title {
+  font-size: var(--t-xl);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.tog__note {
+  grid-column: 9 / span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@media (max-width: 860px) {
+  .tog__cap,
+  .tog__note {
+    grid-column: 1 / -1;
+  }
+  .tog__fig {
+    padding-bottom: 0;
+  }
+  .tog__stages {
+    position: static;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 16px 0;
+  }
+  .tog__stage {
+    position: static;
+    transform: none;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .tog__controls {
+    display: flex;
+  }
+  .tog__btn {
+    flex: 1;
+    padding: 11px 8px;
+  }
+}

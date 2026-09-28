@@ -1,0 +1,177 @@
+.dl__head {
+  padding-bottom: 0;
+}
+
+.dl__track {
+  height: 280vh;
+  position: relative;
+}
+
+.dl__track .dl__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+}
+
+.dl__sticky {
+  width: 100%;
+}
+
+.dl__svg {
+  width: 100%;
+  height: auto;
+  max-height: 86svh;
+  overflow: visible;
+}
+
+.dl__axis {
+  stroke: var(--ink);
+}
+
+.dl__grid {
+  stroke: var(--rule);
+  stroke-dasharray: 2 5;
+}
+
+.dl__tick {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  fill: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.dl__tick--strong {
+  fill: var(--ink);
+}
+
+.dl__explore {
+  fill: var(--p-mist);
+  stroke: var(--p-deep);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.dl__note {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 22px;
+}
+
+.dl__note--p {
+  fill: var(--p-deep);
+}
+
+.dl__note--j {
+  font-family: var(--f-mono);
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  fill: var(--j);
+}
+
+.dl__buffer {
+  fill: var(--j-mist);
+  opacity: 0.6;
+}
+
+.dl__j {
+  fill: none;
+  stroke: var(--j);
+  stroke-width: 4;
+  stroke-linejoin: miter;
+}
+
+.dl__milestone {
+  fill: var(--j);
+}
+
+.dl__p {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+}
+
+.dl__p-end {
+  fill: var(--p);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.dl__deadline {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.dl__cursor {
+  stroke: var(--ink);
+  stroke-width: 0.7;
+  stroke-dasharray: 3 4;
+}
+
+.dl__read-bg {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 0.8;
+}
+
+.dl__read {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  fill: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.dl__read--j {
+  fill: var(--j);
+}
+
+.dl__text {
+  padding-top: clamp(48px, 6vw, 96px);
+  padding-bottom: var(--section-pad);
+  row-gap: 48px;
+}
+
+.dl__col--p {
+  grid-column: 2 / span 4;
+}
+
+.dl__col--j {
+  grid-column: 8 / span 4;
+}
+
+.dl__h {
+  font-size: var(--t-xl);
+  margin-bottom: 20px;
+}
+
+.dl__col--p .dl__h {
+  font-style: italic;
+  display: inline-block;
+  background: var(--p);
+  padding: 0.08em 0.14em 0;
+}
+
+.dl__col--j .dl__h {
+  color: var(--j);
+  font-weight: 900;
+  border-bottom: 5px solid var(--j);
+  display: inline-block;
+}
+
+@media (max-width: 860px) {
+  .dl__flow {
+    padding-top: 24px;
+  }
+  .dl__col--p,
+  .dl__col--j {
+    grid-column: 1 / -1;
+  }
+  .dl__tick,
+  .dl__read {
+    font-size: 18px;
+  }
+}

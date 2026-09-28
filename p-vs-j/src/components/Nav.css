@@ -1,0 +1,101 @@
+/* The header inverts whatever it floats over, so it reads on paper, violet and lime alike */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 56px;
+  padding: 0 var(--gutter);
+  color: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+.nav > * {
+  pointer-events: auto;
+}
+
+.nav__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: #fff;
+  transform-origin: left;
+}
+
+.nav__mark {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.nav__p {
+  font-style: italic;
+}
+.nav__j {
+  font-variation-settings: 'wdth' 100;
+}
+.nav__vs {
+  font-weight: 300;
+  opacity: 0.6;
+}
+
+.nav__current {
+  flex: 1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav__num {
+  opacity: 0.55;
+  margin-right: 0.5em;
+}
+
+.nav__list {
+  display: flex;
+  gap: 2px;
+}
+
+.nav__link {
+  display: block;
+  padding: 8px 5px;
+  text-decoration: none;
+  opacity: 0.45;
+  transition: opacity 0.3s;
+  position: relative;
+}
+
+.nav__link:hover,
+.nav__link[aria-current] {
+  opacity: 1;
+}
+
+.nav__link[aria-current]::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 4px;
+  height: 1px;
+  background: currentColor;
+}
+
+@media (max-width: 860px) {
+  .nav nav {
+    display: none;
+  }
+  .nav__current {
+    text-align: right;
+  }
+}
