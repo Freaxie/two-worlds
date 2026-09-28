@@ -1,0 +1,126 @@
+.q__block {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(96px, 12vw, 180px) 0 clamp(64px, 8vw, 120px);
+}
+
+.q__block--ni {
+  background: var(--ni);
+  color: var(--paper);
+}
+
+.q__block--ne {
+  background: var(--ne);
+  color: var(--ink);
+}
+
+.q__meta {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid currentColor;
+  margin-bottom: clamp(56px, 8vw, 120px);
+}
+
+.q__text {
+  font-size: clamp(3rem, 10.5vw, 14rem);
+  line-height: 0.88;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.22em;
+}
+
+.q__block--ni .q__text {
+  font-variation-settings: 'wdth' 66;
+  letter-spacing: -0.04em;
+}
+
+.q__block--ne .q__text {
+  font-variation-settings: 'wdth' 118;
+  font-weight: 700;
+  column-gap: 0.3em;
+}
+
+.q__word {
+  display: inline-block;
+  position: relative;
+  will-change: transform;
+}
+
+.q__word-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.q__echo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--ink);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.q__arrive {
+  position: relative;
+  height: 24px;
+  margin-top: clamp(16px, 2vw, 28px);
+  display: flex;
+  align-items: center;
+}
+
+.q__arrive-line {
+  flex: 1;
+  height: 2px;
+  background: var(--paper);
+  transform-origin: left;
+}
+
+.q__arrive-point {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--paper);
+  flex: none;
+}
+
+.q__foot {
+  margin-top: clamp(48px, 7vw, 110px);
+  align-items: end;
+  row-gap: 32px;
+}
+
+.q__note {
+  grid-column: 1 / span 6;
+}
+
+.q__note p {
+  font-size: var(--t-lg);
+  line-height: 1.12;
+  font-style: italic;
+  max-width: 24ch;
+}
+
+.q__sub {
+  grid-column: 9 / span 4;
+}
+
+.q__list {
+  margin-top: 10px;
+  border-top: 1px solid currentColor;
+}
+
+.q__list li {
+  padding: 8px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  font-size: var(--t-md);
+  font-weight: 500;
+}
+
+@media (max-width: 860px) {
+  .q__note,
+  .q__sub {
+    grid-column: 1 / -1;
+  }
+}

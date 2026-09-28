@@ -1,0 +1,236 @@
+.exp__controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.exp__specs {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.exp__spec {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  background: none;
+  border: 0;
+  padding: 12px 22px 12px 0;
+  text-align: left;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.exp__spec:hover,
+.exp__spec[aria-checked='true'] {
+  opacity: 1;
+}
+
+.exp__spec-num {
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-variation-settings: 'wdth' 62;
+  line-height: 1;
+}
+
+.exp__modes {
+  display: flex;
+  border: 1px solid var(--ink);
+  padding: 3px;
+  gap: 3px;
+}
+
+.exp__mode {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  background: none;
+  border: 0;
+  padding: 12px 20px;
+  min-width: 128px;
+  isolation: isolate;
+}
+
+.exp__mode-label {
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.exp__mode--ni .exp__mode-label {
+  font-variation-settings: 'wdth' 62;
+}
+
+.exp__mode--ne .exp__mode-label {
+  font-variation-settings: 'wdth' 125;
+}
+
+.exp__mode-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+}
+
+.exp__mode[aria-checked='true'] {
+  color: var(--paper);
+}
+
+.exp__mode--ni[aria-checked='true'] .exp__mode-bg {
+  background: var(--ni);
+}
+
+.exp__mode--ne[aria-checked='true'] {
+  color: var(--ink);
+}
+
+.exp__mode--ne[aria-checked='true'] .exp__mode-bg {
+  background: var(--ne);
+}
+
+.exp__stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-2);
+}
+
+.exp__canvas {
+  position: relative;
+  height: min(70svh, calc((min(100vw, var(--max)) - 2 * var(--gutter)) * 0.64));
+  min-height: 420px;
+}
+
+.exp__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.exp__spiral {
+  fill: none;
+  stroke: var(--ni-2);
+  stroke-width: 1.2;
+}
+
+.exp__core {
+  fill: var(--ni-2);
+}
+
+.exp__bridge {
+  stroke: var(--ink);
+  stroke-width: 1.4;
+}
+
+.exp__bridge--chord {
+  stroke-dasharray: 4 5;
+  stroke-width: 1;
+  opacity: 0.6;
+}
+
+.exp__spoke {
+  stroke: var(--ink);
+  stroke-width: 0.7;
+  opacity: 0.6;
+}
+
+.exp__hub {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1.4;
+}
+
+.exp__hub-label {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 21px;
+  font-variation-settings: 'wdth' 115;
+  fill: var(--ne);
+  stroke: var(--ink);
+  stroke-width: 16px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+
+.exp__overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: clamp(14px, 2.4vw, 32px);
+  max-width: min(460px, 70%);
+  pointer-events: none;
+}
+
+.exp__read {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exp__read-text {
+  font-size: clamp(1.1rem, 0.7rem + 1.5vw, 2.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+.exp__read--ni {
+  color: var(--paper);
+}
+
+.exp__read--ni .exp__read-text {
+  font-style: italic;
+}
+
+.exp__why {
+  font-size: var(--t-sm);
+  line-height: 1.5;
+  opacity: 0.75;
+  max-width: 38ch;
+}
+
+.exp__read--ne {
+  background: var(--paper);
+  padding: 14px 16px;
+  margin: -14px -16px;
+  border: 1px solid var(--ink);
+}
+
+.exp__legend {
+  margin-top: 14px;
+}
+
+@media (max-width: 860px) {
+  .exp__overlay {
+    position: relative;
+    max-width: 100%;
+    min-height: 190px;
+  }
+  .exp__read--ne {
+    margin: 0;
+  }
+  .exp__canvas {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1000 / 640;
+  }
+  .exp__hub-label {
+    font-size: 30px;
+    stroke-width: 20px;
+  }
+  .exp__modes {
+    width: 100%;
+  }
+  .exp__mode {
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 12px;
+  }
+}

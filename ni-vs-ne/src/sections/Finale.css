@@ -1,0 +1,160 @@
+.fin {
+  position: relative;
+  height: 260vh;
+  background: var(--paper);
+}
+
+.fin__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.fin__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.fin__edge {
+  stroke: var(--ink);
+  stroke-width: 0.7;
+  opacity: 0.55;
+}
+
+.fin__node {
+  fill: var(--ne);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.fin__thread {
+  fill: none;
+  stroke: var(--ni);
+  stroke-width: 4;
+}
+
+.fin__knot {
+  fill: var(--ni);
+}
+
+.fin__inner {
+  position: relative;
+}
+
+.fin__eyebrow {
+  margin-bottom: 28px;
+  display: inline-block;
+  background: var(--paper);
+  padding: 4px 6px 4px 0;
+}
+
+.fin__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12em;
+  font-size: clamp(2.6rem, 7.2vw, 9.5rem);
+  line-height: 0.9;
+}
+
+.fin__l1,
+.fin__l2 {
+  display: block;
+  white-space: nowrap;
+  width: fit-content;
+  background: var(--paper);
+  padding: 0.04em 0.06em 0;
+}
+
+.fin__l1 {
+  color: var(--ni);
+  font-variation-settings: 'wdth' 64;
+}
+
+.fin__l2 {
+  margin-left: 8%;
+}
+
+.fin__l3 {
+  margin-left: auto;
+}
+
+.fin__web {
+  background: var(--ne);
+  padding: 0 0.06em;
+}
+
+.fin__foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 0 48px;
+}
+
+.fin__foot .grid {
+  row-gap: 48px;
+  align-items: end;
+  padding-top: 40px;
+  border-top: 1px solid var(--ink);
+  background: var(--paper);
+}
+
+.fin__q {
+  grid-column: 1 / span 7;
+}
+
+.fin__q p {
+  font-size: var(--t-lg);
+  line-height: 1.15;
+  max-width: 32ch;
+}
+
+.fin__q-ne {
+  background: var(--ne);
+  padding: 0 0.1em;
+}
+
+.fin__colophon {
+  grid-column: 9 / span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fin__top {
+  text-decoration: none;
+  margin-top: 8px;
+  border-bottom: 1px solid currentColor;
+  align-self: flex-start;
+  padding-bottom: 2px;
+}
+
+@media (max-width: 860px) {
+  .fin__l1,
+  .fin__l2 {
+    white-space: normal;
+    margin-left: 0;
+  }
+  .fin__q,
+  .fin__colophon {
+    grid-column: 1 / -1;
+  }
+  .fin {
+    height: auto;
+  }
+  .fin__sticky {
+    position: relative;
+    min-height: 100svh;
+    height: auto;
+  }
+  .fin__foot {
+    position: relative;
+    padding-top: 48px;
+  }
+}
