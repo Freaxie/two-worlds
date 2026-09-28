@@ -1,0 +1,128 @@
+.final {
+  --tu-on-ink: #a386ff;
+  --as-on-ink: #4fc79a;
+  background: var(--ink);
+  color: var(--paper);
+  padding-bottom: clamp(32px, 4vw, 56px);
+  min-height: 100vh;
+}
+
+.final__eyebrow {
+  margin: 0 0 clamp(48px, 7vw, 110px);
+  color: rgba(241, 238, 231, 0.6);
+}
+
+.final__text {
+  font-size: clamp(2.6rem, 1rem + 6.4vw, 8.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  font-variation-settings: 'wdth' 72;
+  max-width: 13em;
+}
+.final__old,
+.final__new {
+  display: block;
+}
+.final__new {
+  margin-top: 0.35em;
+}
+
+.final__struck,
+.final__opt {
+  position: relative;
+  display: inline-block;
+}
+.final__strike {
+  position: absolute;
+  left: -0.03em;
+  right: -0.03em;
+  top: 52%;
+  height: 0.07em;
+  background: var(--paper);
+  transform-origin: left;
+}
+.final__opt {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.final__under {
+  position: absolute;
+  bottom: -0.02em;
+  height: 0.06em;
+  width: 50%;
+}
+.final__under--tu {
+  left: 0;
+  background: var(--tu-on-ink);
+  transform-origin: right;
+}
+.final__under--as {
+  left: 50%;
+  background: var(--as-on-ink);
+  transform-origin: left;
+}
+
+.final__pair {
+  margin: clamp(64px, 9vw, 140px) 0 0 auto;
+  max-width: 34em;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: var(--t-lg);
+  line-height: 1.25;
+}
+.final__pair p {
+  margin: 0;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+.final__pair .mark--tu {
+  color: var(--tu-on-ink);
+}
+.final__pair .mark--as {
+  color: var(--as-on-ink);
+}
+.final__tu {
+  color: var(--tu-on-ink);
+}
+.final__as {
+  color: var(--as-on-ink);
+}
+.final__q {
+  padding-top: 14px;
+  border-top: 1px solid rgba(241, 238, 231, 0.3);
+  font-size: var(--t-xl);
+  line-height: 1.05;
+}
+
+.final__colophon {
+  margin-top: clamp(96px, 12vw, 180px);
+  padding-top: 16px;
+  border-top: 1px solid rgba(241, 238, 231, 0.3);
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  gap: 16px 32px;
+}
+.final__muted {
+  color: rgba(241, 238, 231, 0.55);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+.final__top {
+  text-decoration: none;
+}
+.final__top:hover {
+  text-decoration: underline;
+}
+.final :focus-visible {
+  outline-color: var(--paper);
+}
+
+@media (max-width: 760px) {
+  .final__colophon {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,136 @@
+.tog__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  margin-bottom: clamp(80px, 10vw, 150px);
+}
+
+.tog__svg {
+  width: 100%;
+  overflow: visible;
+}
+.tog__lobe-label {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 22px;
+}
+.tog__sub {
+  font-size: var(--t-xl);
+  margin: 0 0 clamp(32px, 4vw, 56px);
+}
+.tog__sub .serif {
+  font-weight: 400;
+}
+
+.tog__control {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.tog__ends {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.tog__ends--sub {
+  font-size: 1rem;
+  line-height: 1.2;
+  color: var(--muted);
+}
+.tog__ends--sub span {
+  max-width: 11em;
+}
+.tog__ends--sub span:last-child {
+  text-align: right;
+}
+
+.tog__range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+  cursor: grab;
+  margin: 0;
+}
+.tog__range:active {
+  cursor: grabbing;
+}
+.tog__range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: linear-gradient(to right, var(--as), var(--ink) 50%, var(--tu));
+}
+.tog__range::-moz-range-track {
+  height: 2px;
+  background: linear-gradient(to right, var(--as), var(--ink) 50%, var(--tu));
+}
+.tog__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  transition: transform 0.2s var(--ease);
+}
+.tog__range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+.tog__range:hover::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+.tog__zone {
+  margin-top: 20px;
+  border-top: 1px solid var(--ink);
+  padding-top: 16px;
+  min-height: 160px;
+}
+.tog__zone-head {
+  font-size: var(--t-xl);
+  margin-bottom: 10px;
+}
+.tog__zone-body {
+  margin: 0;
+  color: var(--ink-2);
+  max-width: 26em;
+}
+
+.tog__cases {
+  row-gap: 40px;
+}
+.tog__case {
+  grid-column: span 4;
+  border-top: 1px solid var(--ink);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.tog__case p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+.tog__case-join {
+  font-size: 1.4rem;
+  color: var(--muted);
+}
+
+@media (max-width: 960px) {
+  .tog__stage {
+    grid-template-columns: 1fr;
+  }
+  .tog__case {
+    grid-column: 1 / -1;
+  }
+}

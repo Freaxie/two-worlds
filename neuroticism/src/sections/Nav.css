@@ -1,0 +1,134 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.nav {
+  transition: background 0.5s var(--ease), color 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+.nav--ink {
+  background: color-mix(in srgb, var(--ink) 90%, transparent);
+  color: var(--paper);
+  border-bottom-color: rgba(241, 238, 231, 0.18);
+}
+.nav--ink .nav__link {
+  color: rgba(241, 238, 231, 0.55);
+}
+.nav--ink .nav__link:hover,
+.nav--ink .nav__link.is-active {
+  color: var(--paper);
+}
+.nav--ink .nav__progress {
+  background: var(--paper);
+}
+.nav--ink .tu {
+  color: #a386ff;
+}
+.nav--ink .as {
+  color: #4fc79a;
+}
+
+.nav__bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav__mark {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  font-variation-settings: 'wdth' 75;
+}
+.nav__mark .serif {
+  font-size: 0.85em;
+}
+
+.nav__list {
+  list-style: none;
+  display: flex;
+  gap: clamp(10px, 1.6vw, 26px);
+  margin: 0;
+  padding: 0;
+}
+
+.nav__link {
+  display: flex;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.3s var(--ease);
+  position: relative;
+  padding-block: 6px;
+}
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+.nav__link:hover,
+.nav__link.is-active {
+  color: var(--ink);
+}
+.nav__link.is-active::after,
+.nav__link:hover::after {
+  transform: scaleX(1);
+}
+.nav__name {
+  display: none;
+}
+.nav__link.is-active .nav__name {
+  display: inline;
+}
+
+.nav__now {
+  display: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.nav__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--ink);
+  transform-origin: left;
+}
+
+@media (max-width: 1080px) {
+  .nav__link.is-active .nav__name {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .nav__list {
+    display: none;
+  }
+  .nav__now {
+    display: block;
+  }
+}
