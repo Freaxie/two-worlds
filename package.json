@@ -7,7 +7,11 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
-        "build:single": "tsc && vite build --mode single"
+        "build:single": "tsc && vite build --mode single",
+        "dev:fi": "vite --config fi-vs-fe/vite.config.ts",
+        "build:fi": "tsc && vite build --config fi-vs-fe/vite.config.ts",
+        "build:fi:single": "tsc && vite build --config fi-vs-fe/vite.config.ts --mode single",
+        "preview:fi": "vite preview --config fi-vs-fe/vite.config.ts"
     },
     "devDependencies": {
         "@types/react": "^19.3.0",
