@@ -1,0 +1,265 @@
+.exp__controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.exp__specs {
+  display: flex;
+  border-top: 1px solid var(--ink);
+}
+
+.exp__spec {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  background: none;
+  border: 0;
+  padding: 12px 22px 12px 0;
+  text-align: left;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.exp__spec:hover,
+.exp__spec[aria-checked='true'] {
+  opacity: 1;
+}
+
+.exp__spec-num {
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-variation-settings: 'wdth' 62;
+  line-height: 1;
+}
+
+.exp__modes {
+  display: flex;
+  border: 1px solid var(--ink);
+  padding: 3px;
+  gap: 3px;
+}
+
+.exp__mode {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  background: none;
+  border: 0;
+  padding: 12px 20px;
+  min-width: 128px;
+  isolation: isolate;
+}
+
+.exp__mode-label {
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.exp__mode--ti .exp__mode-label {
+  font-weight: 300;
+  font-variation-settings: 'wdth' 75;
+}
+
+.exp__mode--te .exp__mode-label {
+  font-weight: 900;
+  font-variation-settings: 'wdth' 112;
+}
+
+.exp__mode-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink);
+}
+
+.exp__mode[aria-checked='true'] {
+  color: var(--paper);
+}
+
+.exp__mode--te[aria-checked='true'] {
+  color: var(--ink);
+}
+
+.exp__mode--te[aria-checked='true'] .exp__mode-bg {
+  background: var(--te);
+}
+
+.exp__mode--ti[aria-checked='true'] .exp__mode-bg {
+  background: var(--ti-deep);
+}
+
+.exp__stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-2);
+}
+
+.exp__canvas {
+  position: relative;
+  height: min(70svh, calc((min(100vw, var(--max)) - 2 * var(--gutter)) * 0.64));
+  min-height: 420px;
+}
+
+.exp__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.exp__cat {
+  fill: none;
+  stroke: var(--ti-2);
+  stroke-width: 1;
+}
+
+.exp__cat-name {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  fill: var(--paper);
+}
+
+.exp__cat-def {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 17px;
+  fill: var(--ti-2);
+}
+
+.exp__cat-rule {
+  stroke: var(--ti-2);
+  stroke-width: 1;
+}
+
+.exp__te-head {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  fill: var(--ink);
+}
+
+.exp__cut {
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+}
+
+.exp__rank {
+  font-family: var(--f-mono);
+  font-size: 14px;
+  fill: var(--ink);
+}
+
+.exp__impact {
+  fill: var(--ink);
+}
+
+.exp__chip {
+  stroke-width: 1.3;
+  transition: fill 0.5s, stroke 0.5s;
+}
+
+.exp__chip--observe {
+  fill: var(--paper);
+  stroke: var(--ink);
+}
+
+.exp__chip--ti {
+  fill: transparent;
+  stroke: var(--paper);
+}
+
+.exp__chip--te {
+  fill: var(--paper);
+  stroke: var(--ink);
+}
+
+.exp__chip--top {
+  fill: var(--ink);
+}
+
+.exp__chip-text {
+  font-family: var(--f-display);
+  font-size: 15px;
+  font-weight: 600;
+  fill: var(--ink);
+  transition: fill 0.5s;
+}
+
+.exp__chip-text--ti {
+  fill: var(--paper);
+  font-weight: 400;
+  font-variation-settings: 'wdth' 85;
+}
+
+.exp__chip-text--te {
+  font-weight: 800;
+}
+
+.exp__chip-text--top {
+  fill: var(--te);
+}
+
+.exp__overlay {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: clamp(14px, 2.4vw, 32px);
+  max-width: min(520px, 70%);
+  pointer-events: none;
+}
+
+.exp__read {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exp__read-text {
+  font-size: clamp(1.1rem, 0.7rem + 1.4vw, 2rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+.exp__read--ti {
+  color: var(--paper);
+}
+
+.exp__read--ti .exp__read-text {
+  font-style: italic;
+}
+
+.exp__legend {
+  margin-top: 14px;
+}
+
+@media (max-width: 860px) {
+  .exp__overlay {
+    position: relative;
+    max-width: 100%;
+    min-height: 170px;
+  }
+  .exp__canvas {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1000 / 640;
+  }
+  .exp__modes {
+    width: 100%;
+  }
+  .exp__mode {
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 12px;
+  }
+}

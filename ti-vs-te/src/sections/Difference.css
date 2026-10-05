@@ -1,0 +1,281 @@
+.diff__row {
+  position: relative;
+}
+
+.kword {
+  padding: 0.04em 0 0.08em;
+  border-top: 1px solid var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.kword__text {
+  font-size: clamp(2.4rem, 10vw, 14rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-top: 0.12em;
+}
+
+.kword--ti .kword__text {
+  color: var(--ti);
+  font-weight: 300;
+  font-variation-settings: 'wdth' 75;
+  display: flex;
+}
+
+.kword__cell {
+  position: relative;
+  display: inline-block;
+  width: 0.62em;
+  text-align: center;
+}
+
+.kword__box {
+  position: absolute;
+  inset: 0.08em 0.02em -0.02em;
+  border: 1px solid var(--ti);
+  pointer-events: none;
+}
+
+.kword--te .kword__text {
+  font-weight: 900;
+  font-variation-settings: 'wdth' 112;
+  text-align: right;
+}
+
+.kword__arrow {
+  display: inline-block;
+  margin-left: 0.12em;
+  color: var(--te);
+  -webkit-text-stroke: 2px var(--ink);
+}
+
+.kword__bar {
+  display: block;
+  height: 8px;
+  background: var(--te);
+  transform-origin: right;
+}
+
+.diff__grid {
+  padding-top: clamp(28px, 4vw, 56px);
+  row-gap: 32px;
+  align-items: start;
+}
+
+.diff__intro {
+  grid-column: 1 / span 3;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.diff__row--ti .diff__intro .chip {
+  color: var(--ti);
+}
+
+.diff__q {
+  font-size: var(--t-lg);
+  line-height: 1.1;
+  font-style: italic;
+}
+
+.diff__fig {
+  grid-column: 4 / span 5;
+}
+
+.diff__row--te .diff__fig {
+  grid-column: 5 / span 5;
+}
+
+.diff__row--te .diff__intro {
+  grid-column: 1 / span 4;
+}
+
+.diff__figcap {
+  margin-top: 10px;
+}
+
+.diff__text {
+  grid-column: 10 / span 3;
+}
+
+.diff__terms {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.diff__terms li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: var(--t-md);
+  letter-spacing: -0.01em;
+}
+
+.diff__row--ti .diff__terms li {
+  font-weight: 400;
+  font-variation-settings: 'wdth' 78;
+  color: var(--ti-deep);
+}
+
+.diff__row--te .diff__terms li {
+  font-weight: 800;
+  font-variation-settings: 'wdth' 110;
+}
+
+.diff__terms li::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 12px;
+  vertical-align: 0.12em;
+}
+
+.diff__row--ti .diff__terms li::before {
+  border: 1px solid var(--ti);
+}
+
+.diff__row--te .diff__terms li::before {
+  background: var(--te);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.diff__hinge {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: clamp(80px, 10vw, 160px) 0;
+}
+
+.diff__hinge p {
+  font-size: var(--t-xl);
+  font-style: italic;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.diff__hinge-line {
+  flex: 1;
+  height: 1px;
+}
+
+.diff__hinge-line:first-child {
+  background: var(--ti);
+  box-shadow: 0 4px 0 -0.5px var(--ti);
+}
+
+.diff__hinge-line:last-child {
+  height: 4px;
+  background: var(--te);
+}
+
+/* ---------- Diagrams ---------- */
+
+.field {
+  background: var(--paper-2);
+}
+
+.field__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.field__ti-edge {
+  stroke: var(--ti);
+  stroke-width: 1;
+}
+
+.field__ti-node {
+  fill: var(--paper);
+  stroke: var(--ti);
+  stroke-width: 1.2;
+}
+
+.field__ti-axiom {
+  fill: var(--ti);
+  stroke: var(--ti);
+}
+
+.field__ti-bad {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-dasharray: 3 2;
+}
+
+.field__ti-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  fill: var(--ti-deep);
+}
+
+.field__ti-label--axiom {
+  fill: var(--paper);
+}
+
+.field__ti-strike {
+  stroke: var(--ink);
+  stroke-width: 1.6;
+}
+
+.field__te-belt {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.field__te-station {
+  fill: var(--te);
+  opacity: 0.55;
+}
+
+.field__te-label {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  fill: var(--ink);
+}
+
+.field__te-bin {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+
+.field__te-item {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+
+.field__te-done {
+  fill: var(--ink);
+}
+
+.field__cap {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  fill: var(--ink);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 860px) {
+  .kword__text {
+    font-size: 10.5vw;
+  }
+  .diff__intro,
+  .diff__fig,
+  .diff__text,
+  .diff__row--te .diff__intro,
+  .diff__row--te .diff__fig,
+  .diff__row--te .diff__text {
+    grid-column: 1 / -1;
+  }
+  .diff__hinge p {
+    white-space: normal;
+    text-align: center;
+  }
+}

@@ -1,0 +1,267 @@
+/* ------------------------------------------------------------------
+   TI VS TE — tokens, type, layout primitives
+   Off-white paper, black ink, two accents: blueprint teal for Ti (the
+   internal model, drawn in construction lines), safety amber for Te
+   (the external system, signage and throughput).
+------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  --paper: #f1efe9;
+  --paper-2: #e7e4db;
+  --paper-3: #dcd8cc;
+  --ink: #0d0d0c;
+  --ink-2: #34332f;
+  --muted: #6f6d65;
+  --rule: rgba(13, 13, 12, 0.14);
+  --rule-strong: rgba(13, 13, 12, 0.4);
+
+  /* Ti — internal logic */
+  --ti: #0e6e62;
+  --ti-deep: #06362f;
+  --ti-2: #5fb3a6;
+  --ti-mist: #d5e8e3;
+
+  /* Te — external logic */
+  --te: #f2a024;
+  --te-2: #f8c66e;
+  --te-deep: #8a4b00; /* amber dark enough to carry text on paper */
+  --te-mist: #f7e5c4;
+
+  --f-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+
+  --t-xs: 0.6875rem;
+  --t-sm: 0.8125rem;
+  --t-base: 1.0625rem;
+  --t-md: 1.3125rem;
+  --t-lg: clamp(1.5rem, 1.1rem + 1.3vw, 2.25rem);
+  --t-xl: clamp(2.2rem, 1.2rem + 3.4vw, 4.5rem);
+  --t-2xl: clamp(3rem, 1rem + 7vw, 8.5rem);
+  --t-3xl: clamp(4rem, 0.5rem + 13vw, 15rem);
+
+  --max: 1440px;
+  --gutter: clamp(16px, 4vw, 64px);
+  --col-gap: clamp(12px, 2vw, 32px);
+  --section-pad: clamp(112px, 14vw, 220px);
+
+  --ease: cubic-bezier(0.22, 0.8, 0.1, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-display);
+  font-size: var(--t-base);
+  line-height: 1.55;
+  font-variation-settings: 'wdth' 100;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Grain: a fixed layer of fractal noise so the paper never reads as a flat screen */
+body::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.11;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--te);
+  color: var(--ink);
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ti);
+  outline-offset: 3px;
+}
+
+/* ---------- Layout ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-pad);
+}
+
+/* ---------- Type ---------- */
+
+.label {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.label--muted {
+  color: var(--muted);
+}
+
+.serif {
+  font-family: var(--f-serif);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+.display {
+  font-family: var(--f-display);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+}
+
+.lede {
+  font-family: var(--f-serif);
+  font-size: var(--t-lg);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  max-width: 30ch;
+}
+
+.body {
+  font-size: var(--t-base);
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 44ch;
+}
+
+.body + .body {
+  margin-top: 1em;
+}
+
+.ti-text {
+  color: var(--ti);
+}
+
+.te-text {
+  color: var(--te-deep);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.chip__mark {
+  width: 10px;
+  height: 10px;
+  flex: none;
+}
+
+.chip__mark--ti {
+  border: 1.5px solid var(--ti);
+  background: linear-gradient(45deg, transparent 45%, var(--ti) 45% 55%, transparent 55%);
+}
+
+.chip__mark--te {
+  background: var(--te);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  width: 11px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 200;
+  padding: 10px 14px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+.rule {
+  height: 1px;
+  background: var(--rule);
+  border: 0;
+  margin: 0;
+}

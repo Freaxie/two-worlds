@@ -1,0 +1,170 @@
+.dp__head {
+  padding-bottom: 0;
+}
+
+.dp__track {
+  height: 280vh;
+  position: relative;
+}
+
+.dp__track .dp__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+}
+
+.dp__sticky {
+  width: 100%;
+}
+
+.dp__svg {
+  width: 100%;
+  height: auto;
+  max-height: 88svh;
+  overflow: visible;
+}
+
+.dp__band {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.dp__band--te {
+  fill: var(--te-deep);
+}
+
+.dp__band--ti {
+  fill: var(--ti);
+}
+
+.dp__axis {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.dp__te-done {
+  fill: var(--te);
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+
+.dp__te-tick {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.dp__stratum {
+  fill: var(--paper-2);
+  stroke: var(--ti);
+  stroke-width: 0.6;
+}
+
+.dp__stratum--on {
+  fill: var(--ti-mist);
+}
+
+.dp__layer {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  fill: var(--muted);
+}
+
+.dp__layer--on {
+  fill: var(--ti);
+}
+
+.dp__probe {
+  fill: none;
+  stroke: var(--ti);
+  stroke-width: 3;
+}
+
+.dp__probe-head {
+  fill: var(--paper);
+  stroke: var(--ti);
+  stroke-width: 3;
+}
+
+.dp__cursor {
+  stroke: var(--ink);
+  stroke-width: 0.7;
+  stroke-dasharray: 3 4;
+}
+
+.dp__read {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.dp__read--te {
+  fill: var(--ink);
+}
+
+.dp__read--ti {
+  fill: var(--ti);
+}
+
+.dp__tick {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  fill: var(--muted);
+}
+
+.dp__text {
+  padding-top: clamp(48px, 6vw, 96px);
+  padding-bottom: var(--section-pad);
+  row-gap: 48px;
+}
+
+.dp__col--ti {
+  grid-column: 2 / span 4;
+}
+
+.dp__col--te {
+  grid-column: 8 / span 4;
+}
+
+.dp__h {
+  font-size: var(--t-xl);
+  margin-bottom: 20px;
+}
+
+.dp__col--ti .dp__h {
+  color: var(--ti);
+  font-weight: 300;
+  font-variation-settings: 'wdth' 75;
+  border-bottom: 1px solid var(--ti);
+  display: inline-block;
+}
+
+.dp__col--te .dp__h {
+  font-weight: 900;
+  font-variation-settings: 'wdth' 112;
+  display: inline-block;
+  background: var(--te);
+  padding: 0.08em 0.14em 0;
+}
+
+@media (max-width: 860px) {
+  .dp__flow {
+    padding-top: 24px;
+  }
+  .dp__col--ti,
+  .dp__col--te {
+    grid-column: 1 / -1;
+  }
+  .dp__read,
+  .dp__layer,
+  .dp__tick,
+  .dp__band {
+    font-size: 20px;
+  }
+}
