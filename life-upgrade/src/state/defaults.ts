@@ -6,7 +6,7 @@ export const STORAGE_KEY = 'essential-life-upgrade/v1'
 
 export const BUDGET_PRESETS = [2000, 5000, 10000, 25000, 50000] as const
 
-export const DEFAULT_VALUE_FLOOR = 55
+export const DEFAULT_VALUE_FLOOR = 60
 
 export const MAX_BUDGET = 10_000_000
 

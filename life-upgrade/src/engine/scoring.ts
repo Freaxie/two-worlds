@@ -25,9 +25,9 @@ export const MODIFIERS = {
   unconfirmedSituation: 0.8,
 } as const
 
-/** An upgrade to the next tier must buy at least this many score points per ₹1,000 of extra yearly cost;
-    below it, the upgrade is flagged as diminishing returns */
-export const UPGRADE_POINTS_PER_K = 10
+/** Going premium must add at least this many score points per extra ₹1,000 spent;
+    below it, the premium tier is flagged as diminishing returns */
+export const UPGRADE_POINTS_PER_K = 2
 
 /** Manual priority pins the score into its tier's band */
 export const MANUAL_BANDS: Record<PriorityTier, { min: number; max: number }> = {
@@ -323,18 +323,17 @@ export function evaluateItem(item: CatalogItem, ctx: ScoringContext): ItemEval {
   const available = TIERS.filter((t) => item.tiers[t])
   for (const t of available) tiers[t] = evalTier(item, t, item.tiers[t]!, goal, factor, learning)
 
-  // Walk up the tiers while each upgrade still buys enough score for its extra yearly cost.
-  // Benefit uses the unmodified base so a discount (say, an unconfirmed situation) never changes the tier advice.
-  let recommendedTier = available[0]!
+  // Standard is the curated best-value tier. Each step up records what it costs and buys;
+  // premium is flagged when the extra money adds too little. Benefit uses the unmodified
+  // base so discounts never change the tier advice.
+  const recommendedTier: TierId = tiers.standard ? 'standard' : available[0]!
   for (let i = 1; i < available.length; i++) {
     const lo = tiers[available[i - 1]!]!
     const hi = tiers[available[i]!]!
-    const extraScore = hi.base - lo.base
-    const extraCost = hi.netAnnualCost - lo.netAnnualCost
-    const pointsPerK = extraCost <= 0 ? (extraScore > 0 ? Infinity : 0) : (extraScore * 1000) / extraCost
-    hi.upgrade = { from: lo.tier, extraPrice: hi.price - lo.price, extraScore: hi.score - lo.score, pointsPerK }
-    hi.diminishing = extraScore <= 0 || pointsPerK < UPGRADE_POINTS_PER_K
-    if (!hi.diminishing && recommendedTier === lo.tier) recommendedTier = hi.tier
+    const extraPrice = hi.price - lo.price
+    const pointsPerK = extraPrice <= 0 ? Infinity : ((hi.base - lo.base) * 1000) / extraPrice
+    hi.upgrade = { from: lo.tier, extraPrice, extraScore: hi.score - lo.score, pointsPerK }
+    hi.diminishing = hi.tier === 'premium' && (hi.base - lo.base <= 0 || pointsPerK < UPGRADE_POINTS_PER_K)
   }
 
   const tier = state.tier && tiers[state.tier] ? state.tier : recommendedTier
