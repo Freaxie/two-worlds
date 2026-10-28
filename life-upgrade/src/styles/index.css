@@ -1,0 +1,303 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   ESSENTIAL LIFE UPGRADE — tokens, type roles, base
+   Warm paper, ink, one signal orange. Colour does a job or stays out.
+   Chart series (orange / indigo) are validated for CVD separation in
+   both modes; every text token clears WCAG AA on bg, surface and inset.
+------------------------------------------------------------------- */
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Newsreader Variable', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --breakpoint-xs: 26rem;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-inset: var(--inset);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-indigo: var(--indigo);
+  --color-indigo-text: var(--indigo-text);
+  --color-brass: var(--brass);
+  --color-brass-text: var(--brass-text);
+  --color-good: var(--good);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --color-on-ink: var(--on-ink);
+}
+
+:root {
+  color-scheme: light;
+  --bg: #f3f1ec;
+  --surface: #fbfaf7;
+  --inset: #ebe8e1;
+  --ink: #161513;
+  --ink-2: #47443d;
+  --muted: #6b675e;
+  --line: #e0dcd3;
+  --line-strong: #cbc6ba;
+  --accent: #d9541e;
+  --accent-text: #b0410f;
+  --indigo: #3a5a94;
+  --indigo-text: #2f4f86;
+  --brass: #8f7238;
+  --brass-text: #7a5f28;
+  --good: #2c6e35;
+  --warn: #8f5a00;
+  --bad: #b02a1f;
+  --on-ink: #f3f1ec;
+  --grid: #e6e3dc;
+  --axis: #cbc6ba;
+  --shadow: 0 1px 2px rgb(22 21 19 / 0.04), 0 8px 24px -12px rgb(22 21 19 / 0.12);
+  --shadow-lift: 0 1px 2px rgb(22 21 19 / 0.05), 0 16px 40px -16px rgb(22 21 19 / 0.22);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme='light'])) {
+    color-scheme: dark;
+    --bg: #111110;
+    --surface: #1a1a18;
+    --inset: #232320;
+    --ink: #edeae3;
+    --ink-2: #c4bfb4;
+    --muted: #959086;
+    --line: #2b2a27;
+    --line-strong: #3d3c38;
+    --accent: #e8692f;
+    --accent-text: #f2864f;
+    --indigo: #6286d6;
+    --indigo-text: #8fa9e6;
+    --brass: #c2a468;
+    --brass-text: #d2b57c;
+    --good: #6fbf73;
+    --warn: #e0a840;
+    --bad: #f07a6c;
+    --on-ink: #111110;
+    --grid: #2a2a27;
+    --axis: #3d3c38;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+    --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.35), 0 16px 40px -16px rgb(0 0 0 / 0.65);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #111110;
+  --surface: #1a1a18;
+  --inset: #232320;
+  --ink: #edeae3;
+  --ink-2: #c4bfb4;
+  --muted: #959086;
+  --line: #2b2a27;
+  --line-strong: #3d3c38;
+  --accent: #e8692f;
+  --accent-text: #f2864f;
+  --indigo: #6286d6;
+  --indigo-text: #8fa9e6;
+  --brass: #c2a468;
+  --brass-text: #d2b57c;
+  --good: #6fbf73;
+  --warn: #e0a840;
+  --bad: #f07a6c;
+  --on-ink: #111110;
+  --grid: #2a2a27;
+  --axis: #3d3c38;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.35), 0 16px 40px -16px rgb(0 0 0 / 0.65);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    font-feature-settings: 'kern', 'liga', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Native date and range controls pick up the theme */
+  input[type='date']::-webkit-calendar-picker-indicator {
+    opacity: 0.6;
+  }
+  [data-theme='dark'] input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+
+  input[type='range'] {
+    accent-color: var(--ink);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+}
+
+/* ---------- Type roles ---------- */
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+@utility display {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+@utility num {
+  font-variant-numeric: tabular-nums;
+}
+
+@utility hairline {
+  border-color: var(--line);
+}
+
+@utility card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+@utility pretty {
+  text-wrap: pretty;
+}
+
+/* ---------- Motion ---------- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(32px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@utility animate-rise {
+  animation: rise 0.45s var(--ease-soft) both;
+}
+
+@utility animate-fade {
+  animation: fade-in 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Discretionary purchases carry a hatch so the essential/discretionary split
+   never relies on colour alone (class marks, chart segments) */
+.hatch {
+  background-image: repeating-linear-gradient(
+    135deg,
+    currentColor 0 1.5px,
+    transparent 1.5px 5px
+  );
+}
