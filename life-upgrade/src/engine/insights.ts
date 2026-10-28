@@ -19,6 +19,19 @@ export function topPurchases(model: Model, n = 5) {
     .slice(0, n)
 }
 
+/** The highest-scoring open item you can afford now, with any hard dependencies priced in */
+export function bestNext(model: Model) {
+  const remaining = model.budget.remaining
+  const ranked = model.evals.filter(isCandidate).sort((a, b) => b.score - a.score || a.current.price - b.current.price)
+  const priced = ranked.map((e) => {
+    const deps = e.unmet.filter((u) => u.kind === 'requires').map((u) => model.evalById.get(u.item.id)!).filter(Boolean)
+    return { eval: e, deps, price: e.current.price + deps.reduce((s, d) => s + d.current.price, 0) }
+  })
+  const fit = priced.find((p) => p.price <= remaining)
+  if (fit) return { ...fit, fits: true }
+  return priced[0] ? { ...priced[0], fits: false } : undefined
+}
+
 /** 2. Which purchases solve my biggest recurring problems? Severity × how often it bites × how much you care. */
 export function recurringProblems(model: Model, n = 4) {
   const friction = (e: ItemEval) => (e.item.severity / 5) * FREQUENCY_META[e.item.frequency].factor * (0.5 + 0.5 * e.goal.fit)
@@ -60,8 +73,8 @@ export function postpone(model: Model, n = 5): Postpone[] {
       out.push({ eval: e, reason: 'Builds on things you don’t have yet.', after: found })
     } else if (e.item.class === 'luxury' && e.score < 65) {
       out.push({ eval: e, reason: 'A want, not a need. Fine to buy once the essentials are handled.' })
-    } else if (e.current.diminishing && e.state.tier === e.current.tier) {
-      out.push({ eval: e, reason: `You picked the ${e.current.tier} tier, which costs ₹${e.current.diminishing.extraPrice.toLocaleString('en-IN')} more for little extra.` })
+    } else if (e.current.diminishing && e.state.tier === e.current.tier && e.current.upgrade) {
+      out.push({ eval: e, reason: `You picked the ${e.current.tier} tier, which costs ₹${e.current.upgrade.extraPrice.toLocaleString('en-IN')} more for little extra.` })
     } else if (e.score < 50 && e.current.price >= 3000) {
       out.push({ eval: e, reason: 'Expensive for what it would do for your current goals.' })
     }
