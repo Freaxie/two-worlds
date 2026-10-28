@@ -154,7 +154,7 @@ export function Catalog() {
           <label htmlFor="catalog-sort" className="sr-only">
             Sort
           </label>
-          <Select id="catalog-sort" value={sort} onChange={(e) => setParams({ sort: e.target.value === 'score' ? undefined : e.target.value }, true)} className="w-auto">
+          <Select id="catalog-sort" value={sort} onChange={(e) => setParams({ sort: e.target.value === 'score' ? undefined : e.target.value }, true)} className="w-auto!">
             {Object.entries(SORTS).map(([id, s]) => (
               <option key={id} value={id}>
                 {s.label}

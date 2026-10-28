@@ -70,7 +70,7 @@ export function ClassMark({ value, withLabel = true, className }: { value: ItemC
           value === 'luxury' && 'rotate-45 rounded-[1px]',
         )}
       />
-      {withLabel ? meta.label : <span className="sr-only">{meta.label}</span>}
+      {withLabel && meta.label}
     </span>
   )
 }

@@ -32,6 +32,8 @@ export function Planner() {
     return Object.fromEntries(MODES.map((m) => [m, planPurchases(model.evals, m, opts)])) as Record<PlanMode, Plan>
   }, [model, budget, floor, includeLuxury])
   const plan = plans[mode]
+  // Every setup is measured against the same pool: everything that clears the bar
+  const shareOf = (p: Plan) => (plans.balanced.potential ? Math.min(1, p.value / plans.balanced.potential) : 0)
 
   const applyCustom = (e: React.FormEvent) => {
     e.preventDefault()
@@ -147,7 +149,7 @@ export function Planner() {
                 </p>
                 <p className="mt-3 text-[1.75rem] leading-none font-semibold tracking-tight text-ink">{inr(p.total)}</p>
                 <p className="mt-1.5 text-[0.8125rem] text-ink-2">
-                  {plural(p.lines.length, 'item')} · {Math.round(p.share * 100)}% of available value
+                  {plural(p.lines.length, 'item')} · {Math.round(shareOf(p) * 100)}% of available value
                 </p>
                 <p className="mt-0.5 text-[0.8125rem] text-muted">{p.leftover > 0 ? `Keeps ${inr(p.leftover)}` : 'Uses the whole budget'}</p>
               </button>
@@ -166,7 +168,7 @@ export function Planner() {
           </Empty>
         </div>
       ) : (
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
           <section aria-labelledby="seq-h">
             <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
               <div>
@@ -226,7 +228,7 @@ export function Planner() {
             </dl>
           </section>
 
-          <aside className="flex flex-col gap-6">
+          <aside className="flex min-w-0 flex-col gap-6">
             <div className="card p-5">
               <ValueCurve points={plan.frontier} budget={budget} eightyAt={plan.eightyAt} />
               {plan.eightyAt !== undefined && plan.total > 0 && (
@@ -254,7 +256,7 @@ export function Planner() {
                 </ul>
               </div>
             )}
-            <ModeCompare plans={plans} />
+            <ModeCompare plans={plans} shareOf={shareOf} />
           </aside>
         </div>
       )}
@@ -271,7 +273,7 @@ function Fact({ label, value }: { label: string; value: string }) {
   )
 }
 
-function ModeCompare({ plans }: { plans: Record<PlanMode, Plan> }) {
+function ModeCompare({ plans, shareOf }: { plans: Record<PlanMode, Plan>; shareOf: (p: Plan) => number }) {
   const [view, setView] = useState<'value' | 'items'>('value')
   const b = plans.balanced
   const p = plans.premium
@@ -294,7 +296,7 @@ function ModeCompare({ plans }: { plans: Record<PlanMode, Plan> }) {
       </div>
       <p className="pretty mt-3 text-[0.8125rem] text-ink-2">
         {view === 'value'
-          ? `For the same budget, premium captures ${Math.round(p.share * 100)}% of the available value against balanced’s ${Math.round(b.share * 100)}%.`
+          ? `For the same budget, premium captures ${Math.round(shareOf(p) * 100)}% of the available value against balanced’s ${Math.round(shareOf(b) * 100)}%.`
           : `Premium buys ${plural(p.lines.length, 'item')}; balanced buys ${num(b.lines.length)}.`}{' '}
         {premiumTax > 0 && `On the ${plural(sameItems.length, 'item')} both plans share, premium tiers cost ${inr(premiumTax)} more.`}
       </p>

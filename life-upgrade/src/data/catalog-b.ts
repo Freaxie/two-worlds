@@ -130,7 +130,7 @@ export const SLEEP_FOCUS_ROOM_TECH: CatalogItem[] = [
   },
   {
     id: 'alarm-clock',
-    name: 'Alarm clock, so the phone leaves the bedroom',
+    name: 'Bedside alarm clock',
     category: 'sleep',
     class: 'essential',
     problem: 'Using your phone as an alarm means it sleeps beside you: the gateway to late-night scrolling and checking it before you’re out of bed.',

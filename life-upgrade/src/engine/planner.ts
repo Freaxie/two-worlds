@@ -108,12 +108,15 @@ function eligible(e: ItemEval, mode: PlanMode, opts: PlanOptions) {
   return luxuryOk && e.score >= opts.floor
 }
 
-function candidate(e: ItemEval, mode: PlanMode, isEligible: boolean): Cand {
-  const variants = tierChoices(e, mode).map((tier) => {
+function candidate(e: ItemEval, mode: PlanMode, isEligible: boolean, floor: number): Cand {
+  const all = tierChoices(e, mode).map((tier) => {
     const tierEval = e.tiers[tier]!
     const score = scoreAtTier(e, tier)
     return { tier, tierEval, price: tierEval.verified?.price ?? tierEval.price, verified: !!tierEval.verified, score, value: valueOf(score) }
   })
+  // A cheaper tier is only an option while it still clears the value bar
+  const clearing = mode === 'balanced' && isEligible ? all.filter((v) => v.score >= floor) : all
+  const variants = clearing.length ? clearing : all
   return { e, eligible: isEligible, requires: e.unmet.filter((u) => u.kind === 'requires').map((u) => u.item.id), variants }
 }
 
@@ -124,7 +127,7 @@ const cheapest = (c: Cand) => c.variants.reduce((a, b) => (b.price < a.price ? b
 function buildPool(evals: ItemEval[], mode: PlanMode, opts: PlanOptions) {
   const byId = new Map(evals.map((e) => [e.item.id, e]))
   const pool = new Map<string, Cand>()
-  for (const e of evals) if (eligible(e, mode, opts)) pool.set(e.item.id, candidate(e, mode, true))
+  for (const e of evals) if (eligible(e, mode, opts)) pool.set(e.item.id, candidate(e, mode, true, opts.floor))
   const queue = [...pool.values()]
   while (queue.length) {
     const c = queue.pop()!
@@ -132,7 +135,7 @@ function buildPool(evals: ItemEval[], mode: PlanMode, opts: PlanOptions) {
       if (pool.has(id)) continue
       const dep = byId.get(id)
       if (!dep?.open) continue
-      const d = candidate(dep, mode, false)
+      const d = candidate(dep, mode, false, opts.floor)
       pool.set(id, d)
       queue.push(d)
     }

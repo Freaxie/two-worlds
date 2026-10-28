@@ -17,7 +17,7 @@ import { CategoryGlyph, ClassMark, ScoreRing, StatusBadge } from '../components/
 import { Dialog, toast } from '../components/overlay'
 import { Button, Field, Input, Select, Switch, Textarea } from '../components/ui'
 import { ItemFormDialog } from './ItemForm'
-import { ReviewForm } from './Impact'
+import { ReviewForm } from '../components/ReviewForm'
 
 type ItemPatch = Partial<Omit<ItemState, 'status' | 'updatedAt'>>
 
@@ -49,7 +49,7 @@ function ItemDetail({ e }: { e: ItemEval }) {
       <header className="flex items-start gap-4">
         <CategoryGlyph id={item.category} size="lg" />
         <div className="min-w-0 flex-1">
-          <h2 className="display text-[1.75rem] text-ink sm:text-[2rem]" data-autofocus tabIndex={-1}>
+          <h2 className="display text-[1.75rem] text-ink focus:outline-none sm:text-[2rem]" data-autofocus tabIndex={-1}>
             {item.name}
           </h2>
           <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5">

@@ -129,6 +129,11 @@ describe('planner', () => {
     expect(plan.lines.every((l) => l.score >= 60 || l.dependencyOf.length)).toBe(true)
   })
 
+  test.each([2000, 5000, 10000])('never drops below the value bar to stretch ₹%i', (budget) => {
+    const plan = planPurchases(evals, 'balanced', { budget, floor: 60, includeLuxury: false })
+    expect(plan.lines.every((l) => l.score >= 60 || l.dependencyOf.length)).toBe(true)
+  })
+
   test('bundles hard dependencies and sequences them first', () => {
     const state = withItems({ 'laptop-stand': { priority: 'critical', situationConfirmed: true } })
     const plan = planPurchases(buildModel(state).evals, 'balanced', { budget: 50000, floor: 60, includeLuxury: false })
