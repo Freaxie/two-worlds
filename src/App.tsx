@@ -1,42 +1,40 @@
-import { MotionConfig } from 'framer-motion'
-import { LensProvider } from './components/common'
-import { Hero } from './components/Hero'
-import { Nav } from './components/Nav'
-import { Divide } from './sections/Divide'
-import { Ontology } from './sections/Ontology'
-import { Knowledge } from './sections/Knowledge'
-import { FormMatter } from './sections/FormMatter'
-import { Causality } from './sections/Causality'
-import { Soul } from './sections/Soul'
-import { Ethics } from './sections/Ethics'
-import { Politics } from './sections/Politics'
-import { Questions } from './sections/Questions'
-import { Synthesis } from './sections/Synthesis'
-import { Finale } from './sections/Finale'
+import { SettingsProvider } from './lib/settings'
+import { Nav } from './components/layout/Nav'
+import { ChapterRail } from './components/layout/ChapterRail'
+import { AmbientGlow } from './components/layout/AmbientGlow'
+import { Hero } from './sections/Hero'
+import { Orientation } from './sections/Orientation'
+import { ContradictionEngine } from './sections/ContradictionEngine'
+import { InnerExperience } from './sections/InnerExperience'
+import { Reflection } from './sections/Reflection'
+import { Masking } from './sections/Masking'
+import { Toolkit } from './sections/Toolkit'
+import { Resources } from './sections/Resources'
+import { Coda } from './sections/Coda'
 
 export function App() {
   return (
-    <MotionConfig reducedMotion="user">
-      <LensProvider>
-        <a className="skip-link" href="#divide">
-          Skip to the first room
-        </a>
+    <SettingsProvider>
+      <a
+        href="#main"
+        className="sr-only-focusable fixed left-4 top-4 z-[100] rounded-full bg-ink px-5 py-3 text-[0.875rem] font-semibold text-night no-underline"
+      >
+        Skip to content
+      </a>
+      <Nav />
+      <ChapterRail />
+      <AmbientGlow />
+      <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
-        <Nav />
-        <main>
-          <Divide />
-          <Ontology />
-          <Knowledge />
-          <FormMatter />
-          <Causality />
-          <Soul />
-          <Ethics />
-          <Politics />
-          <Questions />
-          <Synthesis />
-          <Finale />
-        </main>
-      </LensProvider>
-    </MotionConfig>
+        <Orientation />
+        <ContradictionEngine />
+        <InnerExperience />
+        <Reflection />
+        <Masking />
+        <Toolkit />
+        <Resources />
+        <Coda />
+      </main>
+    </SettingsProvider>
   )
 }
