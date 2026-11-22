@@ -1,6 +1,7 @@
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useMotionValueEvent, useScroll, useTransform } from 'framer-motion'
 import { EASE, Mark } from '../lib/ui'
+import { Ridge, type RidgeSignal } from '../lib/fx'
 import './Final.css'
 
 export function Final() {
@@ -10,10 +11,16 @@ export function Final() {
   const strike = useTransform(scrollYProgress, [0.35, 0.55], [0, 1])
   const fade = useTransform(scrollYProgress, [0.4, 0.6], [1, 0.35])
   const under = useTransform(scrollYProgress, [0.6, 0.85], [0, 1])
+  /* The field behind the coda settles as you read to the end of it */
+  const signal = useRef<RidgeSignal>({ stress: 0.6, focus: 0.62 })
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    signal.current.stress = 0.6 * Math.max(0, 1 - v * 1.15)
+  })
 
   return (
     <section ref={ref} id="final" className="part final" aria-labelledby="final-title">
-      <div className="wrap">
+      <Ridge signal={signal} ground="ink" rows={26} split={0.5} className="final__ridge" />
+      <div className="wrap final__wrap">
         <p className="label final__eyebrow">Part 08 — Coda</p>
         <h2 id="final-title" className="final__text display">
           <motion.span className="final__old" style={{ opacity: fade }}>

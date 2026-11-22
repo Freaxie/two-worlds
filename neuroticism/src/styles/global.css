@@ -155,7 +155,7 @@ button {
   scroll-margin-top: var(--nav-h);
 }
 .part--rule {
-  border-top: 1px solid var(--ink);
+  border-top: 0;
 }
 .part--deep {
   background: var(--paper-2);

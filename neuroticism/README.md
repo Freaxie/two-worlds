@@ -23,4 +23,6 @@ npm run build:single  # one self-contained HTML file → dist-single/
 | 07 | Not opposites | Inverted-U of arousal and performance with a slider |
 | 08 | Coda | The old question struck through; the better one underlined |
 
-Experiment content and scoring live in `src/data/week.ts`.
+Shared motion pieces live in `src/lib/fx.tsx`: the intro calibration, the ridgeline canvas (hero and coda),
+the scroll-written dividers, the scroll-speed marquees and the cursor. Experiment content and scoring live in
+`src/data/week.ts`.

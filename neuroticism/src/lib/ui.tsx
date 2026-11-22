@@ -1,5 +1,5 @@
-import { useEffect, useState, type ReactNode } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import './ui.css'
 
 export const EASE = [0.2, 0.7, 0.1, 1] as const
@@ -64,8 +64,17 @@ type PartHeadProps = {
 }
 
 export function PartHead({ id, n, name, title, lede, tone = 'paper' }: PartHeadProps) {
+  const ref = useRef<HTMLElement>(null)
+  const reduce = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
+  /* The outlined numeral drifts slower than the page: a quiet depth cue behind each title */
+  const ghostY = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['-18%', '22%'])
+  const ghostX = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['4%', '-4%'])
   return (
-    <header className={`part-head part-head--${tone} grid`}>
+    <header ref={ref} className={`part-head part-head--${tone} grid`}>
+      <motion.span className="part-head__ghost" aria-hidden="true" style={{ y: ghostY, x: ghostX }}>
+        {n}
+      </motion.span>
       <Reveal className="part-head__meta" y={0}>
         <span className="label">Part {n}</span>
         <motion.span

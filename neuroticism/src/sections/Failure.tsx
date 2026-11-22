@@ -128,9 +128,20 @@ function Detector({ who }: { who: Who }) {
   const passed = REAL.filter((r) => r - 4 <= at).length
   const missed = REAL.filter((r) => r + 4 <= at && !alarms.some((a) => a.real && Math.abs(a.i - r) <= 4)).length
   const color = `var(--${who})`
+  /* Each new alarm flashes the whole plate: you feel the false ones too */
+  const [flash, setFlash] = useState(0)
+  const prevAlarms = useRef(0)
+  useEffect(() => {
+    if (seen.length > prevAlarms.current) setFlash((f) => f + 1)
+    prevAlarms.current = seen.length
+  }, [seen.length])
+  const newest = seen[seen.length - 1]
 
   return (
     <svg ref={ref} className="fail__svg" viewBox="0 0 400 270" role="img" aria-label={`Alarm threshold ${th}: ${alarms.length} alarms over the week, ${alarms.filter((a) => a.real).length} of 2 real events caught`}>
+      {flash > 0 && (
+        <motion.rect key={`flash-${flash}`} x="-20" y="-20" width="440" height="310" fill={color} initial={{ opacity: 0.14 }} animate={{ opacity: 0 }} transition={{ duration: 0.7 }} />
+      )}
       <line x1={PX0} x2={PX1} y1={PY0} y2={PY0} stroke="var(--rule-strong)" />
       <path d={SIGNAL_D} fill="none" stroke="var(--ink)" strokeOpacity="0.25" strokeWidth="1.2" />
       <defs>
@@ -159,6 +170,19 @@ function Detector({ who }: { who: Who }) {
           <circle cx={sx(a.i)} cy={sy(SIGNAL[a.i])} r="3.5" fill={color} />
         </motion.g>
       ))}
+      {newest && (
+        <motion.circle
+          key={`ring-${newest.i}-${flash}`}
+          cx={sx(newest.i)}
+          cy={sy(SIGNAL[newest.i])}
+          fill="none"
+          stroke={color}
+          strokeWidth="1.5"
+          initial={{ r: 4, opacity: 0.9 }}
+          animate={{ r: 26, opacity: 0 }}
+          transition={{ duration: 0.9, ease: 'easeOut' }}
+        />
+      )}
       <motion.line y1="12" y2={PY0} stroke={color} strokeOpacity="0.5" x1={scanX} x2={scanX} />
 
       <text x={PX0} y="258" className="svg-mono" fill={color}>

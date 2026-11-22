@@ -48,14 +48,27 @@ export function Experiment() {
               <span className="label label--muted exp__lens-note">Which voice do you hear first?</span>
             </div>
 
+            <div className="wk__deck">
+            {/* The rest of the week waits underneath, one card per remaining day */}
+            {Array.from({ length: Math.min(3, Math.max(0, DAYS.length - s.day - 1)) }, (_, k) => (
+              <motion.span
+                key={k}
+                className="wk__under"
+                aria-hidden="true"
+                initial={false}
+                animate={{ y: (k + 1) * 7, x: (k + 1) * 6, rotate: (k % 2 ? -1 : 1) * (k + 1) * 0.4 }}
+                transition={{ type: 'spring', stiffness: 160, damping: 18 }}
+                style={{ zIndex: -k - 1 }}
+              />
+            ))}
             <div className="wk__card" aria-live="polite">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={finished ? 'end' : s.day}
-                  initial={{ opacity: 0, x: 24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -24 }}
-                  transition={{ duration: 0.45, ease: EASE }}
+                  initial={{ opacity: 0, x: 40, rotate: 1.5 }}
+                  animate={{ opacity: 1, x: 0, rotate: 0 }}
+                  exit={{ opacity: 0, x: -120, rotate: -6 }}
+                  transition={{ duration: 0.55, ease: EASE }}
                   className="wk__card-inner"
                 >
                   {finished ? (
@@ -102,6 +115,7 @@ export function Experiment() {
                 </motion.div>
               </AnimatePresence>
             </div>
+            </div>
           </div>
 
           <aside className="exp__side" aria-label="Your week so far">
@@ -132,6 +146,7 @@ export function Experiment() {
                 </span>
               </div>
             </div>
+            <SpiritLevel calm={t.calm} />
             <CalmChart s={s} />
             <p className="note wk__rule">
               Taking a real problem seriously costs {COST.hit} calm. Worrying about a false one costs {COST.falseAlarm}: it has nowhere to
@@ -168,6 +183,15 @@ function Reveal({ real, who, truth, ifIgnored, onNext, lastDay }: { real: boolea
   const good = kind === 'caught' || kind === 'let go'
   return (
     <motion.div className={`wk__reveal${good ? ' is-good' : ' is-bad'}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE }}>
+      <motion.span
+        className={`wk__stamp wk__stamp--${who}${good ? '' : ' is-bad'}`}
+        aria-hidden="true"
+        initial={{ opacity: 0, scale: 2.6, rotate: -22 }}
+        animate={{ opacity: 1, scale: 1, rotate: -9 }}
+        transition={{ type: 'spring', stiffness: 520, damping: 22, delay: 0.1 }}
+      >
+        {kind}
+      </motion.span>
       <span className="label">
         {real ? 'Real problem' : 'Nothing'} · {kind}
       </span>
@@ -265,3 +289,26 @@ function Trace({ s }: { s: State }) {
   )
 }
 
+
+/* Calm as a spirit level: full calm sits the bubble dead centre;
+   every cost pushes it off true, and it overshoots before it settles */
+function SpiritLevel({ calm }: { calm: number }) {
+  const off = ((START_CALM - calm) / START_CALM) * 118
+  return (
+    <div className="wk__level">
+      <span className="label label--muted">Calm, as a level</span>
+      <svg viewBox="0 0 320 64" role="img" aria-label={`Calm ${calm} of ${START_CALM}`}>
+        <rect x="10" y="14" width="300" height="36" rx="18" fill="var(--as-mist)" stroke="var(--ink)" strokeWidth="1.5" />
+        <line x1="146" x2="146" y1="14" y2="50" stroke="var(--ink)" strokeOpacity="0.6" />
+        <line x1="174" x2="174" y1="14" y2="50" stroke="var(--ink)" strokeOpacity="0.6" />
+        {[40, 70, 100, 220, 250, 280].map((x) => (
+          <line key={x} x1={x} x2={x} y1="44" y2="50" stroke="var(--ink)" strokeOpacity="0.3" />
+        ))}
+        <motion.g initial={false} animate={{ x: off }} transition={{ type: 'spring', stiffness: 140, damping: 7 }}>
+          <ellipse cx="160" cy="32" rx="16" ry="11" fill="var(--paper)" stroke="var(--as)" strokeWidth="2" />
+          <ellipse cx="155" cy="28" rx="5" ry="2.5" fill="var(--as)" fillOpacity="0.25" />
+        </motion.g>
+      </svg>
+    </div>
+  )
+}

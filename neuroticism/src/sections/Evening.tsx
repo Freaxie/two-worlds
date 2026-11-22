@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'framer-motion'
+import './Evening.css'
 import { EASE, Guides, PartHead, Reveal, Tag, useMedia, type Who } from '../lib/ui'
 import './Problem.css'
 
@@ -116,9 +117,45 @@ function Scrubbed() {
   })
   useMotionValueEvent(scrollYProgress, 'change', (v) => setDone(v > 0.88))
 
+  /* Time passes on the page itself: dusk, a long night, morning. Every colour token
+     in the stage is re-mixed toward night, so the text, rules and traces all follow. */
+  const night = useTransform(scrollYProgress, [0.3, 0.4, 0.7, 0.78], [0, 1, 1, 0])
+  /* Grounds fade; ink flips quickly at the midpoint so text never sits grey-on-grey */
+  const flip = useTransform(night, [0.42, 0.58], [0, 1])
+  const mix = (day: string, dark: string, fast = false) => useTransform(fast ? flip : night, [0, 1], [day, dark])
+  const palette = {
+    '--paper': mix('#f1eee7', '#15132b'),
+    '--paper-2': mix('#e9e5db', '#1b1835'),
+    '--ink': mix('#0f0f0e', '#eeeaff', true),
+    '--ink-2': mix('#2b2a27', '#d6d1f2', true),
+    '--muted': mix('#6b675e', '#9e98c4', true),
+    '--faint': mix('#a19c90', '#5f5a86', true),
+    '--rule': mix('rgba(15, 15, 14, 0.14)', 'rgba(238, 234, 255, 0.14)', true),
+    '--rule-strong': mix('rgba(15, 15, 14, 0.5)', 'rgba(238, 234, 255, 0.45)', true),
+    '--tu': mix('#5a1fe0', '#ac90ff', true),
+    '--as': mix('#0b7a55', '#55d4a4', true),
+  }
+  const bg = palette['--paper-2']
+  const fg = palette['--ink']
+  const clockIdx = Math.max(0, Math.max(steps.tu, steps.as))
+
   return (
-    <div ref={ref} className="prob__scrub">
+    <motion.div ref={ref} className="prob__scrub" style={{ ...palette, backgroundColor: bg, color: fg } as never}>
       <div className="prob__sticky wrap">
+        <Sky progress={scrollYProgress} night={night} />
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.span
+            key={clockIdx}
+            className="ev__clock"
+            aria-hidden="true"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.7, ease: EASE }}
+          >
+            {TIMES[clockIdx]}
+          </motion.span>
+        </AnimatePresence>
         <div className="prob__stage">
           <Column who="tu" steps={TU} step={steps.tu} done={done} />
           <div className="prob__center">
@@ -128,6 +165,38 @@ function Scrubbed() {
           <Column who="as" steps={AS} step={steps.as} done={done} />
         </div>
       </div>
+    </motion.div>
+  )
+}
+
+/* ---------- The sky behind the stage: a disc crosses, stars come out ---------- */
+
+const STARS = Array.from({ length: 70 }, (_, i) => {
+  const r = (n: number) => {
+    const x = Math.sin((i + 1) * n * 12.9898) * 43758.5453
+    return x - Math.floor(x)
+  }
+  return { x: r(1) * 100, y: r(2) * 62, s: 0.6 + r(3) * 1.8, d: r(4) * 4 }
+})
+
+function Sky({ progress, night }: { progress: MotionValue<number>; night: MotionValue<number> }) {
+  const u = useTransform(progress, [0.02, 0.92], [0, 1], { clamp: true })
+  const cx = useTransform(u, (v) => `${6 + v * 88}%`)
+  const cy = useTransform(u, (v) => `${30 - Math.sin(v * Math.PI) * 22}%`)
+  const shadow = useTransform(night, [0.3, 0.9], [0, 1])
+  const fill = useTransform(night, [0.2, 0.8], [0, 1])
+  const starOpacity = useTransform(night, [0.4, 1], [0, 1])
+  return (
+    <div className="ev__sky" aria-hidden="true">
+      <motion.div className="ev__stars" style={{ opacity: starOpacity }}>
+        {STARS.map((st, i) => (
+          <span key={i} style={{ left: `${st.x}%`, top: `${st.y}%`, width: st.s, height: st.s, animationDelay: `${st.d}s` }} />
+        ))}
+      </motion.div>
+      <motion.div className="ev__body" style={{ left: cx, top: cy }}>
+        <motion.span className="ev__body-fill" style={{ opacity: fill }} />
+        <motion.span className="ev__body-shadow" style={{ opacity: shadow }} />
+      </motion.div>
     </div>
   )
 }

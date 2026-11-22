@@ -72,6 +72,13 @@ export function Together() {
               </text>
 
               <motion.line animate={{ x1: px(a), x2: px(a), y2: py(perf(a)) }} y1={Y0} stroke="var(--ink)" strokeDasharray="2 4" transition={{ duration: 0.25 }} />
+              <motion.circle
+                r="9"
+                fill="none"
+                stroke={who === 'ink' ? 'var(--ink)' : `var(--${who})`}
+                animate={{ cx: px(a), cy: py(perf(a)), r: [9, 30], opacity: [0.7, 0] }}
+                transition={{ cx: { duration: 0.25 }, cy: { duration: 0.25 }, r: { duration: 1.8, repeat: Infinity, ease: 'easeOut' }, opacity: { duration: 1.8, repeat: Infinity, ease: 'easeOut' } }}
+              />
               <motion.circle r="9" animate={{ cx: px(a), cy: py(perf(a)) }} transition={{ duration: 0.25 }} fill={who === 'ink' ? 'var(--ink)' : `var(--${who})`} />
               <text x={px(a)} y={py(perf(a)) - 18} textAnchor="middle" className="svg-mono" fill="var(--ink)">
                 {Math.round(perf(a) * 100)}

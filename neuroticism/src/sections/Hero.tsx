@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { EASE, Guides, Mark } from '../lib/ui'
+import { INTRO, Ridge, type RidgeSignal } from '../lib/fx'
 import './Hero.css'
 
 /* The cursor is a stressor. Bring it near the words: "Turbulent" amplifies the
@@ -18,8 +19,7 @@ export function Hero() {
   const reduce = useReducedMotion()
   const tuRefs = useRef<(HTMLSpanElement | null)[]>([])
   const asRefs = useRef<(HTMLSpanElement | null)[]>([])
-  const waveTu = useRef<SVGPathElement>(null)
-  const waveAs = useRef<SVGPathElement>(null)
+  const signal = useRef<RidgeSignal>({ stress: 0.05, focus: 0.3 })
   const [read, setRead] = useState({ tu: 0, as: 0 })
 
   useEffect(() => {
@@ -75,18 +75,10 @@ export function Hero() {
       tuLevel += (tuS - tuLevel) * 0.05
       asLevel += (asS * 0.1 - asLevel) * 0.3
 
-      const path = (amp: number, y0: number, jag: boolean) => {
-        let d = `M0 ${y0}`
-        for (let x = 0; x <= 1440; x += jag ? 12 : 24) {
-          const n = jag
-            ? Math.sin(x * 0.05 + t * 7) * 0.5 + Math.sin(x * 0.13 - t * 11) * 0.35 + (seed(x + Math.floor(t * 14)) - 0.5) * 0.9
-            : Math.sin(x * 0.012 + t * 1.2)
-          d += ` L${x} ${(y0 + n * amp).toFixed(1)}`
-        }
-        return d
-      }
-      waveTu.current?.setAttribute('d', path(6 + tuLevel * 150, 300, true))
-      waveAs.current?.setAttribute('d', path(4 + asLevel * 60, 700, false))
+      /* The ridgeline behind the title is the same signal, drawn large */
+      const focusX = idle ? 0.3 + Math.sin(t * 0.25) * 0.15 : px / window.innerWidth
+      signal.current.stress = tuLevel
+      signal.current.focus += (focusX - signal.current.focus) * 0.05
 
       if (++frame % 6 === 0) setRead({ tu: Math.round(tuLevel * 100), as: Math.round(asLevel * 100) })
       raf = requestAnimationFrame(tick)
@@ -101,36 +93,31 @@ export function Hero() {
   return (
     <header className="hero" id="top">
       <Guides />
-      <svg className="hero__field" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <line x1="0" x2="1440" y1="300" y2="300" stroke="var(--tu)" strokeOpacity="0.15" />
-        <line x1="0" x2="1440" y1="700" y2="700" stroke="var(--as)" strokeOpacity="0.15" />
-        <path ref={waveTu} d="M0 300 H1440" fill="none" stroke="var(--tu)" strokeWidth="1.2" strokeOpacity="0.55" />
-        <path ref={waveAs} d="M0 700 H1440" fill="none" stroke="var(--as)" strokeWidth="1.2" strokeOpacity="0.55" />
-      </svg>
+      <Ridge signal={signal} ground="paper" rows={34} split={0.56} className="hero__field" />
 
       <div className="hero__top wrap grid">
-        <motion.p className="hero__kicker label" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.2 }}>
+        <motion.p className="hero__kicker label" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: INTRO + 0.2 }}>
           An exhibition in eight parts
         </motion.p>
         <motion.p
           className="hero__kicker hero__kicker--r label label--muted"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.35 }}
+          transition={{ duration: 1, delay: INTRO + 0.35 }}
         >
           On neuroticism, high and low
         </motion.p>
       </div>
 
       <h1 className="hero__title wrap" aria-label="Turbulent versus Assertive">
-        <span className="hero__line hero__line--tu" aria-hidden="true">
+        <span className="hero__line hero__line--tu" aria-hidden="true" data-cursor="tu">
           {TU.map((c, i) => (
             <motion.span
               key={i}
               className="hero__mask"
-              initial={{ y: '110%' }}
-              animate={{ y: '0%' }}
-              transition={{ duration: 1.1, ease: EASE, delay: 0.1 + i * 0.03 }}
+              initial={{ y: '110%', rotate: 6 }}
+              animate={{ y: '0%', rotate: 0 }}
+              transition={{ duration: 1.1, ease: EASE, delay: INTRO + 0.1 + i * 0.03 }}
             >
               <span className="hero__ch" ref={(el) => void (tuRefs.current[i] = el)}>
                 {c}
@@ -138,17 +125,17 @@ export function Hero() {
             </motion.span>
           ))}
         </span>
-        <span className="hero__line hero__line--as" aria-hidden="true">
-          <motion.span className="hero__vs serif" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.9 }}>
+        <span className="hero__line hero__line--as" aria-hidden="true" data-cursor="as">
+          <motion.span className="hero__vs serif" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: INTRO + 0.9 }}>
             vs
           </motion.span>
           {AS.map((c, i) => (
             <motion.span
               key={i}
               className="hero__mask"
-              initial={{ y: '110%' }}
-              animate={{ y: '0%' }}
-              transition={{ duration: 1.1, ease: EASE, delay: 0.3 + i * 0.03 }}
+              initial={{ y: '110%', rotate: 6 }}
+              animate={{ y: '0%', rotate: 0 }}
+              transition={{ duration: 1.1, ease: EASE, delay: INTRO + 0.3 + i * 0.03 }}
             >
               <span className="hero__ch" ref={(el) => void (asRefs.current[i] = el)}>
                 {c}
@@ -159,11 +146,11 @@ export function Hero() {
       </h1>
 
       <div className="hero__foot wrap grid">
-        <motion.p className="hero__sub" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: EASE, delay: 1.1 }}>
+        <motion.p className="hero__sub" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: EASE, delay: INTRO + 1.1 }}>
           Two ways a mind responds <span className="serif">to the same weather.</span>
         </motion.p>
 
-        <motion.dl className="hero__defs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.4 }}>
+        <motion.dl className="hero__defs" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: INTRO + 1.4 }}>
           <div className="hero__def">
             <dt className="label tu">
               <Mark who="tu" size={11} /> Turbulent — high neuroticism
@@ -179,7 +166,7 @@ export function Hero() {
         </motion.dl>
 
         {!reduce && (
-          <motion.div className="hero__meter" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.6 }} aria-hidden="true">
+          <motion.div className="hero__meter" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: INTRO + 1.6 }} aria-hidden="true">
             <span className="label tu">Arousal {String(read.tu).padStart(2, '0')}</span>
             <span className="hero__meter-track">
               <span className="hero__meter-bar hero__meter-bar--tu" style={{ transform: `scaleX(${Math.min(1, read.tu / 100)})` }} />

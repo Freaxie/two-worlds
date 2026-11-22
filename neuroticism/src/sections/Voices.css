@@ -201,3 +201,17 @@
     font-size: 1.6rem;
   }
 }
+
+.qs__echo-stack {
+  position: relative;
+}
+.qs__echo-stack > .qs__q:not(.qs__echo) {
+  position: relative;
+}
+.qs__echo {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--tu);
+  pointer-events: none;
+}

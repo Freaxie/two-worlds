@@ -20,6 +20,12 @@ export function Voices() {
   const amp = useTransform(scrollYProgress, [0.1, 0.5], [0.3, 1.6])
   const asX = useTransform(scrollYProgress, [0.3, 0.62], reduce ? ['0%', '0%'] : ['6%', '0%'])
   const level = useTransform(scrollYProgress, [0.45, 0.7], [0, 1])
+  /* Rumination: the question keeps returning, each echo a little further out */
+  const echoes = [0, 1, 2, 3].map((k) => ({
+    o: useTransform(scrollYProgress, [0.12 + k * 0.05, 0.2 + k * 0.05], [0, 0.45 - k * 0.1]),
+    y: useTransform(scrollYProgress, [0.12, 0.5], ['0em', `${-(k + 1) * 0.11}em`]),
+    x: useTransform(scrollYProgress, [0.12, 0.5], ['0em', `${(k % 2 ? -1 : 1) * (k + 1) * 0.05}em`]),
+  }))
 
   return (
     <section ref={ref} id="voices" className="part part--rule qs" aria-labelledby="voices-title">
@@ -37,6 +43,12 @@ export function Voices() {
           <p className="qs__who label tu">
             <Mark who="tu" size={11} /> The turbulent voice
           </p>
+          <div className="qs__echo-stack" data-cursor="tu">
+          {echoes.map((e, k) => (
+            <motion.p key={k} className="qs__q qs__q--tu qs__echo display" aria-hidden="true" style={{ opacity: e.o, y: e.y, x: e.x }}>
+              What if it goes wrong?
+            </motion.p>
+          ))}
           <motion.p className="qs__q qs__q--tu display" style={{ '--amp': amp } as unknown as CSSProperties} aria-label="What if it goes wrong?">
             {'What if it goes wrong?'.split(' ').map((w, wi, words) => (
               <Fragment key={wi}>
@@ -66,6 +78,7 @@ export function Voices() {
               </Fragment>
             ))}
           </motion.p>
+          </div>
           <div className="qs__meta">
             <Cycler items={TU_SUB} who="tu" />
             <p className="qs__test mono">
@@ -84,7 +97,7 @@ export function Voices() {
             The assertive voice <Mark who="as" size={11} />
           </p>
           <div className="qs__as-line">
-            <motion.p className="qs__q qs__q--as display" style={{ x: asX }}>
+            <motion.p className="qs__q qs__q--as display" style={{ x: asX }} data-cursor="as">
               It’ll be fine.
             </motion.p>
           </div>

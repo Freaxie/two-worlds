@@ -462,6 +462,7 @@
 
 .wk__card {
   position: relative;
+  z-index: 1;
   background: var(--paper);
   border: 1px solid var(--ink);
   min-height: 460px;
@@ -614,5 +615,67 @@
   }
   .wk__card {
     min-height: 0;
+  }
+}
+
+/* ---------- Deck, stamp, level ---------- */
+.wk__deck {
+  position: relative;
+  isolation: isolate;
+}
+.wk__deck .wk__card {
+  z-index: 1;
+}
+.wk__under {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  opacity: 0.85;
+}
+.wk__reveal {
+  position: relative;
+}
+.wk__stamp {
+  position: absolute;
+  right: 0;
+  top: -14px;
+  padding: 6px 12px 5px;
+  border: 2.5px solid currentColor;
+  border-radius: 4px;
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--as);
+  mix-blend-mode: multiply;
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+.wk__stamp--tu {
+  color: var(--tu);
+}
+.wk__stamp.is-bad {
+  color: var(--ink);
+}
+.wk__level {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid var(--ink);
+  padding-top: 12px;
+}
+.wk__level svg {
+  width: 100%;
+  overflow: visible;
+}
+.wk__reveal.is-bad > .exp__reset,
+.wk__reveal.is-good > .exp__reset {
+  color: var(--paper);
+}
+
+@media (max-width: 640px) {
+  .wk__deck {
+    margin-right: 20px;
   }
 }

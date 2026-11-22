@@ -7,6 +7,18 @@
   min-height: 100vh;
 }
 
+.final {
+  position: relative;
+  overflow: hidden;
+}
+.final__ridge {
+  opacity: 0.4;
+}
+.final__wrap {
+  position: relative;
+  z-index: 1;
+}
+
 .final__eyebrow {
   margin: 0 0 clamp(48px, 7vw, 110px);
   color: rgba(241, 238, 231, 0.6);

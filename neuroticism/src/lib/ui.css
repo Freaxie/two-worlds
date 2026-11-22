@@ -17,6 +17,28 @@
   margin-bottom: clamp(64px, 9vw, 136px);
 }
 
+.part-head__ghost {
+  position: absolute;
+  right: -0.04em;
+  top: -0.3em;
+  z-index: 0;
+  pointer-events: none;
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: clamp(10rem, 30vw, 30rem);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  font-variation-settings: 'wdth' 62;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--rule-strong);
+  opacity: 0.55;
+  user-select: none;
+}
+.part-head > :not(.part-head__ghost) {
+  position: relative;
+  z-index: 1;
+}
+
 .part-head__meta {
   grid-column: 1 / -1;
   display: flex;
