@@ -1,0 +1,231 @@
+/* ------------------------------------------------------------------
+   FI VS FE — tokens, type scale, layout primitives
+   Warm paper, black ink, two emotional colours: crimson turns inward,
+   amber reaches outward.
+------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  /* Grounds */
+  --paper: #f3eee5;
+  --paper-2: #ebe4d7;
+  --paper-3: #e0d7c6;
+  --ink: #121110;
+  --ink-2: #2b2926;
+  --muted: #6d665b;
+  --faint: #a59d8f;
+  --rule: rgba(18, 17, 16, 0.14);
+  --rule-strong: rgba(18, 17, 16, 0.4);
+
+  /* Fi — inner values: crimson / burgundy */
+  --fi: #7c1631;
+  --fi-2: #a3263f;
+  --fi-deep: #4a0c1c;
+  --fi-mist: #ead6d3;
+
+  /* Fe — shared values: amber / coral */
+  --fe: #e8804f;
+  --fe-2: #f2a65a;
+  --fe-deep: #b8532a;
+  --fe-mist: #f6e2cc;
+
+  /* Type */
+  --f-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  --t-xs: 0.6875rem;
+  --t-sm: 0.8125rem;
+  --t-base: 1.0625rem;
+  --t-md: 1.25rem;
+  --t-lg: clamp(1.4rem, 1.05rem + 1.1vw, 1.95rem);
+  --t-xl: clamp(2rem, 1.1rem + 3vw, 3.75rem);
+  --t-2xl: clamp(2.8rem, 0.9rem + 6.4vw, 7.5rem);
+  --t-3xl: clamp(4rem, 0.4rem + 13vw, 15rem);
+
+  /* Layout */
+  --max: 1440px;
+  --gutter: clamp(16px, 4vw, 64px);
+  --col-gap: clamp(12px, 2vw, 32px);
+  --section-pad: clamp(112px, 14vw, 220px);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-display);
+  font-size: var(--t-base);
+  font-variation-settings: 'wdth' 100;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Grain — a fixed, very quiet paper texture over everything */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.25 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  overflow: visible;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: var(--fi);
+  color: var(--paper);
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 200;
+  padding: 10px 14px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Layout ---------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+
+.section {
+  position: relative;
+  padding: var(--section-pad) 0;
+}
+
+/* ---------- Type ---------- */
+
+.label {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.label--muted {
+  color: var(--muted);
+}
+
+.display {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 88;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+}
+
+.serif {
+  font-family: var(--f-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.lede {
+  font-size: var(--t-lg);
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  font-weight: 400;
+  max-width: 30em;
+}
+
+.body-copy {
+  max-width: 34em;
+  color: var(--ink-2);
+}
+
+.body-copy p {
+  margin: 0 0 1em;
+}
+
+.fi-c {
+  color: var(--fi);
+}
+.fe-c {
+  color: var(--fe-deep);
+}
+
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.line-inner {
+  display: block;
+}

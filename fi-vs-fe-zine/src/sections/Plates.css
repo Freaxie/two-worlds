@@ -1,0 +1,140 @@
+.plates__intro {
+  max-width: 46rem;
+}
+
+.plates__title {
+  margin: 0;
+  font-size: clamp(3.4rem, 1.6rem + 5.6vw, 8rem);
+}
+
+.plates__lede {
+  margin: 18px 0 0;
+  font-size: var(--t-lg);
+  line-height: 1.25;
+  max-width: 30em;
+}
+
+.plates__track {
+  position: relative;
+  height: 320vh;
+}
+
+.plates__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(16px, 3vh, 32px);
+}
+
+.plates__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2.3 / 1;
+  max-height: 62svh;
+  margin: 0 auto;
+}
+.plates__stage--v {
+  aspect-ratio: auto;
+  height: 50svh;
+}
+
+.plate {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 46%;
+  aspect-ratio: 4 / 3;
+  translate: -50% -50%;
+  background: rgba(246, 244, 238, 0.35);
+  border: 1px solid rgba(27, 26, 31, 0.25);
+  box-shadow: 0 12px 30px -20px rgba(27, 26, 31, 0.5);
+}
+.plate--b {
+  mix-blend-mode: multiply;
+}
+.plates__stage--v .plate {
+  width: min(86%, calc(29svh * 4 / 3));
+}
+
+.plate__art {
+  width: 100%;
+  height: 100%;
+}
+
+.plate__label {
+  white-space: nowrap;
+  position: absolute;
+  left: 40px;
+  top: 12px;
+  color: var(--blue);
+}
+.plate__label--b {
+  left: auto;
+  top: auto;
+  right: 40px;
+  bottom: 12px;
+  color: var(--pink);
+}
+
+.plates__note {
+  position: absolute;
+  left: 50%;
+  bottom: -4%;
+  translate: -50% 0;
+  rotate: -1.5deg;
+  margin: 0;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  z-index: 3;
+}
+
+.plates__stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+.plates__stages li {
+  border-top: 3px solid var(--rule);
+  padding-top: 8px;
+  opacity: 0.4;
+  transition: opacity 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.plates__stages li[data-past='true'] {
+  opacity: 0.6;
+}
+.plates__stages li[data-on='true'] {
+  opacity: 1;
+  border-top-color: var(--ink);
+}
+.plates__stages p {
+  margin: 6px 0 0;
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 860px) {
+  .plate__more {
+    display: none;
+  }
+  .plates__stages {
+    grid-template-columns: 1fr;
+    min-height: 92px;
+  }
+  .plates__stages li {
+    display: none;
+  }
+  .plates__stages li[data-on='true'] {
+    display: block;
+  }
+  .plates__note {
+    white-space: normal;
+    width: 80%;
+    text-align: center;
+  }
+}

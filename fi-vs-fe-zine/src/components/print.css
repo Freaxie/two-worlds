@@ -1,0 +1,74 @@
+/* ---------- Running head ---------- */
+
+.runhead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: clamp(24px, 3vw, 44px);
+  color: var(--ink);
+}
+.runhead > .caps:first-child {
+  white-space: nowrap;
+}
+.runhead__rule {
+  flex: 0 0 36px;
+  height: 2px;
+  background: var(--ink);
+}
+@media (max-width: 860px) {
+  .runhead__rule {
+    flex-basis: 16px;
+  }
+}
+
+/* ---------- Colour bars ---------- */
+
+.bars {
+  display: inline-flex;
+  gap: 6px;
+  align-items: flex-end;
+}
+.bars__sw {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+.bars__chip {
+  display: block;
+  width: 22px;
+  height: 22px;
+  position: relative;
+}
+.bars__chip--over i {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: multiply;
+}
+.bars__n {
+  font-family: var(--f-type);
+  font-size: 0.6875rem;
+  color: var(--muted);
+}
+
+/* ---------- Tape ---------- */
+
+.tape {
+  position: absolute;
+  width: 84px;
+  height: 24px;
+  background: rgba(226, 216, 186, 0.78);
+  box-shadow: 0 1px 0 rgba(27, 26, 31, 0.06);
+  mix-blend-mode: multiply;
+  clip-path: polygon(3% 0, 97% 4%, 100% 50%, 96% 100%, 4% 96%, 0 52%);
+  z-index: 4;
+}
+
+/* ---------- Paper slip: a typed note pasted onto the page ---------- */
+
+.slip {
+  position: relative;
+  background: #f6f4ee;
+  padding: 18px 20px 16px;
+  box-shadow: 0 10px 24px -16px rgba(27, 26, 31, 0.55);
+  font-family: var(--f-type);
+}

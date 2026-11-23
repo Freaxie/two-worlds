@@ -25,3 +25,7 @@ dist-ssr
 
 dist-single
 .claude/
+dist-fi
+dist-fi-single
+dist-zine
+dist-zine-single

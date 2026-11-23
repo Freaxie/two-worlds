@@ -1,0 +1,140 @@
+.err__title {
+  margin: 0;
+  font-size: clamp(3.4rem, 1.6rem + 5vw, 7.6rem);
+}
+.err__lede {
+  margin: 14px 0 clamp(28px, 4vw, 48px);
+  font-size: var(--t-md);
+  line-height: 1.3;
+  max-width: 24em;
+}
+.err__right {
+  padding-top: clamp(0px, 16vw, 260px);
+}
+
+.err__code {
+  margin: 0 0 6px;
+}
+.err__name {
+  margin: 0 0 18px;
+  font-size: clamp(2.6rem, 1.4rem + 3vw, 4.6rem);
+}
+.err--blue .err__name {
+  color: var(--blue);
+}
+.err--pink .err__name {
+  color: var(--pink);
+}
+
+.err__specimen {
+  border: 3px solid var(--ink);
+  background: #f6f4ee;
+  padding: 10px 10px 12px;
+  max-width: 460px;
+}
+.err__svg {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+.err__word {
+  font-family: var(--f-text);
+  font-style: italic;
+  font-size: 22px;
+  fill: var(--ink);
+}
+.err__ask {
+  font-family: var(--f-type);
+  font-weight: 700;
+  font-size: 18px;
+  fill: var(--ink);
+}
+
+.err__gauge {
+  display: grid;
+  grid-template-columns: auto 1fr 3.5em;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.err__bar {
+  height: 10px;
+  border: 2px solid var(--ink);
+  position: relative;
+}
+.err__fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+}
+.err--blue .err__fill {
+  background: var(--blue);
+}
+.err--pink .err__fill {
+  background: var(--ink);
+}
+.err__pct {
+  text-align: right;
+}
+
+.err__kind {
+  margin: 20px 0 8px;
+  font-size: var(--t-md);
+  font-weight: 600;
+  line-height: 1.25;
+}
+.err__body {
+  margin: 0 0 16px;
+  max-width: 32em;
+}
+
+.err__signs {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  font-family: var(--f-type);
+  font-size: 0.95rem;
+}
+.err__signs li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 5px 0;
+  border-top: 1px dashed var(--rule);
+  transition: color 0.3s;
+  color: var(--muted);
+}
+.err__signs li[data-on='true'] {
+  color: var(--ink);
+}
+.err__box {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.1em;
+  height: 1.1em;
+  border: 2px solid currentColor;
+  font-weight: 700;
+  line-height: 1;
+  translate: 0 0.12em;
+}
+.err--blue .err__signs li[data-on='true'] .err__box {
+  color: var(--blue);
+}
+.err--pink .err__signs li[data-on='true'] .err__box {
+  color: var(--pink);
+}
+
+.err__remedy {
+  margin: 0;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 860px) {
+  .err__right {
+    padding-top: 0;
+  }
+}
