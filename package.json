@@ -11,7 +11,11 @@
         "dev:fi": "vite --config fi-vs-fe/vite.config.ts",
         "build:fi": "tsc && vite build --config fi-vs-fe/vite.config.ts",
         "build:fi:single": "tsc && vite build --config fi-vs-fe/vite.config.ts --mode single",
-        "preview:fi": "vite preview --config fi-vs-fe/vite.config.ts"
+        "preview:fi": "vite preview --config fi-vs-fe/vite.config.ts",
+        "dev:zine": "vite --config fi-vs-fe-zine/vite.config.ts",
+        "build:zine": "tsc && vite build --config fi-vs-fe-zine/vite.config.ts",
+        "build:zine:single": "tsc && vite build --config fi-vs-fe-zine/vite.config.ts --mode single",
+        "preview:zine": "vite preview --config fi-vs-fe-zine/vite.config.ts"
     },
     "devDependencies": {
         "@types/react": "^19.3.0",

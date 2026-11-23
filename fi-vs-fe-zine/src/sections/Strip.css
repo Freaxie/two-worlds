@@ -1,0 +1,87 @@
+.strip__title {
+  margin: 0 0 clamp(24px, 3vw, 40px);
+  font-size: clamp(3rem, 1.6rem + 4.4vw, 6.4rem);
+}
+
+.strip__right {
+  display: grid;
+  gap: clamp(24px, 3vw, 40px);
+  padding-top: clamp(0px, 4vw, 64px);
+}
+
+.panel {
+  margin: 0;
+  position: relative;
+}
+.panel:nth-of-type(odd) {
+  rotate: -0.5deg;
+}
+.panel:nth-of-type(even) {
+  rotate: 0.6deg;
+}
+
+.panel__tag {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.panel__art {
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  padding: 8px;
+}
+.panel__art svg {
+  width: 100%;
+  height: auto;
+}
+
+.panel__cap {
+  margin-top: -3px;
+  border: 3px solid var(--ink);
+  background: #f6f4ee;
+  padding: 10px 14px 12px;
+  font-family: var(--f-type);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+.panel--blue .panel__cap {
+  border-top-color: var(--blue);
+}
+.panel--pink .panel__cap {
+  border-top-color: var(--pink);
+}
+
+.panel__you {
+  font-family: var(--f-type);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  fill: var(--ink);
+}
+.panel__say,
+.panel__think,
+.panel__tagtext {
+  font-family: var(--f-type);
+  font-size: 17px;
+  fill: var(--ink);
+}
+.panel__say {
+  font-weight: 700;
+}
+.panel__word {
+  font-family: var(--f-text);
+  font-style: italic;
+  font-size: 26px;
+  fill: var(--blue);
+}
+.panel__tagtext {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.strip__coda {
+  margin: 8px 0 0;
+  font-size: var(--t-lg);
+  line-height: 1.2;
+  font-weight: 500;
+}

@@ -1,0 +1,59 @@
+.diff__lede {
+  margin: 0 0 clamp(28px, 4vw, 56px);
+  font-size: var(--t-lg);
+  line-height: 1.25;
+  max-width: 24em;
+  font-weight: 450;
+}
+
+.diff__spacer {
+  height: clamp(60px, 14vw, 240px);
+}
+
+.diff__title {
+  margin: 0;
+  font-size: clamp(4rem, 2rem + 6.5vw, 9rem);
+}
+
+.diff__kind {
+  margin: 14px 0 0;
+  color: var(--muted);
+}
+
+.diff__plate {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  margin: clamp(16px, 3vw, 40px) auto clamp(8px, 2vw, 24px);
+}
+
+.gloss {
+  margin: 0;
+  display: grid;
+  gap: 18px;
+  max-width: 30em;
+}
+.gloss__item {
+  border-top: 2px solid var(--ink);
+  padding-top: 10px;
+}
+.gloss dt {
+  font-family: var(--f-type);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.gloss__pos {
+  font-family: var(--f-text);
+  font-weight: 400;
+  color: var(--muted);
+}
+.gloss dd {
+  margin: 6px 0 0;
+  line-height: 1.45;
+}
+
+@media (max-width: 860px) {
+  .diff__spacer {
+    display: none;
+  }
+}

@@ -1,0 +1,88 @@
+.stamps__kicker {
+  margin: 0 0 clamp(20px, 3vw, 36px);
+  font-size: 1rem;
+}
+.stamps__kicker--fe {
+  margin-top: clamp(0px, 4vw, 70px);
+}
+
+.stamps__pad {
+  display: flex;
+  justify-content: center;
+  padding: clamp(20px, 4vw, 60px) 0;
+}
+
+.stamp {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0.3em 0.45em 0.35em;
+  border: 0.09em double currentColor;
+  border-width: 0.12em;
+  border-radius: 0.14em;
+  font-family: var(--f-poster);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  mix-blend-mode: multiply;
+}
+
+.stamp--blue {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  column-gap: 0.12em;
+  align-items: end;
+  color: var(--blue);
+  font-size: clamp(3.2rem, 1.4rem + 4.8vw, 7rem);
+}
+.stamp__wide {
+  grid-column: 1 / -1;
+}
+/* The I stands as a pillar beside the last two lines */
+.stamp__i {
+  grid-column: 2;
+  grid-row: 3 / span 2;
+  font-size: 2.05em;
+  line-height: 0.82;
+}
+
+.stamp--pink {
+  position: absolute;
+  color: var(--pink);
+  font-size: clamp(1.4rem, 0.7rem + 2vw, 3rem);
+  white-space: nowrap;
+}
+.stamp--top {
+  z-index: 2;
+}
+.stamp__every {
+  font-size: 1.35em;
+}
+
+.stamps__field {
+  position: relative;
+  height: clamp(340px, 34vw, 520px);
+  margin-bottom: clamp(20px, 3vw, 40px);
+}
+
+.stamps__gloss {
+  margin: 0;
+  max-width: 22em;
+  font-size: var(--t-lg);
+  line-height: 1.25;
+}
+.stamps__gloss strong {
+  font-family: var(--f-type);
+  font-size: 0.75em;
+  display: block;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 860px) {
+  .stamps__field {
+    height: 360px;
+    overflow: hidden;
+  }
+}
