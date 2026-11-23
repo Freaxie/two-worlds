@@ -73,7 +73,7 @@ function street(a: A) {
   scene.add(wetStreet(a.tex.waterNormals, 700, '#07060d'))
 
   // overcast lit from below by the city
-  const glowCloud = { light: '#ff7ac4', shade: '#140c26', fog: '#1b1233', fogNear: 60, fogFar: 260, opacity: 0.75, drift: V(0.6, 0, -0.3) }
+  const glowCloud = { light: '#5c2a5e', shade: '#0b0716', fog: '#1b1233', fogNear: 60, fogFar: 260, opacity: 0.45, drift: V(0.6, 0, -0.3) }
   scene.add(cloudField(a.tex.cloud, puffBox(71, 160, V(-80, 70, -220), V(80, 110, 40), 30, 60), glowCloud, V(0, 2, 0), 7))
 
   // pavements, kerbs slick with rain
@@ -141,14 +141,14 @@ function street(a: A) {
     scene.add(s)
   }
   // the banner over the street, the title in the rain
-  const banner = neonSign({ text: 'BLUE HOUR', color: NEON.magenta, height: 2.2, light: true, brightness: 3.6 })
+  const banner = neonSign({ text: 'BLUE  HOUR', color: NEON.magenta, height: 2.2, light: true, brightness: 3.6 })
   banner.position.set(0, 9.5, -14)
   scene.add(banner)
   const wire = new THREE.Mesh(new THREE.BoxGeometry(16, 0.05, 0.05), new THREE.MeshStandardMaterial({ color: '#111', roughness: 0.4 }))
   wire.position.set(0, 10.8, -14)
   scene.add(wire)
 
-  for (const [x, z, c, sh] of [[-6.2, 10, '#ffd7a0', true], [6.2, -2, '#ffd7a0', false], [-6.2, -20, '#c8e6ff', false], [6.2, -60, '#ffd7a0', false]] as const) {
+  for (const [x, z, c, sh] of [[-6.2, 10, '#ffd7a0', true], [6.2, -2, '#ffd7a0', false], [-6.2, -20, '#c8e6ff', false], [6.2, -60, '#ffd7a0', false], [-6.2, -54, '#ffd7a0', false], [6.2, -26, '#c8e6ff', false]] as const) {
     const l = lamp(V(x, 0.16, z), c, 6.2, sh)
     if (x > 0) l.rotation.y = Math.PI
     scene.add(l)
@@ -158,8 +158,8 @@ function street(a: A) {
     [
       { from: V(-3, 0, -260), to: V(-3, 0, 40), cars: 4, speed: 11 },
       { from: V(3, 0, 40), to: V(3, 0, -260), cars: 3, speed: 9 },
-      { from: V(-70, 0, -37), to: V(70, 0, -37), cars: 3, speed: 13 },
-      { from: V(70, 0, -43), to: V(-70, 0, -43), cars: 3, speed: 12 },
+      { from: V(-70, 0, -37), to: V(70, 0, -37), cars: 6, speed: 13 },
+      { from: V(70, 0, -43), to: V(-70, 0, -43), cars: 6, speed: 12 },
     ],
     73
   )
@@ -175,8 +175,9 @@ function street(a: A) {
   }
   scene.add(markings(stripes))
 
-  scene.add(rain(14000, V(14, 11, 16), 11, new THREE.Vector2(1.4, -0.4), '#d6dcff', 0.45))
-  scene.add(splashes(900, V(0, 0, 6), 16, 0.0, '#cfd6ff'))
+  const overlay = new THREE.Scene()
+  overlay.add(rain(16000, V(14, 11, 16), 11, new THREE.Vector2(1.4, -0.4), '#cfcaff', 0.55))
+  overlay.add(splashes(900, V(0, 0, 6), 16, 0.0, '#cfd6ff'))
 
   // the koi lives here too; shots that don't feature it send it away
   const fish = glassFish(a.model.fish)
@@ -186,7 +187,7 @@ function street(a: A) {
   rim.position.set(0.4, 0.3, 0.2)
   scene.add(fish)
 
-  return { scene, fish, cars }
+  return { scene, overlay, fish, cars }
 }
 
 /* ------------------------------------------------------------------
@@ -227,10 +228,13 @@ function rooftop(a: A) {
     bulbs.add(b)
   }
   scene.add(bulbs)
-  const warm = new THREE.PointLight('#ffb36b', 14, 9, 1.8)
+  const warm = new THREE.PointLight('#ffb36b', 70, 10, 1.8)
   warm.position.set(0.5, 2.2, -1.5)
   warm.castShadow = true
   scene.add(warm)
+  const rimLight = new THREE.PointLight(NEON.magenta, 50, 12, 1.8)
+  rimLight.position.set(-2.5, 1.6, -4)
+  scene.add(rimLight)
 
   // railing at the roof edge
   const steel = new THREE.MeshStandardMaterial({ color: '#2a2c36', roughness: 0.25, metalness: 0.9 })
@@ -260,17 +264,18 @@ function rooftop(a: A) {
     }
   }
   scene.add(cityLights(84, 9000, V(-500, -60, -500), V(500, -40, -60), 2.4))
-  scene.add(rain(9000, V(8, 7, 10), 11, new THREE.Vector2(1.2, -0.3), '#ffd9b8', 0.4))
-  scene.add(splashes(500, V(0.5, 0, -0.5), 6, 0.43, '#ffd9b8'))
-  return scene
+  const overlay = new THREE.Scene()
+  overlay.add(rain(9000, V(8, 7, 10), 11, new THREE.Vector2(1.2, -0.3), '#ffd9b8', 0.5))
+  overlay.add(splashes(500, V(0.5, 0, -0.5), 6, 0.43, '#ffd9b8'))
+  return { scene, overlay }
 }
 
 /* ------------------------------------------------------------------ */
 
-function shot(title: string, scene: THREE.Scene, look: Partial<Look>, exposure: number, update: (cam: THREE.PerspectiveCamera, lk: Look, t: number, p: number) => void, fov = 62): Shot {
+function shot(title: string, set: { scene: THREE.Scene; overlay: THREE.Scene }, look: Partial<Look>, exposure: number, update: (cam: THREE.PerspectiveCamera, lk: Look, t: number, p: number) => void, fov = 62): Shot {
   const cam = camera(fov)
   const lk: Look = { ...LOOK, ...look }
-  return { title, scene, camera: cam, exposure, look: lk, update: (t, p) => update(cam, lk, t, p) }
+  return { title, scene: set.scene, overlay: set.overlay, camera: cam, exposure, look: lk, update: (t, p) => update(cam, lk, t, p) }
 }
 
 export const neonRain: Reel<keyof typeof SPEC.skies, keyof typeof SPEC.models, keyof typeof SPEC.textures> = {
@@ -287,14 +292,14 @@ export const neonRain: Reel<keyof typeof SPEC.skies, keyof typeof SPEC.models, k
       if (!on) st.fish.position.copy(away)
     }
     return [
-      shot('Downpour', st.scene, { focus: 16, aperture: 1.1 }, 1.25, (cam, lk, t, p) => {
+      shot('Downpour', st, { focus: 16, aperture: 1.1 }, 1.25, (cam, lk, t, p) => {
         const e = ease(p)
         fishHome(false)
         st.cars.update(t)
         aim(cam, V(0.8, 1.05, 22).lerp(V(0.3, 1.35, 15), e).add(hand(t, 0.015)), V(0, 7, -60).lerp(V(0, 11, -60), e), lerp(-0.03, 0.02, e))
         lk.focus = lerp(14, 26, e)
       }),
-      shot('Koi in the rain', st.scene, { aperture: 2.4, maxBlur: 22, motion: 0.4 }, 1.25, (cam, lk, t, p) => {
+      shot('Koi in the rain', st, { aperture: 2.4, maxBlur: 22, motion: 0.4 }, 1.25, (cam, lk, t, p) => {
         const e = ease(p)
         st.cars.update(t)
         const f = st.fish
@@ -303,19 +308,19 @@ export const neonRain: Reel<keyof typeof SPEC.skies, keyof typeof SPEC.models, k
         aim(cam, V(lerp(-0.4, 0.4, e), 2.4, 4.2).add(hand(t, 0.01)), f.position.clone().lerp(V(0, 6, -40), 0.06), lerp(0.03, -0.02, e))
         lk.focus = cam.position.distanceTo(f.position)
       }, 46),
-      shot('Look up', st.scene, { focus: 30, aperture: 0.7, motion: 0.4 }, 1.3, (cam, _lk, t, p) => {
+      shot('Look up', st, { focus: 30, aperture: 0.7, motion: 0.4 }, 1.3, (cam, _lk, t, p) => {
         const e = ease(p)
         fishHome(false)
         st.cars.update(t)
         // straight up between the towers, rain falling into the lens, the frame turning slowly
-        aim(cam, V(0.4, 1.7, -18), V(0.4 + Math.sin(t * 0.3) * 2, 80, -26), lerp(-0.25, 0.35, e))
+        aim(cam, V(0.4, 1.7, -96), V(0.4 + Math.sin(t * 0.3) * 2, 90, -102), lerp(-0.25, 0.35, e))
       }, 74),
       shot('Rooftop garden', roof, { aperture: 1.9, maxBlur: 18, highlightTint: '#ffc9a3' }, 1.2, (cam, lk, t, p) => {
         const e = ease(p)
         aim(cam, V(-0.2, 0.62, 2.3).lerp(V(0.25, 0.95, 1.9), e).add(hand(t, 0.01)), V(0.4, 0.3, -1).lerp(V(0, 5, -200), ease((p - 0.15) / 0.7)), 0.02)
         lk.focus = lerp(1.6, 260, ease((p - 0.3) / 0.45))
       }, 56),
-      shot('Crossing', st.scene, { focus: 40, aperture: 0.6, motion: 0.9 }, 1.3, (cam, _lk, t, p) => {
+      shot('Crossing', st, { focus: 40, aperture: 0.6, motion: 0.9 }, 1.65, (cam, _lk, t, p) => {
         const e = ease(p)
         fishHome(false)
         st.cars.update(t)
@@ -323,7 +328,7 @@ export const neonRain: Reel<keyof typeof SPEC.skies, keyof typeof SPEC.models, k
         const ang = lerp(0.2, -0.25, e)
         aim(cam, V(0, lerp(46, 36, e), -40), V(0, 0, -40.001), 0, V(Math.sin(ang), 0, -Math.cos(ang)))
       }, 58),
-      shot('Reflection', st.scene, { aperture: 1.6, maxBlur: 18 }, 1.25, (cam, lk, t, p) => {
+      shot('Reflection', st, { aperture: 1.6, maxBlur: 18 }, 1.25, (cam, lk, t, p) => {
         const e = ease(p)
         fishHome(false)
         st.cars.update(t)

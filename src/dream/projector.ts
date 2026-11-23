@@ -17,6 +17,8 @@ export interface Shot {
   camera: THREE.PerspectiveCamera
   exposure: number
   look: Look
+  /** drawn after depth of field: rain and other fine streaks that must stay crisp */
+  overlay?: THREE.Scene
   update(t: number, p: number): void
 }
 
@@ -177,7 +179,7 @@ export function play<S extends string, M extends string, T extends string>(reel:
     s.update(time, reduced ? 0.5 + (p - 0.5) * 0.3 : p)
     renderer.toneMappingExposure = s.exposure
     const look = reduced ? { ...s.look, motion: 0 } : s.look
-    pipeline.render(s.scene, s.camera, look, time, reduced ? 10 : time - cutAt)
+    pipeline.render(s.scene, s.camera, look, time, reduced ? 10 : time - cutAt, s.overlay)
   }
 
   let slow = 0

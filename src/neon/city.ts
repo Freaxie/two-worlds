@@ -121,9 +121,13 @@ export function rain(n: number, half: THREE.Vector3, speed: number, wind: THREE.
   g.setAttribute('aOff', new THREE.InstancedBufferAttribute(off, 3))
   g.setAttribute('aSpeed', new THREE.InstancedBufferAttribute(sp, 1))
   g.instanceCount = n
+  // drawn in the post overlay, after depth of field, where there is no scene depth to test against;
+  // double-sided because which way a streak's quad winds depends on where the camera is
   const mat = new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
+    depthTest: false,
+    side: THREE.DoubleSide,
     blending: THREE.AdditiveBlending,
     uniforms: {
       uTime: clock.uTime,
@@ -141,8 +145,11 @@ export function rain(n: number, half: THREE.Vector3, speed: number, wind: THREE.
       uniform vec2 uWind;
       varying vec2 vUv;
       varying float vFade;
+      varying float vShine;
       void main() {
         vec3 size = uHalf * 2.0;
+        // most drops are faint; a few catch a sign or a lamp and flare
+        vShine = 0.25 + 0.75 * pow(fract(aOff.x * 91.7 + aOff.z * 37.3), 3.0);
         vec3 vel = vec3(uWind.x, -uSpeed * aSpeed, uWind.y);
         // each drop's place in a box that wraps around the camera
         vec3 p = aOff * size + vel * uTime;
@@ -154,7 +161,7 @@ export function rain(n: number, half: THREE.Vector3, speed: number, wind: THREE.
         vec3 toCam = normalize(cameraPosition - p);
         vec3 side = normalize(cross(dir, toCam));
         float dist = length(cameraPosition - p);
-        float width = 0.004 + dist * 0.0012;
+        float width = 0.006 + dist * 0.0014;
         vec3 wp = p + side * position.x * width - dir * position.y * len;
         vUv = uv;
         // fade at the edges of the box so the wrap never pops
@@ -167,10 +174,11 @@ export function rain(n: number, half: THREE.Vector3, speed: number, wind: THREE.
       uniform float uOpacity;
       varying vec2 vUv;
       varying float vFade;
+      varying float vShine;
       void main() {
         float across = 1.0 - abs(vUv.x * 2.0 - 1.0);
         float along = sin(vUv.y * 3.14159);
-        gl_FragColor = vec4(uColor * across * along * vFade * uOpacity, 1.0);
+        gl_FragColor = vec4(uColor * across * along * vFade * vShine * uOpacity, 1.0);
       }`,
   })
   const mesh = new THREE.Mesh(g, mat)
@@ -207,6 +215,7 @@ export function splashes(n: number, centre: THREE.Vector3, radius: number, y: nu
   const mat = new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
+    depthTest: false,
     blending: THREE.AdditiveBlending,
     uniforms: { uTime: clock.uTime, uTex: { value: ring }, uY: { value: y }, uColor: { value: new THREE.Color(color) } },
     vertexShader: /* glsl */ `
@@ -328,14 +337,17 @@ export function block(s: BlockSpec) {
   const mat = s.glass
     ? new THREE.MeshPhysicalMaterial({ color: s.color ?? '#7d8fc0', metalness: 0.85, roughness: 0.06, map: f.map, emissive: '#ffffff', emissiveMap: f.emissive, emissiveIntensity: 1.6, clearcoat: 1, clearcoatRoughness: 0.03 })
     : new THREE.MeshStandardMaterial({ color: s.color ?? '#3a3d4a', roughness: 0.55, metalness: 0.15, map: f.map, emissive: '#ffffff', emissiveMap: f.emissive, emissiveIntensity: 1.6 })
+  const roof = new THREE.MeshStandardMaterial({ color: '#16171d', roughness: 0.35, metalness: 0.2 })
   const g = new THREE.Group()
-  const body = new THREE.Mesh(new THREE.BoxGeometry(s.w, s.h, s.d), mat)
+  // box faces: +x, -x, +y (roof), -y, +z, -z
+  const body = new THREE.Mesh(new THREE.BoxGeometry(s.w, s.h, s.d), [mat, mat, roof, roof, mat, mat])
   body.position.y = s.h / 2
   body.castShadow = body.receiveShadow = true
   g.add(body)
   // ledges: thin slabs every few floors catch the neon on their wet tops
   const ledge = new THREE.MeshStandardMaterial({ color: '#22242c', roughness: 0.25, metalness: 0.4 })
-  for (let y = 6.8; y < s.h - 2; y += 6.8 + (seed % 3) * 3.4) {
+  const ledgeEvery = 6.8 + (Math.abs(seed) % 3) * 3.4
+  for (let y = 6.8; y < s.h - 2; y += ledgeEvery) {
     const l = new THREE.Mesh(new THREE.BoxGeometry(s.w + 0.4, 0.22, s.d + 0.4), ledge)
     l.position.y = y
     l.receiveShadow = true
@@ -371,9 +383,9 @@ export function traffic(lanes: { from: THREE.Vector3; to: THREE.Vector3; cars: n
     for (let i = 0; i < lane.cars; i++) {
       const g = new THREE.Group()
       for (const sgn of [-1, 1]) {
-        const h = sprite('#fff4e0', 10, 0.9)
+        const h = sprite('#fff4e0', 12, 1.3)
         h.position.copy(side).multiplyScalar(sgn * 0.75).addScaledVector(dir, 2.1).setY(0.7)
-        const t = sprite('#ff2a3a', 8, 0.7)
+        const t = sprite('#ff2a3a', 10, 1.1)
         t.position.copy(side).multiplyScalar(sgn * 0.75).addScaledVector(dir, -2.1).setY(0.8)
         g.add(h, t)
       }

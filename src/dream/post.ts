@@ -1,14 +1,15 @@
 /* ------------------------------------------------------------------
-   BLUE HOUR — the camera body
+   The camera body, shared by the reels
    The scene renders to an HDR target with depth, then:
      motion blur (camera, from depth)  →  depth of field (gathered bokeh)
-     →  sun shafts  →  subtle bloom  →  ACES tone map
-     →  grade, lens, grain, cut ripple
+     →  sun shafts  →  overlay (fine streaks the lens would otherwise blur away)
+     →  subtle bloom  →  ACES tone map  →  grade, lens, grain, cut ripple
 ------------------------------------------------------------------- */
 
 import * as THREE from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { TexturePass } from 'three/examples/jsm/postprocessing/TexturePass.js'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
@@ -255,6 +256,9 @@ export function createPipeline(renderer: THREE.WebGLRenderer, samples = 4) {
   const motion = new ShaderPass(MotionBlur)
   const dof = new ShaderPass(DepthOfField)
   const shafts = new ShaderPass(SunShafts)
+  // drawn after depth of field, without depth testing against the scene: rain streaks stay crisp
+  const overlay = new RenderPass(new THREE.Scene(), new THREE.PerspectiveCamera())
+  overlay.clear = false
   const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.3, 0.7, 0.95)
   const finish = new ShaderPass(Finish)
   for (const p of [motion, dof, shafts]) p.uniforms.tDepth.value = target.depthTexture
@@ -262,6 +266,7 @@ export function createPipeline(renderer: THREE.WebGLRenderer, samples = 4) {
   composer.addPass(motion)
   composer.addPass(dof)
   composer.addPass(shafts)
+  composer.addPass(overlay)
   composer.addPass(bloom)
   composer.addPass(new OutputPass())
   composer.addPass(finish)
@@ -286,7 +291,7 @@ export function createPipeline(renderer: THREE.WebGLRenderer, samples = 4) {
     cut() {
       fresh = true
     },
-    render(scene: THREE.Scene, cam: THREE.PerspectiveCamera, look: Look, time: number, cutAge: number) {
+    render(scene: THREE.Scene, cam: THREE.PerspectiveCamera, look: Look, time: number, cutAge: number, extra?: THREE.Scene) {
       renderer.setRenderTarget(target)
       renderer.render(scene, cam)
       renderer.setRenderTarget(null)
@@ -319,6 +324,12 @@ export function createPipeline(renderer: THREE.WebGLRenderer, samples = 4) {
       shafts.uniforms.uSunVisible.value = vis
       shafts.uniforms.uStrength.value = look.shafts
       shafts.uniforms.uTint.value.set(look.shaftTint)
+
+      overlay.enabled = !!extra
+      if (extra) {
+        overlay.scene = extra
+        overlay.camera = cam
+      }
 
       bloom.strength = look.bloom
       bloom.threshold = look.bloomThreshold
