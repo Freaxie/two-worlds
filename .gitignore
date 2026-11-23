@@ -27,3 +27,5 @@ dist-single
 dist-dream
 dist-neon
 .claude/
+
+__pycache__/
