@@ -8,7 +8,8 @@
         "build": "tsc && vite build",
         "preview": "vite preview",
         "build:single": "tsc && vite build --mode single",
-        "build:dream": "tsc && vite build --mode dream"
+        "build:dream": "tsc && vite build --mode dream",
+        "build:neon": "tsc && vite build --mode neon"
     },
     "devDependencies": {
         "@types/react": "^19.3.0",

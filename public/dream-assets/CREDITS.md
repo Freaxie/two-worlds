@@ -1,4 +1,4 @@
-# Blue Hour — asset credits
+# Blue Hour and Neon Rain — asset credits
 
 | File | What | Source | Licence |
 | --- | --- | --- | --- |
@@ -11,4 +11,6 @@
 | `cloud.webp` | Cloud sprite | [@pmndrs/assets](https://github.com/pmndrs/assets) | CC0 1.0 |
 | `grass.jpg` | Grass texture (resized) | "Dark grass", [OpenGameArt](http://opengameart.org/content/dark-grass), via the three.js examples | CC BY 3.0 |
 | `waternormals.jpg` | Water normal map | [three.js examples](https://github.com/mrdoob/three.js/tree/dev/examples/textures) | MIT (three.js) |
-| `score.mp3` | The score | Original, synthesised by `scripts/compose.py` | Part of this project |
+| `fonts/Monoton.woff2` | Monoton typeface, used for the neon signs in Neon Rain | Vernon Adams, [Google Fonts](https://fonts.google.com/specimen/Monoton) | SIL Open Font License 1.1 |
+| `score.mp3` | Blue Hour's score | Original, synthesised by `scripts/compose.py` | Part of this project |
+| `neon-score.mp3` | Neon Rain's score | Original, synthesised by `scripts/compose_neon.py` | Part of this project |

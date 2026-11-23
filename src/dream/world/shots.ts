@@ -10,6 +10,8 @@ import * as THREE from 'three'
 import { Water } from 'three/examples/jsm/objects/Water.js'
 import { skyDirection, type Assets } from '../assets'
 import type { Look } from '../post'
+import type { Reel, Shot } from '../projector'
+import { V, aim, camera, ease, hand, lerp } from './camera'
 import {
   cityLights,
   cloudField,
@@ -30,20 +32,22 @@ import {
 } from './kit'
 import { rng } from './textures'
 
-export interface Shot {
-  title: string
-  scene: THREE.Scene
-  camera: THREE.PerspectiveCamera
-  exposure: number
-  look: Look
-  update(t: number, p: number): void
+const SPEC = {
+  skies: {
+    sunrise: 'spruit_sunrise_2k.hdr.jpg',
+    night: 'moonless_golf_2k.hdr.jpg',
+    dawn: 'blouberg_sunrise_2_1k.hdr',
+    clear: 'quarry_01_1k.hdr',
+  },
+  models: { oxalis: 'oxalis.glb', fish: 'barramundi.glb' },
+  textures: {
+    grass: { file: 'grass.jpg', srgb: true, repeat: true },
+    cloud: { file: 'cloud.webp', srgb: true },
+    waterNormals: { file: 'waternormals.jpg', repeat: true },
+  },
+  score: 'score.mp3',
 }
-
-const V = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z)
-const ease = (t: number) => 0.5 - 0.5 * Math.cos(Math.PI * THREE.MathUtils.clamp(t, 0, 1))
-const lerp = THREE.MathUtils.lerp
-/** a slow, breathing hand on the camera */
-const hand = (t: number, k: number) => V(Math.sin(t * 0.9) * 0.6 + Math.sin(t * 2.3) * 0.25, Math.sin(t * 1.3 + 1) * 0.5, 0).multiplyScalar(k)
+type A = Assets<keyof typeof SPEC.skies, keyof typeof SPEC.models, keyof typeof SPEC.textures>
 
 const LOOK: Look = {
   focus: 10,
@@ -110,25 +114,13 @@ function underCloud(scene: THREE.Scene, y: number, color: string) {
   scene.add(m)
 }
 
-function camera(fov: number) {
-  return new THREE.PerspectiveCamera(fov, 1, 0.05, 6000)
-}
-
-function aim(cam: THREE.PerspectiveCamera, pos: THREE.Vector3, look: THREE.Vector3, roll = 0) {
-  cam.position.copy(pos)
-  cam.up.set(0, 1, 0)
-  cam.lookAt(look)
-  cam.rotateZ(roll)
-  cam.updateMatrixWorld()
-}
-
 function towers(scene: THREE.Scene, specs: TowerSpec[], glowStrength = 1.4) {
   for (const s of specs) scene.add(tower(s, glowStrength))
 }
 
 /* ------------------------------------------------------------------ */
 
-function firstLight(a: Assets): Shot {
+function firstLight(a: A): Shot {
   const rot = swing(SUN.sunrise[0], -1.35)
   const sunDir = skyDirection(SUN.sunrise[0], SUN.sunrise[1], rot)
   const scene = stage(a.sky.sunrise, rot, 0.55, 0.8, new THREE.FogExp2('#c7b3cf', 0.0028))
@@ -136,10 +128,10 @@ function firstLight(a: Assets): Shot {
   keyLight(scene, sunDir, '#ffd3a6', 3.2, V(0, 0, -3), 10)
 
   const H: Height = (x, z) => 0.2 * Math.sin(x * 0.08) * Math.cos(z * 0.06) + 0.1 * Math.sin(x * 0.21 + z * 0.13)
-  scene.add(terrain(H, 900, 220, a.grass, '#b9cf8e', 180, new THREE.Vector2(0, -300)))
+  scene.add(terrain(H, 900, 220, a.tex.grass, '#b9cf8e', 180, new THREE.Vector2(0, -300)))
   scene.add(grass(11, { n: 60000, x: [-14, 14], z: [-42, 4] }, H, [0.07, 0.2], ['#1c3512', '#c4dc86'], 0.07))
   const eye = V(0, 0.5, 4)
-  scene.add(oxalis(a.oxalis, 12, { n: 3600, x: [-8, 8], z: [-24, 3.7], keep: (x, z) => THREE.MathUtils.clamp(0.15 + (z + 24) / 20, 0, 1) * (Math.abs(x) < 5 ? 1 : 0.5) }, H, [2.2, 3.4], eye))
+  scene.add(oxalis(a.model.oxalis, 12, { n: 3600, x: [-8, 8], z: [-24, 3.7], keep: (x, z) => THREE.MathUtils.clamp(0.15 + (z + 24) / 20, 0, 1) * (Math.abs(x) < 5 ? 1 : 0.5) }, H, [2.2, 3.4], eye))
   towers(scene, [
     { x: -36, z: -170, w: 24, d: 24, h: 125, rot: 0.3 },
     { x: 6, z: -205, w: 30, d: 26, h: 180, rot: -0.2 },
@@ -147,7 +139,7 @@ function firstLight(a: Assets): Shot {
     { x: 86, z: -245, w: 28, d: 28, h: 150, round: true },
   ])
   const bank: CloudLook = { light: '#ffe6dc', shade: '#9b8fc4', fog: '#c7b3cf', fogNear: 250, fogFar: 1200, drift: V(1.5, 0, 0) }
-  scene.add(cloudField(a.cloud, cumulus(13, V(-190, -10, -330), 260, 110, 90, 40, 80), bank, eye, 1))
+  scene.add(cloudField(a.tex.cloud, cumulus(13, V(-190, -10, -330), 260, 110, 90, 40, 80), bank, eye, 1))
   scene.add(pollen(14, 500, V(-5, 0.15, -7), V(5, 2.2, 4.2), '#ffe2b8'))
 
   const cam = camera(62)
@@ -170,7 +162,7 @@ function firstLight(a: Assets): Shot {
 
 /* ------------------------------------------------------------------ */
 
-function glassKoi(a: Assets): Shot {
+function glassKoi(a: A): Shot {
   const rot = swing(0.123, -0.4)
   const scene = stage(a.sky.night, rot, 1.1, 0.6, new THREE.FogExp2('#0b1236', 0.0011))
   scene.add(haze('#141c4c', 0.06, -0.06, 0.8))
@@ -191,7 +183,7 @@ function glassKoi(a: Assets): Shot {
   for (let i = 0; i < 9; i++) specs.push({ x: -300 + r() * 600, z: -180 - r() * 420, w: 22 + r() * 14, d: 22 + r() * 14, h: 260 + r() * 140, y: -150, lit: 0.35, warm: r() < 0.5 })
   towers(scene, specs, 2)
 
-  const fish = glassFish(a.fish)
+  const fish = glassFish(a.model.fish)
   fish.scale.setScalar(2.4)
   scene.add(fish)
   scene.add(glowSprite('#4a6bff', 2.6, V(0, 0, -2.2), 0.25))
@@ -218,7 +210,7 @@ function glassKoi(a: Assets): Shot {
 
 /* ------------------------------------------------------------------ */
 
-function cloudSea(a: Assets): Shot {
+function cloudSea(a: A): Shot {
   const rot = swing(SUN.dawn[0], -2.05)
   const sunDir = skyDirection(SUN.dawn[0], SUN.dawn[1], rot)
   const scene = stage(a.sky.dawn, rot, 0.85, 0.9, new THREE.Fog('#cdbfd8', 250, 1500))
@@ -228,7 +220,7 @@ function cloudSea(a: Assets): Shot {
 
   const eye = V(0, 30, 0)
   const look: CloudLook = { light: '#fff3f2', shade: '#8f86c2', fog: '#cdbfd8', fogNear: 220, fogFar: 1500, drift: V(2.5, 0, 0.5) }
-  scene.add(cloudField(a.cloud, puffBox(31, 1400, V(-900, -24, -1200), V(900, 8, 260), 45, 95), look, eye, 2))
+  scene.add(cloudField(a.tex.cloud, puffBox(31, 1400, V(-900, -24, -1200), V(900, 8, 260), 45, 95), look, eye, 2))
   const main = tower({ x: 0, z: -170, w: 26, d: 26, h: 260, y: -40, round: true, lit: 0.08, warm: true }, 1.2)
   main.rotation.z = 0.12
   scene.add(main)
@@ -239,7 +231,7 @@ function cloudSea(a: Assets): Shot {
     { x: 200, z: -560, w: 26, d: 26, h: 220, y: -40 },
   ])
   // a few near puffs that the camera passes through, for depth
-  scene.add(cloudField(a.cloud, puffBox(32, 26, V(-160, 10, -110), V(160, 40, 40), 20, 40), { ...look, opacity: 0.8 }, eye, 3))
+  scene.add(cloudField(a.tex.cloud, puffBox(32, 26, V(-160, 10, -110), V(160, 40, 40), 20, 40), { ...look, opacity: 0.8 }, eye, 3))
 
   const cam = camera(58)
   const sun = sunDir.clone().multiplyScalar(2000)
@@ -261,7 +253,7 @@ function cloudSea(a: Assets): Shot {
 
 /* ------------------------------------------------------------------ */
 
-function mirrorLake(a: Assets): Shot {
+function mirrorLake(a: A): Shot {
   const rot = swing(0.123, -1.2)
   const scene = stage(a.sky.night, rot, 0.8, 0.7, new THREE.FogExp2('#101a4a', 0.0019))
   scene.add(haze('#18246a', 0.07, -0.02, 0.85))
@@ -275,7 +267,7 @@ function mirrorLake(a: Assets): Shot {
   const water = new Water(new THREE.PlaneGeometry(5000, 5000), {
     textureWidth: 1024,
     textureHeight: 1024,
-    waterNormals: a.waterNormals,
+    waterNormals: a.tex.waterNormals,
     sunDirection: moonDir.clone(),
     sunColor: '#dfe6ff',
     waterColor: '#040b2c',
@@ -297,10 +289,10 @@ function mirrorLake(a: Assets): Shot {
     { x: 160, z: -330, w: 30, d: 26, h: 140, lit: 0.35 },
   ], 1.8)
   const mist: CloudLook = { light: '#9eaee8', shade: '#27336e', fog: '#101a4a', fogNear: 60, fogFar: 600, opacity: 0.16, drift: V(1.2, 0, 0) }
-  scene.add(cloudField(a.cloud, puffBox(41, 140, V(-260, -2, -240), V(260, 5, -25), 14, 34), mist, V(0, 1, 8), 4))
+  scene.add(cloudField(a.tex.cloud, puffBox(41, 140, V(-260, -2, -240), V(260, 5, -25), 14, 34), mist, V(0, 1, 8), 4))
 
   const H: Height = (x, z) => 3.4 * Math.exp(-((x + 13) ** 2 / 95 + (z - 2) ** 2 / 210)) - 0.7
-  scene.add(terrain(H, 70, 160, a.grass, '#6fc25a', 14, new THREE.Vector2(-12, 0)))
+  scene.add(terrain(H, 70, 160, a.tex.grass, '#6fc25a', 14, new THREE.Vector2(-12, 0)))
   scene.add(grass(42, { n: 42000, x: [-40, 2], z: [-28, 26], keep: (x, z) => (H(x, z) > 0.02 ? 1 : 0) }, H, [0.06, 0.2], ['#0e3a10', '#a6f06e'], 0.035))
 
   const cam = camera(64)
@@ -322,7 +314,7 @@ function mirrorLake(a: Assets): Shot {
 
 /* ------------------------------------------------------------------ */
 
-function blueBloom(a: Assets): Shot {
+function blueBloom(a: A): Shot {
   const rot = swing(SUN.clear[0], 0.9)
   const sunDir = skyDirection(SUN.clear[0], SUN.clear[1], rot)
   const scene = stage(a.sky.clear, rot, 0.7, 0.8, new THREE.Fog('#8ea3e8', 180, 1300))
@@ -331,13 +323,13 @@ function blueBloom(a: Assets): Shot {
   underCloud(scene, -85, '#8ea3e8')
 
   const H: Height = (x, z) => 3 - (x * x + (z - 2) * (z - 2)) / 90
-  scene.add(terrain(H, 90, 180, a.grass, '#4c6a78', 22))
+  scene.add(terrain(H, 90, 180, a.tex.grass, '#4c6a78', 22))
   scene.add(grass(51, { n: 26000, x: [-15, 15], z: [-20, 9] }, H, [0.06, 0.2], ['#0a1a1c', '#4f7a7a'], 0.05))
   const eye = V(0, 3.5, 6)
-  scene.add(oxalis(a.oxalis, 52, { n: 1600, x: [-14, 14], z: [-20, 8.2] }, H, [1.6, 2.6], eye, { tint: '#9db4ff', glow: '#3f63ff', glowStrength: 0.9 }, 0.04))
+  scene.add(oxalis(a.model.oxalis, 52, { n: 1600, x: [-14, 14], z: [-20, 8.2] }, H, [1.6, 2.6], eye, { tint: '#9db4ff', glow: '#3f63ff', glowStrength: 0.9 }, 0.04))
 
   const sea: CloudLook = { light: '#f7f2ff', shade: '#7c86cc', fog: '#8ea3e8', fogNear: 150, fogFar: 1300, drift: V(2, 0, 0) }
-  scene.add(cloudField(a.cloud, puffBox(53, 1300, V(-1000, -80, -1200), V(1000, -50, 150), 40, 90), sea, V(0, 0, -200), 5))
+  scene.add(cloudField(a.tex.cloud, puffBox(53, 1300, V(-1000, -80, -1200), V(1000, -50, 150), 40, 90), sea, V(0, 0, -200), 5))
   towers(scene, [
     { x: -55, z: -240, w: 24, d: 24, h: 210, y: -80, frame: '#eef2ff', tint: '#8aa0e0' },
     { x: 20, z: -280, w: 28, d: 24, h: 250, y: -80, frame: '#eef2ff', tint: '#8aa0e0', rot: 0.25 },
@@ -366,7 +358,7 @@ function blueBloom(a: Assets): Shot {
 
 /* ------------------------------------------------------------------ */
 
-function island(a: Assets): Shot {
+function island(a: A): Shot {
   const rot = swing(0.123, 2.3)
   const scene = stage(a.sky.night, rot, 1.2, 0.6, new THREE.Fog('#141c52', 250, 1500))
   // the photographed tree line would show above the clouds here, so paint the sky instead
@@ -381,13 +373,13 @@ function island(a: Assets): Shot {
   scene.add(glowSprite('#eef2ff', 70, moonDir.clone().multiplyScalar(1500), 0.85))
 
   const sea: CloudLook = { light: '#d9e0ff', shade: '#2a3486', fog: '#141c52', fogNear: 220, fogFar: 1500, drift: V(2, 0, 1) }
-  scene.add(cloudField(a.cloud, puffBox(61, 1500, V(-1000, -34, -1000), V(1000, -4, 1000), 45, 100), sea, V(120, 45, 90), 6))
+  scene.add(cloudField(a.tex.cloud, puffBox(61, 1500, V(-1000, -34, -1000), V(1000, -4, 1000), 45, 100), sea, V(120, 45, 90), 6))
 
   const H: Height = (x, z) => {
     const r = Math.hypot(x, z)
     return r < 36 ? 24 - (r * r) / 220 + 0.4 * Math.sin(x * 0.3) * Math.cos(z * 0.25) : Math.max(8, 24 - (36 * 36) / 220 - (r - 36) * 3)
   }
-  scene.add(terrain(H, 80, 200, a.grass, '#79b35a', 10, new THREE.Vector2(), { color: '#22232e', below: 17.5 }))
+  scene.add(terrain(H, 80, 200, a.tex.grass, '#79b35a', 10, new THREE.Vector2(), { color: '#22232e', below: 17.5 }))
   const rockGeo = new THREE.ConeGeometry(41, 60, 64, 10)
   const rp = rockGeo.getAttribute('position') as THREE.BufferAttribute
   const rr = rng(62)
@@ -402,7 +394,7 @@ function island(a: Assets): Shot {
   rock.receiveShadow = true
   scene.add(rock)
   scene.add(grass(63, { n: 50000, x: [-36, 36], z: [-36, 36], keep: (x, z) => (Math.hypot(x, z) < 35 ? 1 : 0) }, H, [0.4, 1.1], ['#0f3a10', '#8ee05a'], 0.2, 0.06))
-  scene.add(oxalis(a.oxalis, 64, { n: 500, x: [-30, 30], z: [-30, 30], keep: (x, z) => (Math.hypot(x, z) < 30 ? 1 : 0) }, H, [5, 8], V(120, 40, 90)))
+  scene.add(oxalis(a.model.oxalis, 64, { n: 500, x: [-30, 30], z: [-30, 30], keep: (x, z) => (Math.hypot(x, z) < 30 ? 1 : 0) }, H, [5, 8], V(120, 40, 90)))
   towers(scene, [
     { x: -6, z: -4, w: 10, d: 10, h: 72, y: H(-6, -4) - 1, lit: 0.4 },
     { x: 11, z: 7, w: 12, d: 12, h: 96, y: H(11, 7) - 1, lit: 0.35, rot: 0.4 },
@@ -427,6 +419,9 @@ function island(a: Assets): Shot {
   }
 }
 
-export function buildShots(a: Assets): Shot[] {
-  return [firstLight, glassKoi, cloudSea, mirrorLake, blueBloom, island].map((f) => f(a))
+export const blueHour: Reel<keyof typeof SPEC.skies, keyof typeof SPEC.models, keyof typeof SPEC.textures> = {
+  assets: SPEC,
+  // one shot per bar of the score (60 bpm, 4/4)
+  beat: 4,
+  build: (a) => [firstLight, glassKoi, cloudSea, mirrorLake, blueBloom, island].map((f) => f(a)),
 }

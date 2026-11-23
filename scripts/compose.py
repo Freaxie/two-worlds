@@ -13,19 +13,15 @@ Needs numpy. Encode with ffmpeg for the web, e.g.
 """
 
 import sys
-import wave
 
 import numpy as np
 
-SR = 48000
+from synth import SR, Loop, env_adsr, hall_ir, master, midi, onepole_lp, saw, write_wav
+
 BAR = 4.0  # seconds per bar = one shot
 BARS = 6
 LOOP = BAR * BARS
 rng = np.random.default_rng(7)
-
-
-def midi(n):
-    return 440.0 * 2 ** ((n - 69) / 12)
 
 
 # D major dream-pop: Dmaj9 – Bm11 – Gmaj9#11 – Em9 – Bm9 – Asus2
@@ -38,63 +34,8 @@ CHORDS = [
     (45, [61, 64, 69, 71, 76]),  # Asus2/6: C# E A B E
 ]
 
-N = int(LOOP * SR)
-TOTAL = 3 * N
-t_all = np.arange(TOTAL) / SR
-L = np.zeros(TOTAL)
-R = np.zeros(TOTAL)
-
-
-def env_adsr(n, a, r, sustain_len):
-    """attack / hold / release envelope, lengths in seconds"""
-    e = np.zeros(n)
-    ia = max(1, int(a * SR))
-    ih = int(sustain_len * SR)
-    ir = max(1, int(r * SR))
-    e[:ia] = np.linspace(0, 1, ia) ** 2
-    e[ia : ia + ih] = 1
-    end = min(n, ia + ih + ir)
-    e[ia + ih : end] = np.linspace(1, 0, end - ia - ih) ** 1.5
-    return e
-
-
-def onepole_lp(x, cutoff, block=64):
-    """one-pole lowpass with a cutoff (Hz) that may vary over time; solved per block in closed form"""
-    c = np.broadcast_to(np.asarray(cutoff, dtype=float), x.shape)
-    y = np.empty_like(x)
-    s = 0.0
-    k = np.arange(block)
-    for i in range(0, len(x), block):
-        xb = x[i : i + block]
-        m = len(xb)
-        a = np.exp(-2 * np.pi * c[i] / SR)
-        p = a ** (k[:m] + 1)
-        # y[n] = a^(n+1) s + (1-a) sum_{j<=n} a^(n-j) x[j]
-        acc = np.cumsum(xb / (a ** k[:m])) * (a ** k[:m]) * (1 - a)
-        yb = acc + p * s
-        y[i : i + m] = yb
-        s = yb[-1]
-    return y
-
-
-def saw(f, t, phase=0.0):
-    p = (f * t + phase) % 1.0
-    # gentle band-limit: soften the edge with a cubic
-    return 2 * p - 1 - (2 * p - 1) ** 3 * 0.25
-
-
-def add(sig, start, pan=0.0, gain=1.0):
-    i = int(start * SR) % TOTAL
-    n = len(sig)
-    lg = np.cos((pan + 1) * np.pi / 4) * gain
-    rg = np.sin((pan + 1) * np.pi / 4) * gain
-    first = min(n, TOTAL - i)
-    L[i : i + first] += sig[:first] * lg
-    R[i : i + first] += sig[:first] * rg
-    if first < n:  # wrap around the three-loop buffer
-        L[: n - first] += sig[first:] * lg
-        R[: n - first] += sig[first:] * rg
-
+mix = Loop(LOOP)
+add = mix.add
 
 for loop in range(3):
     base = loop * LOOP
@@ -156,44 +97,8 @@ for loop in range(3):
         boom = np.sin(2 * np.pi * (58 - 18 * t) * t) * np.exp(-t / 0.35) * np.minimum(1, t / 0.01)
         add(boom * 0.12, start)
 
-# ---- hall reverb: stereo decorrelated noise IR, darkening as it decays
-rng = np.random.default_rng(11)
-ir_len = int(4.2 * SR)
-ti = np.arange(ir_len) / SR
-irs = []
-for ch in range(2):
-    n = rng.standard_normal(ir_len) * np.exp(-ti * 6.9 / 3.6)
-    n = onepole_lp(n, 7000 * np.exp(-ti * 0.9) + 400)
-    n[: int(0.012 * SR)] = 0  # predelay
-    irs.append(n / np.sqrt(np.sum(n**2)))
-
-
-def convolve(x, h):
-    m = len(x) + len(h) - 1
-    size = 1 << (m - 1).bit_length()
-    y = np.fft.irfft(np.fft.rfft(x, size) * np.fft.rfft(h, size), size)[:m]
-    out = y[: len(x)].copy()
-    out[: m - len(x)] += y[len(x) :]
-    return out
-
-
-wetL = convolve(L, irs[0])
-wetR = convolve(R, irs[1])
-mixL = L * 0.72 + wetL * 0.9
-mixR = R * 0.72 + wetR * 0.9
-
-# keep the middle loop: its start already carries the previous loop's tails
-seg = slice(N, 2 * N)
-out = np.stack([mixL[seg], mixR[seg]], axis=1)
-# gentle glue and a soft ceiling
-out = np.tanh(out * 1.6) / 1.6
-out *= 0.89 / np.max(np.abs(out))
-pcm = (out * 32767).astype(np.int16)
-
+# hall reverb, then keep the middle loop so its start carries the previous loop's tails
+pcm = master(mix, hall_ir(11))
 path = sys.argv[1] if len(sys.argv) > 1 else "score.wav"
-with wave.open(path, "wb") as w:
-    w.setnchannels(2)
-    w.setsampwidth(2)
-    w.setframerate(SR)
-    w.writeframes(pcm.tobytes())
+write_wav(path, pcm)
 print(f"wrote {path}: {LOOP:.1f}s")

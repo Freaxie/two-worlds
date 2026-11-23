@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------------
-   BLUE HOUR — assets
-   Photographic skies, scanned-quality models and textures, loaded
-   once with progress. Every file lives in public/dream-assets; see
-   CREDITS.md there for sources and licences.
+   Asset loading for the reels
+   Photographic skies, glTF models, textures and the score, loaded
+   once with progress. Each reel names the files it needs; they live
+   in public/dream-assets (see CREDITS.md there for sources and licences).
 ------------------------------------------------------------------- */
 
 import * as THREE from 'three'
@@ -12,31 +12,38 @@ import { UltraHDRLoader } from 'three/examples/jsm/loaders/UltraHDRLoader.js'
 
 const BASE = 'dream-assets/'
 
-export interface Assets {
-  sky: {
-    sunrise: THREE.Texture
-    night: THREE.Texture
-    dawn: THREE.Texture
-    clear: THREE.Texture
-  }
-  oxalis: THREE.Mesh
-  fish: THREE.Mesh
-  grass: THREE.Texture
-  cloud: THREE.Texture
-  waterNormals: THREE.Texture
+export interface TextureSpec {
+  file: string
+  /** colour data (sRGB) rather than normals or masks */
+  srgb?: boolean
+  repeat?: boolean
+}
+
+export interface AssetSpec<S extends string, M extends string, T extends string> {
+  /** equirectangular skies: .hdr or Ultra HDR .hdr.jpg */
+  skies: Record<S, string>
+  models: Record<M, string>
+  textures: Record<T, TextureSpec>
+  score: string
+}
+
+export interface Assets<S extends string = string, M extends string = string, T extends string = string> {
+  sky: Record<S, THREE.Texture>
+  model: Record<M, THREE.Mesh>
+  tex: Record<T, THREE.Texture>
   score: ArrayBuffer
 }
 
-export async function loadAssets(onProgress: (f: number) => void): Promise<Assets> {
+export async function loadAssets<S extends string, M extends string, T extends string>(spec: AssetSpec<S, M, T>, onProgress: (f: number) => void): Promise<Assets<S, M, T>> {
   const manager = new THREE.LoadingManager()
   manager.onProgress = (_url, done, total) => onProgress(done / total)
   const gltf = new GLTFLoader()
   const hdr = new HDRLoader().setDataType(THREE.HalfFloatType)
   const uhdr = new UltraHDRLoader(manager).setDataType(THREE.HalfFloatType)
-  const tex = new THREE.TextureLoader(manager)
+  const texLoader = new THREE.TextureLoader(manager)
   const file = new THREE.FileLoader(manager).setResponseType('arraybuffer')
 
-  const equirect = <T extends THREE.Texture>(t: T) => {
+  const equirect = <X extends THREE.Texture>(t: X) => {
     t.mapping = THREE.EquirectangularReflectionMapping
     return t
   }
@@ -67,33 +74,31 @@ export async function loadAssets(onProgress: (f: number) => void): Promise<Asset
     }
   }
   const model = async (name: string) => firstMesh((await gltf.parseAsync(await bytes(name), '')).scene)
-  const radiance = async (name: string) => {
+  const sky = async (name: string) => {
+    if (name.endsWith('.hdr.jpg')) return equirect(await uhdr.loadAsync(BASE + name))
     const t = new THREE.DataTexture()
     // same steps DataTextureLoader.load takes after parsing
     ;(hdr as unknown as { _applyTexData(t: THREE.DataTexture, d: unknown): void })._applyTexData(t, hdr.parse(await bytes(name)))
     return equirect(t)
   }
+  const texture = async (s: TextureSpec) => {
+    const t = await texLoader.loadAsync(BASE + s.file)
+    if (s.srgb) t.colorSpace = THREE.SRGBColorSpace
+    if (s.repeat) t.wrapS = t.wrapT = THREE.RepeatWrapping
+    t.anisotropy = 8
+    return t
+  }
 
-  const [sunrise, night, dawn, clear, oxalis, fish, grass, cloud, waterNormals, score] = await Promise.all([
-    uhdr.loadAsync(BASE + 'spruit_sunrise_2k.hdr.jpg').then(equirect),
-    uhdr.loadAsync(BASE + 'moonless_golf_2k.hdr.jpg').then(equirect),
-    radiance('blouberg_sunrise_2_1k.hdr'),
-    radiance('quarry_01_1k.hdr'),
-    model('oxalis.glb'),
-    model('barramundi.glb'),
-    tex.loadAsync(BASE + 'grass.jpg'),
-    tex.loadAsync(BASE + 'cloud.webp'),
-    tex.loadAsync(BASE + 'waternormals.jpg'),
-    file.loadAsync(BASE + 'score.mp3') as Promise<ArrayBuffer>,
+  const entries = <K extends string, V, R>(rec: Record<K, V>, load: (v: V) => Promise<R>) =>
+    Promise.all((Object.entries(rec) as [K, V][]).map(async ([k, v]) => [k, await load(v)] as const)).then((pairs) => Object.fromEntries(pairs) as Record<K, R>)
+
+  const [skies, models, textures, score] = await Promise.all([
+    entries(spec.skies, sky),
+    entries(spec.models, model),
+    entries(spec.textures, texture),
+    file.loadAsync(BASE + spec.score) as Promise<ArrayBuffer>,
   ])
-
-  grass.colorSpace = THREE.SRGBColorSpace
-  grass.wrapS = grass.wrapT = THREE.RepeatWrapping
-  grass.anisotropy = 8
-  cloud.colorSpace = THREE.SRGBColorSpace
-  waterNormals.wrapS = waterNormals.wrapT = THREE.RepeatWrapping
-
-  return { sky: { sunrise, night, dawn, clear }, oxalis, fish, grass, cloud, waterNormals, score }
+  return { sky: skies, model: models, tex: textures, score }
 }
 
 /**
