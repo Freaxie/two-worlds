@@ -1,0 +1,43 @@
+/* NEON RAIN — the same projector chrome, re-lit for a wet night */
+
+:root {
+  --ink: #07050f;
+  --cobalt: #ff2bd6;
+}
+
+.loader {
+  background: radial-gradient(120% 90% at 50% 40%, rgba(60, 10, 70, 0.5), rgba(5, 3, 14, 0.95));
+}
+
+.loader__title,
+.mark__name {
+  font-family: 'Monoton', 'Bodoni Moda', Georgia, serif;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: #ffe6fa;
+  text-shadow:
+    0 0 6px rgba(255, 43, 214, 0.9),
+    0 0 22px rgba(255, 43, 214, 0.6),
+    0 0 48px rgba(255, 43, 214, 0.35);
+}
+
+.loader__title {
+  font-size: clamp(44px, 10vw, 96px);
+  line-height: 1.05;
+}
+
+.mark__name {
+  font-size: clamp(20px, 2.6vw, 30px);
+}
+
+.btn--primary {
+  background: #ffe6fa;
+  border-color: #ffe6fa;
+  box-shadow: 0 0 24px rgba(255, 43, 214, 0.45);
+}
+
+.ticks i.on::after {
+  background: #ff7ae4;
+  box-shadow: 0 0 8px rgba(255, 43, 214, 0.8);
+}
