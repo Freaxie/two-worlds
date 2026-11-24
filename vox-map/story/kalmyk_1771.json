@@ -1,0 +1,67 @@
+{
+  "title": "The Nation That Walked Out of Russia",
+  "slug": "kalmyk_1771",
+  "voice": "am_michael",
+  "speed": 1.08,
+  "lexicon": {
+    "Ubashi": "ubˈɑʃi",
+    "Kalmykia": "kælmˈɪkiə",
+    "Kalmyks": "kˈælmɪks"
+  },
+  "sentences": [
+    {
+      "id": "s1",
+      "beat": 1,
+      "pause_after": 0.38,
+      "text": "In 1771, an entire nation tried to walk out of Russia."
+    },
+    {
+      "id": "s2",
+      "beat": 1,
+      "pause_after": 0.34,
+      "text": "The Kalmyks: Buddhist herders on the lower Volga."
+    },
+    {
+      "id": "s3",
+      "beat": 2,
+      "pause_after": 0.28,
+      "text": "They answered to Catherine the Great."
+    },
+    {
+      "id": "s4",
+      "beat": 3,
+      "pause_after": 0.36,
+      "text": "Her empire curbed their khan, seized their pastures, drafted their horsemen."
+    },
+    {
+      "id": "s5",
+      "beat": 4,
+      "pause_after": 0.32,
+      "text": "So in January, Ubashi Khan led some 170,000 people east."
+    },
+    {
+      "id": "s6",
+      "beat": 5,
+      "pause_after": 0.38,
+      "text": "But the Volga never froze, stranding the clans on its west bank."
+    },
+    {
+      "id": "s7",
+      "beat": 6,
+      "pause_after": 0.3,
+      "text": "The rest marched for months, raided and starving."
+    },
+    {
+      "id": "s8",
+      "beat": 7,
+      "pause_after": 0.46,
+      "text": "Tens of thousands never reached China."
+    },
+    {
+      "id": "s9",
+      "beat": 8,
+      "pause_after": 0.0,
+      "text": "The stranded clans are still there: Kalmykia, Europe's only Buddhist republic."
+    }
+  ]
+}

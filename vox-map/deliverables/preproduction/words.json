@@ -1,0 +1,670 @@
+{
+  "wer_vs_script": 0.024096385542168676,
+  "heard": "In 1771, an entire nation tried to walk out of Russia. The Kalmyks, Buddhist herders on the lower Volga. They answered to Catherine the Great. Her empire curbed their khan, seized their pastures, drafted their horsemen. So in January, Ubashi Khan led some 170 ,000 people east. But the Volga never froze, stranding the clans on its west bank. The rest marched for months, raided and starving. Tens of thousands never reached China. The stranded clans are still there. Kalmykia, Europe's only Buddhist republic.",
+  "words": [
+    {
+      "word": "In",
+      "key": "in",
+      "sentence": "s1",
+      "start": 0.0,
+      "end": 0.16,
+      "heard": "In"
+    },
+    {
+      "word": "1771,",
+      "key": "1771",
+      "sentence": "s1",
+      "start": 0.16,
+      "end": 1.44,
+      "heard": "1771,"
+    },
+    {
+      "word": "an",
+      "key": "an",
+      "sentence": "s1",
+      "start": 1.96,
+      "end": 2.06,
+      "heard": "an"
+    },
+    {
+      "word": "entire",
+      "key": "entire",
+      "sentence": "s1",
+      "start": 2.06,
+      "end": 2.48,
+      "heard": "entire"
+    },
+    {
+      "word": "nation",
+      "key": "nation",
+      "sentence": "s1",
+      "start": 2.48,
+      "end": 2.92,
+      "heard": "nation"
+    },
+    {
+      "word": "tried",
+      "key": "tried",
+      "sentence": "s1",
+      "start": 2.92,
+      "end": 3.2,
+      "heard": "tried"
+    },
+    {
+      "word": "to",
+      "key": "to",
+      "sentence": "s1",
+      "start": 3.2,
+      "end": 3.44,
+      "heard": "to"
+    },
+    {
+      "word": "walk",
+      "key": "walk",
+      "sentence": "s1",
+      "start": 3.44,
+      "end": 3.64,
+      "heard": "walk"
+    },
+    {
+      "word": "out",
+      "key": "out",
+      "sentence": "s1",
+      "start": 3.64,
+      "end": 3.82,
+      "heard": "out"
+    },
+    {
+      "word": "of",
+      "key": "of",
+      "sentence": "s1",
+      "start": 3.82,
+      "end": 4.0,
+      "heard": "of"
+    },
+    {
+      "word": "Russia.",
+      "key": "russia",
+      "sentence": "s1",
+      "start": 4.0,
+      "end": 4.28,
+      "heard": "Russia."
+    },
+    {
+      "word": "The",
+      "key": "the",
+      "sentence": "s2",
+      "start": 4.82,
+      "end": 4.9,
+      "heard": "The"
+    },
+    {
+      "word": "Kalmyks:",
+      "key": "kalmyks",
+      "sentence": "s2",
+      "start": 4.9,
+      "end": 5.44,
+      "heard": "Kalmyks,"
+    },
+    {
+      "word": "Buddhist",
+      "key": "buddhist",
+      "sentence": "s2",
+      "start": 5.86,
+      "end": 6.1,
+      "heard": "Buddhist"
+    },
+    {
+      "word": "herders",
+      "key": "herders",
+      "sentence": "s2",
+      "start": 6.1,
+      "end": 6.58,
+      "heard": "herders"
+    },
+    {
+      "word": "on",
+      "key": "on",
+      "sentence": "s2",
+      "start": 6.58,
+      "end": 6.74,
+      "heard": "on"
+    },
+    {
+      "word": "the",
+      "key": "the",
+      "sentence": "s2",
+      "start": 6.74,
+      "end": 6.88,
+      "heard": "the"
+    },
+    {
+      "word": "lower",
+      "key": "lower",
+      "sentence": "s2",
+      "start": 6.88,
+      "end": 7.14,
+      "heard": "lower"
+    },
+    {
+      "word": "Volga.",
+      "key": "volga",
+      "sentence": "s2",
+      "start": 7.14,
+      "end": 7.6,
+      "heard": "Volga."
+    },
+    {
+      "word": "They",
+      "key": "they",
+      "sentence": "s3",
+      "start": 8.1,
+      "end": 8.18,
+      "heard": "They"
+    },
+    {
+      "word": "answered",
+      "key": "answered",
+      "sentence": "s3",
+      "start": 8.18,
+      "end": 8.6,
+      "heard": "answered"
+    },
+    {
+      "word": "to",
+      "key": "to",
+      "sentence": "s3",
+      "start": 8.6,
+      "end": 8.9,
+      "heard": "to"
+    },
+    {
+      "word": "Catherine",
+      "key": "catherine",
+      "sentence": "s3",
+      "start": 8.9,
+      "end": 9.16,
+      "heard": "Catherine"
+    },
+    {
+      "word": "the",
+      "key": "the",
+      "sentence": "s3",
+      "start": 9.16,
+      "end": 9.36,
+      "heard": "the"
+    },
+    {
+      "word": "Great.",
+      "key": "great",
+      "sentence": "s3",
+      "start": 9.36,
+      "end": 9.62,
+      "heard": "Great."
+    },
+    {
+      "word": "Her",
+      "key": "her",
+      "sentence": "s4",
+      "start": 10.04,
+      "end": 10.18,
+      "heard": "Her"
+    },
+    {
+      "word": "empire",
+      "key": "empire",
+      "sentence": "s4",
+      "start": 10.18,
+      "end": 10.62,
+      "heard": "empire"
+    },
+    {
+      "word": "curbed",
+      "key": "curbed",
+      "sentence": "s4",
+      "start": 10.62,
+      "end": 11.02,
+      "heard": "curbed"
+    },
+    {
+      "word": "their",
+      "key": "their",
+      "sentence": "s4",
+      "start": 11.02,
+      "end": 11.28,
+      "heard": "their"
+    },
+    {
+      "word": "khan,",
+      "key": "khan",
+      "sentence": "s4",
+      "start": 11.28,
+      "end": 11.6,
+      "heard": "khan,"
+    },
+    {
+      "word": "seized",
+      "key": "seized",
+      "sentence": "s4",
+      "start": 12.0,
+      "end": 12.16,
+      "heard": "seized"
+    },
+    {
+      "word": "their",
+      "key": "their",
+      "sentence": "s4",
+      "start": 12.16,
+      "end": 12.42,
+      "heard": "their"
+    },
+    {
+      "word": "pastures,",
+      "key": "pastures",
+      "sentence": "s4",
+      "start": 12.42,
+      "end": 13.04,
+      "heard": "pastures,"
+    },
+    {
+      "word": "drafted",
+      "key": "drafted",
+      "sentence": "s4",
+      "start": 13.4,
+      "end": 13.68,
+      "heard": "drafted"
+    },
+    {
+      "word": "their",
+      "key": "their",
+      "sentence": "s4",
+      "start": 13.68,
+      "end": 13.94,
+      "heard": "their"
+    },
+    {
+      "word": "horsemen.",
+      "key": "horsemen",
+      "sentence": "s4",
+      "start": 13.94,
+      "end": 14.38,
+      "heard": "horsemen."
+    },
+    {
+      "word": "So",
+      "key": "so",
+      "sentence": "s5",
+      "start": 14.82,
+      "end": 14.98,
+      "heard": "So"
+    },
+    {
+      "word": "in",
+      "key": "in",
+      "sentence": "s5",
+      "start": 14.98,
+      "end": 15.2,
+      "heard": "in"
+    },
+    {
+      "word": "January,",
+      "key": "january",
+      "sentence": "s5",
+      "start": 15.2,
+      "end": 15.8,
+      "heard": "January,"
+    },
+    {
+      "word": "Ubashi",
+      "key": "ubashi",
+      "sentence": "s5",
+      "start": 16.32,
+      "end": 16.66,
+      "heard": "Ubashi"
+    },
+    {
+      "word": "Khan",
+      "key": "khan",
+      "sentence": "s5",
+      "start": 16.66,
+      "end": 17.02,
+      "heard": "Khan"
+    },
+    {
+      "word": "led",
+      "key": "led",
+      "sentence": "s5",
+      "start": 17.02,
+      "end": 17.28,
+      "heard": "led"
+    },
+    {
+      "word": "some",
+      "key": "some",
+      "sentence": "s5",
+      "start": 17.28,
+      "end": 17.52,
+      "heard": "some"
+    },
+    {
+      "word": "170,000",
+      "key": "170000",
+      "sentence": "s5",
+      "start": 17.52,
+      "end": 18.26,
+      "heard": "170"
+    },
+    {
+      "word": "people",
+      "key": "people",
+      "sentence": "s5",
+      "start": 18.74,
+      "end": 19.1,
+      "heard": "people"
+    },
+    {
+      "word": "east.",
+      "key": "east",
+      "sentence": "s5",
+      "start": 19.1,
+      "end": 19.54,
+      "heard": "east."
+    },
+    {
+      "word": "But",
+      "key": "but",
+      "sentence": "s6",
+      "start": 19.86,
+      "end": 20.06,
+      "heard": "But"
+    },
+    {
+      "word": "the",
+      "key": "the",
+      "sentence": "s6",
+      "start": 20.06,
+      "end": 20.26,
+      "heard": "the"
+    },
+    {
+      "word": "Volga",
+      "key": "volga",
+      "sentence": "s6",
+      "start": 20.26,
+      "end": 20.58,
+      "heard": "Volga"
+    },
+    {
+      "word": "never",
+      "key": "never",
+      "sentence": "s6",
+      "start": 20.58,
+      "end": 20.9,
+      "heard": "never"
+    },
+    {
+      "word": "froze,",
+      "key": "froze",
+      "sentence": "s6",
+      "start": 20.9,
+      "end": 21.42,
+      "heard": "froze,"
+    },
+    {
+      "word": "stranding",
+      "key": "stranding",
+      "sentence": "s6",
+      "start": 21.82,
+      "end": 22.22,
+      "heard": "stranding"
+    },
+    {
+      "word": "the",
+      "key": "the",
+      "sentence": "s6",
+      "start": 22.22,
+      "end": 22.48,
+      "heard": "the"
+    },
+    {
+      "word": "clans",
+      "key": "clans",
+      "sentence": "s6",
+      "start": 22.48,
+      "end": 22.74,
+      "heard": "clans"
+    },
+    {
+      "word": "on",
+      "key": "on",
+      "sentence": "s6",
+      "start": 22.74,
+      "end": 23.0,
+      "heard": "on"
+    },
+    {
+      "word": "its",
+      "key": "its",
+      "sentence": "s6",
+      "start": 23.0,
+      "end": 23.16,
+      "heard": "its"
+    },
+    {
+      "word": "west",
+      "key": "west",
+      "sentence": "s6",
+      "start": 23.16,
+      "end": 23.4,
+      "heard": "west"
+    },
+    {
+      "word": "bank.",
+      "key": "bank",
+      "sentence": "s6",
+      "start": 23.4,
+      "end": 23.76,
+      "heard": "bank."
+    },
+    {
+      "word": "The",
+      "key": "the",
+      "sentence": "s7",
+      "start": 24.22,
+      "end": 24.4,
+      "heard": "The"
+    },
+    {
+      "word": "rest",
+      "key": "rest",
+      "sentence": "s7",
+      "start": 24.4,
+      "end": 24.62,
+      "heard": "rest"
+    },
+    {
+      "word": "marched",
+      "key": "marched",
+      "sentence": "s7",
+      "start": 24.62,
+      "end": 24.84,
+      "heard": "marched"
+    },
+    {
+      "word": "for",
+      "key": "for",
+      "sentence": "s7",
+      "start": 24.84,
+      "end": 25.14,
+      "heard": "for"
+    },
+    {
+      "word": "months,",
+      "key": "months",
+      "sentence": "s7",
+      "start": 25.14,
+      "end": 25.48,
+      "heard": "months,"
+    },
+    {
+      "word": "raided",
+      "key": "raided",
+      "sentence": "s7",
+      "start": 25.98,
+      "end": 26.14,
+      "heard": "raided"
+    },
+    {
+      "word": "and",
+      "key": "and",
+      "sentence": "s7",
+      "start": 26.14,
+      "end": 26.38,
+      "heard": "and"
+    },
+    {
+      "word": "starving.",
+      "key": "starving",
+      "sentence": "s7",
+      "start": 26.38,
+      "end": 26.88,
+      "heard": "starving."
+    },
+    {
+      "word": "Tens",
+      "key": "tens",
+      "sentence": "s8",
+      "start": 27.32,
+      "end": 27.52,
+      "heard": "Tens"
+    },
+    {
+      "word": "of",
+      "key": "of",
+      "sentence": "s8",
+      "start": 27.52,
+      "end": 27.78,
+      "heard": "of"
+    },
+    {
+      "word": "thousands",
+      "key": "thousands",
+      "sentence": "s8",
+      "start": 27.78,
+      "end": 28.12,
+      "heard": "thousands"
+    },
+    {
+      "word": "never",
+      "key": "never",
+      "sentence": "s8",
+      "start": 28.12,
+      "end": 28.58,
+      "heard": "never"
+    },
+    {
+      "word": "reached",
+      "key": "reached",
+      "sentence": "s8",
+      "start": 28.58,
+      "end": 28.88,
+      "heard": "reached"
+    },
+    {
+      "word": "China.",
+      "key": "china",
+      "sentence": "s8",
+      "start": 28.88,
+      "end": 29.3,
+      "heard": "China."
+    },
+    {
+      "word": "The",
+      "key": "the",
+      "sentence": "s9",
+      "start": 29.3,
+      "end": 29.94,
+      "heard": "The"
+    },
+    {
+      "word": "stranded",
+      "key": "stranded",
+      "sentence": "s9",
+      "start": 29.94,
+      "end": 30.34,
+      "heard": "stranded"
+    },
+    {
+      "word": "clans",
+      "key": "clans",
+      "sentence": "s9",
+      "start": 30.34,
+      "end": 30.76,
+      "heard": "clans"
+    },
+    {
+      "word": "are",
+      "key": "are",
+      "sentence": "s9",
+      "start": 30.76,
+      "end": 30.96,
+      "heard": "are"
+    },
+    {
+      "word": "still",
+      "key": "still",
+      "sentence": "s9",
+      "start": 30.96,
+      "end": 31.16,
+      "heard": "still"
+    },
+    {
+      "word": "there:",
+      "key": "there",
+      "sentence": "s9",
+      "start": 31.16,
+      "end": 31.56,
+      "heard": "there."
+    },
+    {
+      "word": "Kalmykia,",
+      "key": "kalmykia",
+      "sentence": "s9",
+      "start": 31.94,
+      "end": 32.46,
+      "heard": "Kalmykia,"
+    },
+    {
+      "word": "Europe's",
+      "key": "europes",
+      "sentence": "s9",
+      "start": 32.78,
+      "end": 33.14,
+      "heard": "Europe's"
+    },
+    {
+      "word": "only",
+      "key": "only",
+      "sentence": "s9",
+      "start": 33.14,
+      "end": 33.38,
+      "heard": "only"
+    },
+    {
+      "word": "Buddhist",
+      "key": "buddhist",
+      "sentence": "s9",
+      "start": 33.38,
+      "end": 33.82,
+      "heard": "Buddhist"
+    },
+    {
+      "word": "republic.",
+      "key": "republic",
+      "sentence": "s9",
+      "start": 33.82,
+      "end": 34.18,
+      "heard": "republic."
+    }
+  ]
+}

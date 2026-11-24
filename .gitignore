@@ -25,3 +25,8 @@ dist-ssr
 
 dist-single
 .claude/
+
+# vox-map renders and caches
+vox-map/build/
+vox-map/out/
+__pycache__/

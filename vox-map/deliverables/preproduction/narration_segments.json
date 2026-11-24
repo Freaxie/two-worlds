@@ -1,0 +1,81 @@
+{
+  "voice": "am_michael",
+  "sr": 24000,
+  "duration": 34.52,
+  "source_lufs": -23.65181901932409,
+  "target_lufs": -16.0,
+  "sentences": [
+    {
+      "id": "s1",
+      "beat": 1,
+      "text": "In 1771, an entire nation tried to walk out of Russia.",
+      "phonemes": "ˌɪn sˌɛvəntˈin sˈɛvənti wˈʌn, ɐn əntˈIəɹ nˈAʃən tɹˈId tə wˈɔk ˈWt ʌv ɹˈʌʃə.",
+      "start": 0.0,
+      "end": 4.35
+    },
+    {
+      "id": "s2",
+      "beat": 1,
+      "text": "The Kalmyks: Buddhist herders on the lower Volga.",
+      "phonemes": "ðə kˈælmɪks: bˈʊdəst hˈɜɹdəɹz ˌɔn ðə lˈOəɹ vˈOlɡə.",
+      "start": 4.73,
+      "end": 7.68
+    },
+    {
+      "id": "s3",
+      "beat": 2,
+      "text": "They answered to Catherine the Great.",
+      "phonemes": "ðˌA ˈænsəɹd tə kˈæθɹɪn ðə ɡɹˈAt.",
+      "start": 8.02,
+      "end": 9.72
+    },
+    {
+      "id": "s4",
+      "beat": 3,
+      "text": "Her empire curbed their khan, seized their pastures, drafted their horsemen.",
+      "phonemes": "hˌɜɹ ˈɛmpˌIəɹ kˈɜɹbd ðɛɹ kˈɑn, sˈizd ðɛɹ pˈæsʧəɹz, dɹˈæftᵻd ðɛɹ hˈɔɹsmɛn.",
+      "start": 10.0,
+      "end": 14.42
+    },
+    {
+      "id": "s5",
+      "beat": 4,
+      "text": "So in January, Ubashi Khan led some 170,000 people east.",
+      "phonemes": "sˌO ɪn ʤˈænjəwˌɛɹi, ubˈɑʃi kˈɑn lˈɛd sˌʌm wˈʌn hˈʌndɹəd sˈɛvənti θˈWzᵊnd pˈipᵊl ˈist.",
+      "start": 14.78,
+      "end": 19.6
+    },
+    {
+      "id": "s6",
+      "beat": 5,
+      "text": "But the Volga never froze, stranding the clans on its west bank.",
+      "phonemes": "bˌʌt ðə vˈOlɡə nˈɛvəɹ fɹˈOz, stɹˈændɪŋ ðə klˈænz ˌɔn ɪts wˈɛst bˈæŋk.",
+      "start": 19.92,
+      "end": 23.85
+    },
+    {
+      "id": "s7",
+      "beat": 6,
+      "text": "The rest marched for months, raided and starving.",
+      "phonemes": "ðə ɹˈɛst mˈɑɹʧt fɔɹ mˈʌnθs, ɹˈAdᵻd ænd stˈɑɹvɪŋ.",
+      "start": 24.23,
+      "end": 26.98
+    },
+    {
+      "id": "s8",
+      "beat": 7,
+      "text": "Tens of thousands never reached China.",
+      "phonemes": "tˈɛnz ʌv θˈWzᵊndz nˈɛvəɹ ɹˈiʧt ʧˈInə.",
+      "start": 27.28,
+      "end": 29.38
+    },
+    {
+      "id": "s9",
+      "beat": 8,
+      "text": "The stranded clans are still there: Kalmykia, Europe's only Buddhist republic.",
+      "phonemes": "ðə stɹˈændᵻd klˈænz ɑɹ stˈɪl ðˈɛɹ: kælmˈɪkiə, jˈʊɹəps ˈOnli bˈʊdəst ɹəpˈʌblɪk.",
+      "start": 29.84,
+      "end": 34.52
+    }
+  ]
+}
