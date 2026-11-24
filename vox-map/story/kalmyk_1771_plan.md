@@ -1,5 +1,7 @@
 # The Nation That Walked Out of Russia: pre-production
 
+> Pre-production document. Frame numbers below are for the first `am_michael` take; the final production uses the `af_heart` take. Final timings and camera frames are in `../README.md`.
+
 1920×1080, 30 fps. Narration starts at 0.40 s, the last word ends at 34.88 s, and the 1.3 s hold runs to **36.18 s (frames 0–1085)**.
 Voice: Kokoro-82M `am_michael` at speed 1.08, 83 words, 34.5 s, normalised to −16 LUFS.
 Alignment: faster-whisper medium.en word timestamps, 2.4% word error rate against the script. The only "error" is "170,000" split into two tokens.
