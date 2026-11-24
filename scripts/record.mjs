@@ -4,6 +4,8 @@
 // size is one number for a square frame, or WIDTHxHEIGHT.
 // Needs Chrome (set CHROME to its path) and ffmpeg on PATH (or set FFMPEG).
 // MSAA=0 speeds up software-GL renders; CRF sets the H.264 quality (lower is better).
+// Frames already on disk are kept, so a stopped render resumes where it left off; FRESH=1 starts over.
+// MAX_FRAMES=n renders at most n new frames and stops before encoding, for long renders done in chunks.
 import puppeteer from 'puppeteer-core'
 import { mkdirSync, writeFileSync, rmSync, readFileSync, existsSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
@@ -15,8 +17,9 @@ const page = process.env.PAGE ?? 'dream'
 const score = { dream: 'score.mp3', neon: 'neon-score.mp3' }[page]
 const [width, height = width] = size.split('x').map(Number)
 const frames = resolve(`dist-${page}/frames`)
-rmSync(frames, { recursive: true, force: true })
+if (process.env.FRESH) rmSync(frames, { recursive: true, force: true })
 mkdirSync(frames, { recursive: true })
+const frameFile = (i) => `${frames}/f${String(i).padStart(5, '0')}.jpg`
 
 // the page fetches its skies, models and score, so serve the build over http
 const root = resolve(`dist-${page}`)
@@ -40,14 +43,28 @@ await tab.goto(`http://localhost:${port}/${page}.html?record&msaa=${process.env.
 await tab.waitForFunction('window.renderAt', { timeout: 0 })
 
 const total = Math.round((await tab.evaluate('window.loopLength')) * +fps * +loops)
+const budget = Number(process.env.MAX_FRAMES) || Infinity
 const t0 = Date.now()
-for (let i = 0; i < total; i++) {
+let rendered = 0
+let primed = false
+for (let i = 0; i < total && rendered < budget; i++) {
+  if (existsSync(frameFile(i))) continue
+  // motion blur needs the previous frame's camera, so warm up on it after a gap
+  if (!primed && i > 0) await tab.evaluate((t) => window.renderAt(t), (i - 1) / +fps)
+  primed = true
   const url = await tab.evaluate((t) => window.renderAt(t), i / +fps)
-  writeFileSync(`${frames}/f${String(i).padStart(5, '0')}.jpg`, Buffer.from(url.split(',')[1], 'base64'))
-  if (i % 10 === 0) console.log(`frame ${i + 1}/${total}  ${((Date.now() - t0) / 1000 / (i + 1)).toFixed(1)} s/frame`)
+  writeFileSync(frameFile(i), Buffer.from(url.split(',')[1], 'base64'))
+  rendered++
+  if (i % 10 === 0) console.log(`frame ${i + 1}/${total}  ${((Date.now() - t0) / 1000 / rendered).toFixed(1)} s/frame`)
 }
 await browser.close()
 server.close()
+
+const missing = Array.from({ length: total }, (_, i) => i).filter((i) => !existsSync(frameFile(i))).length
+if (missing) {
+  console.log(`paused with ${missing} of ${total} frames still to render; run again to continue`)
+  process.exit(0)
+}
 
 // picture plus the score, looped to the picture's length
 const ff = spawnSync(
