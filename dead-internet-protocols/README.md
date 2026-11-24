@@ -14,7 +14,7 @@ synthesized in numpy. No stock footage, samples, or AI image generation.
 | `output/final_short.srt` | Subtitles (same cues as the burned-in captions) |
 | `output/thumbnail.png`, `output/thumbnail_landscape.png` | 1080×1920 Shorts thumbnail and a 1280×720 variant |
 | `output/youtube_description.txt` | Upload description with status summary and source links |
-| `output/contact_sheet.png` | One frame every 2 s, for review |
+| `output/contact_sheet.jpg` | One frame every 2 s, for review |
 | `narration/SCRIPT.md` | Final narration with per-line timings, pronunciation overrides and the Whisper check |
 | `narration/script.json` | Narration source (text, voice, speed, gaps, phonemes) |
 | `research/RESEARCH.md` | Research dossier: classification table, fact-check log, verbatim RFC quotes, sources |
@@ -105,6 +105,10 @@ verifies the reassembled files by SHA-256. With Hugging Face access you can use 
 * **Mix.** In speech the voice sits about 12 dB above the music and 7 dB above the SFX; the music has a
   presence dip at 3 kHz. Loudness is −14.1 LUFS integrated, −2.1 dBTP (4× oversampled
   true-peak limiter), LRA ≈ 2 LU.
+* **Deliverable.** `final_short.mp4` is H.264 High, 1080×1920, 60 fps, 5,236 frames (87.27 s), 7.9 Mb/s,
+  86 MB. It decodes with no errors. After AAC encoding the audio measures −14.1 LUFS / −2.0 dBTP.
+  Cross-correlation shows 0 ms offset against the master mix, and scheduled sound events (CRT power-on
+  at 0.22 s, final hit at 83.30 s) land within 1 ms in the file.
 * **Picture.** Frames were reviewed as contact sheets per scene during development, plus a
   full contact sheet of the final render. Fixes made along the way: typography blurred by depth
   of field, blown-out holograms, oversized point sprites at close range, title overflow,
