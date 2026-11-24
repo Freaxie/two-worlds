@@ -1,0 +1,8 @@
+node_modules/
+build/
+models/
+output/preview/
+audio/**/*.wav
+*.log
+.venv/
+__pycache__/

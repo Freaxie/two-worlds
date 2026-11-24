@@ -1,0 +1,8 @@
+# Python 3.11+ (tested with 3.13)
+kokoro-onnx==0.6.1
+onnxruntime==1.32.0
+faster-whisper==1.2.1
+ctranslate2==4.9.1
+numpy==2.5.5
+scipy==1.18.1
+soundfile==0.14.0

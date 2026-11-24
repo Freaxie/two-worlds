@@ -1,0 +1,1091 @@
+{
+ "duration": 87.27,
+ "fps": 60,
+ "lines": [
+  {
+   "id": "L01",
+   "scene": 1,
+   "start": 1.0,
+   "end": 2.686,
+   "duration": 1.686,
+   "text": "The internet has a graveyard.",
+   "words": [
+    {
+     "w": "The",
+     "start": 1.0,
+     "end": 1.1
+    },
+    {
+     "w": "internet",
+     "start": 1.1,
+     "end": 1.5
+    },
+    {
+     "w": "has",
+     "start": 1.5,
+     "end": 1.9
+    },
+    {
+     "w": "a",
+     "start": 1.9,
+     "end": 2.0
+    },
+    {
+     "w": "graveyard.",
+     "start": 2.0,
+     "end": 2.32
+    }
+   ]
+  },
+  {
+   "id": "L02",
+   "scene": 1,
+   "start": 3.036,
+   "end": 7.977,
+   "duration": 4.941,
+   "text": "Not of websites, but of entire languages that computers once used to communicate.",
+   "words": [
+    {
+     "w": "Not",
+     "start": 3.036,
+     "end": 3.236
+    },
+    {
+     "w": "of",
+     "start": 3.236,
+     "end": 3.396
+    },
+    {
+     "w": "websites,",
+     "start": 3.396,
+     "end": 3.816
+    },
+    {
+     "w": "but",
+     "start": 4.356,
+     "end": 4.516
+    },
+    {
+     "w": "of",
+     "start": 4.516,
+     "end": 4.636
+    },
+    {
+     "w": "entire",
+     "start": 4.636,
+     "end": 5.056
+    },
+    {
+     "w": "languages",
+     "start": 5.056,
+     "end": 5.656
+    },
+    {
+     "w": "that",
+     "start": 5.656,
+     "end": 6.016
+    },
+    {
+     "w": "computers",
+     "start": 6.016,
+     "end": 6.496
+    },
+    {
+     "w": "once",
+     "start": 6.496,
+     "end": 6.816
+    },
+    {
+     "w": "used",
+     "start": 6.816,
+     "end": 7.116
+    },
+    {
+     "w": "to",
+     "start": 7.116,
+     "end": 7.296
+    },
+    {
+     "w": "communicate.",
+     "start": 7.296,
+     "end": 7.696
+    }
+   ]
+  },
+  {
+   "id": "L03",
+   "scene": 2,
+   "start": 9.027,
+   "end": 11.214,
+   "duration": 2.186,
+   "text": "Before the web took over, there was Gopher.",
+   "words": [
+    {
+     "w": "Before",
+     "start": 9.027,
+     "end": 9.187
+    },
+    {
+     "w": "the",
+     "start": 9.187,
+     "end": 9.367
+    },
+    {
+     "w": "web",
+     "start": 9.367,
+     "end": 9.527
+    },
+    {
+     "w": "took",
+     "start": 9.527,
+     "end": 9.727
+    },
+    {
+     "w": "over,",
+     "start": 9.727,
+     "end": 10.047
+    },
+    {
+     "w": "there",
+     "start": 10.347,
+     "end": 10.427
+    },
+    {
+     "w": "was",
+     "start": 10.427,
+     "end": 10.607
+    },
+    {
+     "w": "Gopher.",
+     "start": 10.607,
+     "end": 10.987
+    }
+   ]
+  },
+  {
+   "id": "L04",
+   "scene": 2,
+   "start": 11.664,
+   "end": 17.283,
+   "duration": 5.619,
+   "text": "Instead of clicking through colorful websites, you navigated the internet through simple text menus.",
+   "words": [
+    {
+     "w": "Instead",
+     "start": 11.664,
+     "end": 11.924
+    },
+    {
+     "w": "of",
+     "start": 11.924,
+     "end": 12.124
+    },
+    {
+     "w": "clicking",
+     "start": 12.124,
+     "end": 12.404
+    },
+    {
+     "w": "through",
+     "start": 12.404,
+     "end": 12.764
+    },
+    {
+     "w": "colorful",
+     "start": 12.764,
+     "end": 13.184
+    },
+    {
+     "w": "websites,",
+     "start": 13.184,
+     "end": 13.744
+    },
+    {
+     "w": "you",
+     "start": 14.284,
+     "end": 14.504
+    },
+    {
+     "w": "navigated",
+     "start": 14.504,
+     "end": 15.064
+    },
+    {
+     "w": "the",
+     "start": 15.064,
+     "end": 15.204
+    },
+    {
+     "w": "internet",
+     "start": 15.204,
+     "end": 15.584
+    },
+    {
+     "w": "through",
+     "start": 15.584,
+     "end": 15.944
+    },
+    {
+     "w": "simple",
+     "start": 15.944,
+     "end": 16.324
+    },
+    {
+     "w": "text",
+     "start": 16.324,
+     "end": 16.624
+    },
+    {
+     "w": "menus.",
+     "start": 16.624,
+     "end": 16.944
+    }
+   ]
+  },
+  {
+   "id": "L05",
+   "scene": 3,
+   "start": 18.333,
+   "end": 20.424,
+   "duration": 2.091,
+   "text": "Want to find a file? There was Archie.",
+   "words": [
+    {
+     "w": "Want",
+     "start": 18.333,
+     "end": 18.513
+    },
+    {
+     "w": "to",
+     "start": 18.513,
+     "end": 18.653
+    },
+    {
+     "w": "find",
+     "start": 18.653,
+     "end": 18.813
+    },
+    {
+     "w": "a",
+     "start": 18.813,
+     "end": 18.913
+    },
+    {
+     "w": "file?",
+     "start": 18.913,
+     "end": 19.173
+    },
+    {
+     "w": "There",
+     "start": 19.493,
+     "end": 19.673
+    },
+    {
+     "w": "was",
+     "start": 19.673,
+     "end": 19.813
+    },
+    {
+     "w": "Archie.",
+     "start": 19.813,
+     "end": 20.293
+    }
+   ]
+  },
+  {
+   "id": "L06",
+   "scene": 3,
+   "start": 20.774,
+   "end": 26.416,
+   "duration": 5.642,
+   "text": "It indexed the file listings of public FTP servers, years before web search engines.",
+   "words": [
+    {
+     "w": "It",
+     "start": 20.774,
+     "end": 20.894
+    },
+    {
+     "w": "indexed",
+     "start": 20.894,
+     "end": 21.454
+    },
+    {
+     "w": "the",
+     "start": 21.454,
+     "end": 21.514
+    },
+    {
+     "w": "file",
+     "start": 21.514,
+     "end": 21.794
+    },
+    {
+     "w": "listings",
+     "start": 21.794,
+     "end": 22.154
+    },
+    {
+     "w": "of",
+     "start": 22.154,
+     "end": 22.474
+    },
+    {
+     "w": "public",
+     "start": 22.474,
+     "end": 22.834
+    },
+    {
+     "w": "FTP",
+     "start": 22.834,
+     "end": 23.314
+    },
+    {
+     "w": "servers,",
+     "start": 23.314,
+     "end": 23.954
+    },
+    {
+     "w": "years",
+     "start": 24.434,
+     "end": 24.794
+    },
+    {
+     "w": "before",
+     "start": 24.794,
+     "end": 25.194
+    },
+    {
+     "w": "web",
+     "start": 25.194,
+     "end": 25.454
+    },
+    {
+     "w": "search",
+     "start": 25.454,
+     "end": 25.674
+    },
+    {
+     "w": "engines.",
+     "start": 25.674,
+     "end": 26.034
+    }
+   ]
+  },
+  {
+   "id": "L07",
+   "scene": 3,
+   "start": 26.916,
+   "end": 31.102,
+   "duration": 4.186,
+   "text": "And WAIS went further, searching the text inside the documents themselves.",
+   "words": [
+    {
+     "w": "And",
+     "start": 26.916,
+     "end": 27.016
+    },
+    {
+     "w": "WAIS",
+     "start": 27.016,
+     "end": 27.356
+    },
+    {
+     "w": "went",
+     "start": 27.356,
+     "end": 27.556
+    },
+    {
+     "w": "further,",
+     "start": 27.556,
+     "end": 27.956
+    },
+    {
+     "w": "searching",
+     "start": 28.336,
+     "end": 28.696
+    },
+    {
+     "w": "the",
+     "start": 28.696,
+     "end": 28.916
+    },
+    {
+     "w": "text",
+     "start": 28.916,
+     "end": 29.196
+    },
+    {
+     "w": "inside",
+     "start": 29.196,
+     "end": 29.616
+    },
+    {
+     "w": "the",
+     "start": 29.616,
+     "end": 29.836
+    },
+    {
+     "w": "documents",
+     "start": 29.836,
+     "end": 30.296
+    },
+    {
+     "w": "themselves.",
+     "start": 30.296,
+     "end": 30.656
+    }
+   ]
+  },
+  {
+   "id": "L08",
+   "scene": 4,
+   "start": 32.152,
+   "end": 33.264,
+   "duration": 1.111,
+   "text": "Then there was Finger.",
+   "words": [
+    {
+     "w": "Then",
+     "start": 32.152,
+     "end": 32.352
+    },
+    {
+     "w": "there",
+     "start": 32.352,
+     "end": 32.532
+    },
+    {
+     "w": "was",
+     "start": 32.532,
+     "end": 32.692
+    },
+    {
+     "w": "Finger.",
+     "start": 32.692,
+     "end": 32.932
+    }
+   ]
+  },
+  {
+   "id": "L09",
+   "scene": 4,
+   "start": 33.614,
+   "end": 40.933,
+   "duration": 7.319,
+   "text": "It let you ask a remote computer about a user, sometimes revealing their login, their status, or a personal message.",
+   "words": [
+    {
+     "w": "It",
+     "start": 33.614,
+     "end": 33.714
+    },
+    {
+     "w": "let",
+     "start": 33.714,
+     "end": 33.834
+    },
+    {
+     "w": "you",
+     "start": 33.834,
+     "end": 33.994
+    },
+    {
+     "w": "ask",
+     "start": 33.994,
+     "end": 34.274
+    },
+    {
+     "w": "a",
+     "start": 34.274,
+     "end": 34.434
+    },
+    {
+     "w": "remote",
+     "start": 34.434,
+     "end": 34.734
+    },
+    {
+     "w": "computer",
+     "start": 34.734,
+     "end": 35.234
+    },
+    {
+     "w": "about",
+     "start": 35.234,
+     "end": 35.454
+    },
+    {
+     "w": "a",
+     "start": 35.454,
+     "end": 35.594
+    },
+    {
+     "w": "user,",
+     "start": 35.594,
+     "end": 35.894
+    },
+    {
+     "w": "sometimes",
+     "start": 36.474,
+     "end": 36.874
+    },
+    {
+     "w": "revealing",
+     "start": 36.874,
+     "end": 37.434
+    },
+    {
+     "w": "their",
+     "start": 37.434,
+     "end": 37.754
+    },
+    {
+     "w": "login,",
+     "start": 37.754,
+     "end": 38.154
+    },
+    {
+     "w": "their",
+     "start": 38.634,
+     "end": 38.714
+    },
+    {
+     "w": "status,",
+     "start": 38.714,
+     "end": 39.114
+    },
+    {
+     "w": "or",
+     "start": 39.534,
+     "end": 39.714
+    },
+    {
+     "w": "a",
+     "start": 39.714,
+     "end": 39.854
+    },
+    {
+     "w": "personal",
+     "start": 39.854,
+     "end": 40.194
+    },
+    {
+     "w": "message.",
+     "start": 40.194,
+     "end": 40.574
+    }
+   ]
+  },
+  {
+   "id": "L10",
+   "scene": 5,
+   "start": 41.983,
+   "end": 42.995,
+   "duration": 1.012,
+   "text": "And there were others.",
+   "words": [
+    {
+     "w": "And",
+     "start": 41.983,
+     "end": 42.123
+    },
+    {
+     "w": "there",
+     "start": 42.123,
+     "end": 42.243
+    },
+    {
+     "w": "were",
+     "start": 42.243,
+     "end": 42.383
+    },
+    {
+     "w": "others.",
+     "start": 42.383,
+     "end": 42.603
+    }
+   ]
+  },
+  {
+   "id": "L11",
+   "scene": 5,
+   "start": 43.345,
+   "end": 48.538,
+   "duration": 5.193,
+   "text": "IPX, from Novell’s NetWare, once powered office networks and multiplayer games.",
+   "words": [
+    {
+     "w": "IPX,",
+     "start": 43.345,
+     "end": 44.145
+    },
+    {
+     "w": "from",
+     "start": 44.145,
+     "end": 44.445
+    },
+    {
+     "w": "Novell’s",
+     "start": 44.445,
+     "end": 44.925
+    },
+    {
+     "w": "NetWare,",
+     "start": 44.925,
+     "end": 45.305
+    },
+    {
+     "w": "once",
+     "start": 45.705,
+     "end": 45.985
+    },
+    {
+     "w": "powered",
+     "start": 45.985,
+     "end": 46.365
+    },
+    {
+     "w": "office",
+     "start": 46.365,
+     "end": 46.725
+    },
+    {
+     "w": "networks",
+     "start": 46.725,
+     "end": 47.165
+    },
+    {
+     "w": "and",
+     "start": 47.165,
+     "end": 47.425
+    },
+    {
+     "w": "multiplayer",
+     "start": 47.425,
+     "end": 47.845
+    },
+    {
+     "w": "games.",
+     "start": 47.845,
+     "end": 48.305
+    }
+   ]
+  },
+  {
+   "id": "L12",
+   "scene": 5,
+   "start": 48.988,
+   "end": 53.408,
+   "duration": 4.42,
+   "text": "X.25 carried data across telecommunications networks.",
+   "words": [
+    {
+     "w": "X.25",
+     "start": 48.988,
+     "end": 49.968
+    },
+    {
+     "w": "carried",
+     "start": 49.968,
+     "end": 50.788
+    },
+    {
+     "w": "data",
+     "start": 50.788,
+     "end": 51.208
+    },
+    {
+     "w": "across",
+     "start": 51.208,
+     "end": 51.548
+    },
+    {
+     "w": "telecommunications",
+     "start": 51.548,
+     "end": 52.608
+    },
+    {
+     "w": "networks.",
+     "start": 52.608,
+     "end": 53.028
+    }
+   ]
+  },
+  {
+   "id": "L13",
+   "scene": 5,
+   "start": 53.858,
+   "end": 56.778,
+   "duration": 2.92,
+   "text": "Different machines, different rules, different languages.",
+   "words": [
+    {
+     "w": "Different",
+     "start": 53.858,
+     "end": 54.078
+    },
+    {
+     "w": "machines,",
+     "start": 54.078,
+     "end": 54.558
+    },
+    {
+     "w": "different",
+     "start": 55.018,
+     "end": 55.178
+    },
+    {
+     "w": "rules,",
+     "start": 55.178,
+     "end": 55.558
+    },
+    {
+     "w": "different",
+     "start": 55.798,
+     "end": 55.978
+    },
+    {
+     "w": "languages.",
+     "start": 55.978,
+     "end": 56.378
+    }
+   ]
+  },
+  {
+   "id": "L14",
+   "scene": 6,
+   "start": 57.828,
+   "end": 61.45,
+   "duration": 3.622,
+   "text": "But here’s the interesting part: not everything old disappeared.",
+   "words": [
+    {
+     "w": "But",
+     "start": 57.828,
+     "end": 57.928
+    },
+    {
+     "w": "here’s",
+     "start": 57.928,
+     "end": 58.268
+    },
+    {
+     "w": "the",
+     "start": 58.268,
+     "end": 58.388
+    },
+    {
+     "w": "interesting",
+     "start": 58.388,
+     "end": 58.828
+    },
+    {
+     "w": "part:",
+     "start": 58.828,
+     "end": 59.168
+    },
+    {
+     "w": "not",
+     "start": 59.688,
+     "end": 59.828
+    },
+    {
+     "w": "everything",
+     "start": 59.828,
+     "end": 60.268
+    },
+    {
+     "w": "old",
+     "start": 60.268,
+     "end": 60.608
+    },
+    {
+     "w": "disappeared.",
+     "start": 60.608,
+     "end": 60.968
+    }
+   ]
+  },
+  {
+   "id": "L15",
+   "scene": 6,
+   "start": 61.85,
+   "end": 68.086,
+   "duration": 6.236,
+   "text": "IRC and Usenet’s NNTP still survive, and Gopher still answers on a few hundred servers.",
+   "words": [
+    {
+     "w": "IRC",
+     "start": 61.85,
+     "end": 62.57
+    },
+    {
+     "w": "and",
+     "start": 62.57,
+     "end": 62.89
+    },
+    {
+     "w": "Usenet’s",
+     "start": 62.89,
+     "end": 63.45
+    },
+    {
+     "w": "NNTP",
+     "start": 63.45,
+     "end": 63.93
+    },
+    {
+     "w": "still",
+     "start": 63.93,
+     "end": 64.33
+    },
+    {
+     "w": "survive,",
+     "start": 64.33,
+     "end": 64.85
+    },
+    {
+     "w": "and",
+     "start": 65.39,
+     "end": 65.55
+    },
+    {
+     "w": "Gopher",
+     "start": 65.55,
+     "end": 65.89
+    },
+    {
+     "w": "still",
+     "start": 65.89,
+     "end": 66.21
+    },
+    {
+     "w": "answers",
+     "start": 66.21,
+     "end": 66.61
+    },
+    {
+     "w": "on",
+     "start": 66.61,
+     "end": 66.91
+    },
+    {
+     "w": "a",
+     "start": 66.91,
+     "end": 67.03
+    },
+    {
+     "w": "few",
+     "start": 67.03,
+     "end": 67.13
+    },
+    {
+     "w": "hundred",
+     "start": 67.13,
+     "end": 67.39
+    },
+    {
+     "w": "servers.",
+     "start": 67.39,
+     "end": 67.75
+    }
+   ]
+  },
+  {
+   "id": "L16",
+   "scene": 6,
+   "start": 68.536,
+   "end": 72.615,
+   "duration": 4.079,
+   "text": "Some communities keep using what the mainstream internet left behind.",
+   "words": [
+    {
+     "w": "Some",
+     "start": 68.536,
+     "end": 68.756
+    },
+    {
+     "w": "communities",
+     "start": 68.756,
+     "end": 69.316
+    },
+    {
+     "w": "keep",
+     "start": 69.316,
+     "end": 69.836
+    },
+    {
+     "w": "using",
+     "start": 69.836,
+     "end": 70.196
+    },
+    {
+     "w": "what",
+     "start": 70.196,
+     "end": 70.436
+    },
+    {
+     "w": "the",
+     "start": 70.436,
+     "end": 70.576
+    },
+    {
+     "w": "mainstream",
+     "start": 70.576,
+     "end": 70.996
+    },
+    {
+     "w": "internet",
+     "start": 70.996,
+     "end": 71.556
+    },
+    {
+     "w": "left",
+     "start": 71.556,
+     "end": 71.896
+    },
+    {
+     "w": "behind.",
+     "start": 71.896,
+     "end": 72.276
+    }
+   ]
+  },
+  {
+   "id": "L17",
+   "scene": 7,
+   "start": 73.815,
+   "end": 76.744,
+   "duration": 2.928,
+   "text": "Protocols are the hidden languages of the internet.",
+   "words": [
+    {
+     "w": "Protocols",
+     "start": 73.815,
+     "end": 74.575
+    },
+    {
+     "w": "are",
+     "start": 74.575,
+     "end": 74.715
+    },
+    {
+     "w": "the",
+     "start": 74.715,
+     "end": 74.815
+    },
+    {
+     "w": "hidden",
+     "start": 74.815,
+     "end": 75.075
+    },
+    {
+     "w": "languages",
+     "start": 75.075,
+     "end": 75.655
+    },
+    {
+     "w": "of",
+     "start": 75.655,
+     "end": 76.015
+    },
+    {
+     "w": "the",
+     "start": 76.015,
+     "end": 76.135
+    },
+    {
+     "w": "internet.",
+     "start": 76.135,
+     "end": 76.415
+    }
+   ]
+  },
+  {
+   "id": "L18",
+   "scene": 7,
+   "start": 77.194,
+   "end": 80.922,
+   "duration": 3.729,
+   "text": "When they disappear from everyday use, their history doesn’t vanish.",
+   "words": [
+    {
+     "w": "When",
+     "start": 77.194,
+     "end": 77.294
+    },
+    {
+     "w": "they",
+     "start": 77.294,
+     "end": 77.414
+    },
+    {
+     "w": "disappear",
+     "start": 77.414,
+     "end": 77.854
+    },
+    {
+     "w": "from",
+     "start": 77.854,
+     "end": 78.174
+    },
+    {
+     "w": "everyday",
+     "start": 78.174,
+     "end": 78.594
+    },
+    {
+     "w": "use,",
+     "start": 78.594,
+     "end": 79.054
+    },
+    {
+     "w": "their",
+     "start": 79.454,
+     "end": 79.574
+    },
+    {
+     "w": "history",
+     "start": 79.574,
+     "end": 79.954
+    },
+    {
+     "w": "doesn’t",
+     "start": 79.954,
+     "end": 80.334
+    },
+    {
+     "w": "vanish.",
+     "start": 80.334,
+     "end": 80.594
+    }
+   ]
+  },
+  {
+   "id": "L19",
+   "scene": 7,
+   "start": 81.472,
+   "end": 82.97,
+   "duration": 1.498,
+   "text": "It becomes archaeology.",
+   "words": [
+    {
+     "w": "It",
+     "start": 81.472,
+     "end": 81.572
+    },
+    {
+     "w": "becomes",
+     "start": 81.572,
+     "end": 81.952
+    },
+    {
+     "w": "archaeology.",
+     "start": 81.952,
+     "end": 82.732
+    }
+   ]
+  }
+ ]
+}

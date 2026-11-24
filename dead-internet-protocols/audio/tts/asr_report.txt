@@ -1,0 +1,57 @@
+L01 [ 1.69s] match=1.00 minP=0.68
+   script: The internet has a graveyard.
+   heard : The internet has a graveyard.
+L02 [ 4.94s] match=1.00 minP=0.84
+   script: Not of websites, but of entire languages that computers once used to communicate.
+   heard : not of websites, but of entire languages that computers once used to communicate.
+L03 [ 2.19s] match=1.00 minP=0.67
+   script: Before the web took over, there was Gopher.
+   heard : Before the web took over, there was Gopher.
+L04 [ 5.62s] match=1.00 minP=0.62
+   script: Instead of clicking through colorful websites, you navigated the internet through simple text menus.
+   heard : Instead of clicking through colorful websites, you navigated the internet through simple text menus.
+L05 [ 2.09s] match=1.00 minP=0.60
+   script: Want to find a file? There was Archie.
+   heard : Want to find a file? There was Archie.
+L06 [ 5.64s] match=1.00 minP=0.66
+   script: It indexed the file listings of public FTP servers, years before web search engines.
+   heard : It indexed the file listings of public FTP servers years before web search engines.
+L07 [ 4.19s] match=0.91 minP=0.64
+   script: And WAIS went further, searching the text inside the documents themselves.
+   heard : and Waze went further, searching the text inside the documents themselves.
+L08 [ 1.11s] match=1.00 minP=0.74
+   script: Then there was Finger.
+   heard : Then there was finger.
+L09 [ 7.32s] match=1.00 minP=0.81
+   script: It let you ask a remote computer about a user, sometimes revealing their login, their status, or a personal message.
+   heard : It let you ask a remote computer about a user, sometimes revealing their login, their status, or a personal message.
+L10 [ 1.01s] match=1.00 minP=0.58
+   script: And there were others.
+   heard : And there were others.
+L11 [ 5.19s] match=1.00 minP=0.44
+   script: IPX, from Novell's NetWare, once powered office networks and multiplayer games.
+   heard : IPX from Novell's Netware, once -powered office networks and multiplayer games.
+L12 [ 4.42s] match=0.80 minP=0.48
+   script: X dot twenty-five carried data across telecommunications networks.
+   heard : X .25 carried data across telecommunications networks.
+L13 [ 2.92s] match=1.00 minP=0.63
+   script: Different machines, different rules, different languages.
+   heard : Different machines, different rules, different languages.
+L14 [ 3.62s] match=1.00 minP=0.86
+   script: But here's the interesting part: not everything old disappeared.
+   heard : But here's the interesting part. Not everything old disappeared.
+L15 [ 6.24s] match=1.00 minP=0.77
+   script: IRC and Usenet's NNTP still survive, and Gopher still answers on a few hundred servers.
+   heard : IRC and Usenet's NNTP still survive, and Gopher still answers on a few hundred servers.
+L16 [ 4.08s] match=1.00 minP=0.69
+   script: Some communities keep using what the mainstream internet left behind.
+   heard : Some communities keep using what the mainstream internet left behind.
+L17 [ 2.93s] match=1.00 minP=0.49
+   script: Protocols are the hidden languages of the internet.
+   heard : Protocols are the hidden languages of the Internet.
+L18 [ 3.73s] match=1.00 minP=0.88
+   script: When they disappear from everyday use, their history doesn't vanish.
+   heard : When they disappear from everyday use, their history doesn't vanish.
+L19 [ 1.50s] match=1.00 minP=0.48
+   script: It becomes archaeology.
+   heard : it becomes archaeology.

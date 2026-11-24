@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dead Internet Protocols — film renderer</title>
+<style>
+  /* Fonts are bundled through npm (@fontsource) so renders are reproducible offline. */
+  @font-face { font-family: 'VT323'; src: url('../node_modules/@fontsource/vt323/files/vt323-latin-400-normal.woff2') format('woff2'); font-weight: 400; }
+  @font-face { font-family: 'Plex Mono'; src: url('../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); font-weight: 400; }
+  @font-face { font-family: 'Plex Mono'; src: url('../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2') format('woff2'); font-weight: 500; }
+  @font-face { font-family: 'Plex Mono'; src: url('../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2') format('woff2'); font-weight: 600; }
+  @font-face { font-family: 'Plex Mono'; src: url('../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-700-normal.woff2') format('woff2'); font-weight: 700; }
+  @font-face { font-family: 'Inter'; src: url('../node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2') format('woff2'); font-weight: 500; }
+  @font-face { font-family: 'Inter'; src: url('../node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2') format('woff2'); font-weight: 700; }
+  @font-face { font-family: 'Inter'; src: url('../node_modules/@fontsource/inter/files/inter-latin-800-normal.woff2') format('woff2'); font-weight: 800; }
+  @font-face { font-family: 'Inter'; src: url('../node_modules/@fontsource/inter/files/inter-latin-900-normal.woff2') format('woff2'); font-weight: 900; }
+  html, body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+  canvas#gl { display: block; width: 1080px; height: 1920px; }
+  .fontprobe { position: absolute; left: -9999px; }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "../node_modules/three/build/three.module.js",
+    "three/addons/": "../node_modules/three/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<canvas id="gl" width="1080" height="1920"></canvas>
+<div class="fontprobe">
+  <span style="font-family:VT323">probe</span><span style="font-family:'Plex Mono';font-weight:500">probe</span>
+  <span style="font-family:Inter;font-weight:900">probe</span><span style="font-family:Inter;font-weight:800">probe</span>
+</div>
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>

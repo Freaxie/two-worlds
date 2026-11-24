@@ -1,0 +1,135 @@
+{
+  "title": "The Strange World of Dead Internet Protocols",
+  "voice": "af_heart",
+  "speed": 0.94,
+  "lead_in": 1.0,
+  "tail": 4.3,
+  "phonemes": {
+    "IPX": "ˌaɪpˌiːˈɛks",
+    "Novell's": "noʊvˈɛlz",
+    "NetWare": "nˈɛtwɛɹ",
+    "WAIS": "wˈeɪz",
+    "Usenet's": "jˈuːznɛts"
+  },
+  "lines": [
+    {
+      "id": "L01",
+      "scene": 1,
+      "gap": 0.0,
+      "text": "The internet has a graveyard."
+    },
+    {
+      "id": "L02",
+      "scene": 1,
+      "gap": 0.35,
+      "text": "Not of websites, but of entire languages that computers once used to communicate."
+    },
+    {
+      "id": "L03",
+      "scene": 2,
+      "gap": 1.05,
+      "text": "Before the web took over, there was Gopher."
+    },
+    {
+      "id": "L04",
+      "scene": 2,
+      "gap": 0.45,
+      "text": "Instead of clicking through colorful websites, you navigated the internet through simple text menus."
+    },
+    {
+      "id": "L05",
+      "scene": 3,
+      "gap": 1.05,
+      "text": "Want to find a file? There was Archie."
+    },
+    {
+      "id": "L06",
+      "scene": 3,
+      "gap": 0.35,
+      "text": "It indexed the file listings of public FTP servers, years before web search engines."
+    },
+    {
+      "id": "L07",
+      "scene": 3,
+      "gap": 0.5,
+      "text": "And WAIS went further, searching the text inside the documents themselves."
+    },
+    {
+      "id": "L08",
+      "scene": 4,
+      "gap": 1.05,
+      "text": "Then there was Finger."
+    },
+    {
+      "id": "L09",
+      "scene": 4,
+      "gap": 0.35,
+      "text": "It let you ask a remote computer about a user, sometimes revealing their login, their status, or a personal message."
+    },
+    {
+      "id": "L10",
+      "scene": 5,
+      "gap": 1.05,
+      "text": "And there were others."
+    },
+    {
+      "id": "L11",
+      "scene": 5,
+      "gap": 0.35,
+      "text": "IPX, from Novell's NetWare, once powered office networks and multiplayer games.",
+      "display": "IPX, from Novell’s NetWare, once powered office networks and multiplayer games."
+    },
+    {
+      "id": "L12",
+      "scene": 5,
+      "gap": 0.45,
+      "text": "X dot twenty-five carried data across telecommunications networks.",
+      "display": "X.25 carried data across telecommunications networks."
+    },
+    {
+      "id": "L13",
+      "scene": 5,
+      "gap": 0.45,
+      "text": "Different machines, different rules, different languages."
+    },
+    {
+      "id": "L14",
+      "scene": 6,
+      "gap": 1.05,
+      "text": "But here's the interesting part: not everything old disappeared.",
+      "display": "But here’s the interesting part: not everything old disappeared."
+    },
+    {
+      "id": "L15",
+      "scene": 6,
+      "gap": 0.4,
+      "text": "IRC and Usenet's NNTP still survive, and Gopher still answers on a few hundred servers.",
+      "display": "IRC and Usenet’s NNTP still survive, and Gopher still answers on a few hundred servers."
+    },
+    {
+      "id": "L16",
+      "scene": 6,
+      "gap": 0.45,
+      "text": "Some communities keep using what the mainstream internet left behind."
+    },
+    {
+      "id": "L17",
+      "scene": 7,
+      "gap": 1.2,
+      "text": "Protocols are the hidden languages of the internet."
+    },
+    {
+      "id": "L18",
+      "scene": 7,
+      "gap": 0.45,
+      "text": "When they disappear from everyday use, their history doesn't vanish.",
+      "display": "When they disappear from everyday use, their history doesn’t vanish."
+    },
+    {
+      "id": "L19",
+      "scene": 7,
+      "gap": 0.55,
+      "text": "It becomes archaeology."
+    }
+  ]
+}

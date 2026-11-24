@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Thumbnail</title>
+<style>
+  @font-face { font-family: 'Inter'; src: url('../node_modules/@fontsource/inter/files/inter-latin-900-normal.woff2') format('woff2'); font-weight: 900; }
+  @font-face { font-family: 'Plex Mono'; src: url('../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2') format('woff2'); font-weight: 600; }
+  html, body { margin: 0; background: #000; }
+  .frame { position: relative; overflow: hidden; background: #020504; }
+  .v { width: 1080px; height: 1920px; }
+  .h { width: 1280px; height: 720px; }
+  .bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: saturate(1.1) contrast(1.08); }
+  .shade { position: absolute; inset: 0; }
+  .v .shade { background: linear-gradient(180deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.55) 26%, rgba(0,0,0,0) 42%, rgba(0,0,0,0) 62%, rgba(0,0,0,.85) 82%); }
+  .h .shade { background: linear-gradient(90deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.7) 45%, rgba(0,0,0,0.05) 75%); }
+  .kick { font: 600 30px 'Plex Mono'; letter-spacing: 8px; color: #3dff8b; text-shadow: 0 0 14px rgba(61,255,139,.8); }
+  .t1 { font: 900 112px/0.95 Inter; color: #f2fff8; letter-spacing: -1px; text-shadow: 0 0 24px rgba(61,255,139,.45), 0 6px 0 #000; }
+  .t2 { font: 900 150px/0.95 Inter; color: #3dff8b; letter-spacing: -3px; text-shadow: 0 0 40px rgba(61,255,139,.75), 0 0 6px rgba(61,255,139,1), 0 8px 0 #000; }
+  .tags { font: 600 34px 'Plex Mono'; color: #cfe9de; letter-spacing: 3px; }
+  .tags b { color: #ffb238; font-weight: 600; }
+  .tags i { color: #46e6ff; font-style: normal; }
+  .v .top { position: absolute; left: 70px; right: 70px; top: 150px; text-align: center; }
+  .v .bottom { position: absolute; left: 60px; right: 60px; top: 1530px; text-align: center; }
+  .h .left { position: absolute; left: 60px; top: 90px; width: 760px; }
+  .h .t1 { font-size: 84px; } .h .t2 { font-size: 128px; } .h .kick { font-size: 24px; } .h .tags { font-size: 25px; margin-top: 34px; }
+  .stamp { display: inline-block; margin-top: 26px; padding: 10px 22px; border: 4px solid #ff3b4e; color: #ff3b4e; font: 600 34px 'Plex Mono'; letter-spacing: 6px; transform: rotate(-3deg); text-shadow: 0 0 12px rgba(255,59,78,.7); box-shadow: 0 0 20px rgba(255,59,78,.4); }
+  .alive { border-color: #46e6ff; color: #46e6ff; text-shadow: 0 0 12px rgba(70,230,255,.7); box-shadow: 0 0 20px rgba(70,230,255,.35); }
+  .h .stamp { font-size: 24px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="frame v" id="v">
+  <div class="bg" style="background-image:url('../build/thumb/f00168.png')"></div>
+  <div class="shade"></div>
+  <div class="top">
+    <div class="kick">AN INTERNET ARCHAEOLOGY</div>
+    <div class="t1" style="margin-top:28px">THE INTERNET<br>HAS A</div>
+    <div class="t2">GRAVEYARD</div>
+  </div>
+  <div class="bottom">
+    <div class="tags"><b>GOPHER</b> · <b>ARCHIE</b> · <b>FINGER</b><br><b>IPX/SPX</b> · <b>X.25</b> · <i>IRC</i> · <i>NNTP</i></div>
+    <div class="stamp alive">…SOME ARE STILL ALIVE</div>
+  </div>
+</div>
+<div class="frame h" id="h" style="margin-top:20px">
+  <div class="bg" style="background-image:url('../build/thumb/f04230.png'); background-position: 50% 55%"></div>
+  <div class="shade"></div>
+  <div class="left">
+    <div class="kick">AN INTERNET ARCHAEOLOGY</div>
+    <div class="t1" style="margin-top:20px">THE INTERNET HAS A</div>
+    <div class="t2">GRAVEYARD</div>
+    <div class="tags"><b>GOPHER</b> · <b>ARCHIE</b> · <b>FINGER</b> · <b>X.25</b> · <i>IRC</i></div>
+    <div class="stamp">PROTOCOL NOT FOUND</div>
+  </div>
+</div>
+</body>
+</html>

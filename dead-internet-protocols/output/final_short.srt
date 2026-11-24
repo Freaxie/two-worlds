@@ -1,0 +1,173 @@
+1
+00:00:00,940 --> 00:00:02,956
+The internet has
+a graveyard.
+
+2
+00:00:02,976 --> 00:00:05,576
+Not of websites, but
+of entire languages
+
+3
+00:00:05,596 --> 00:00:08,296
+that computers once
+used to communicate.
+
+4
+00:00:08,967 --> 00:00:10,267
+Before the web took over,
+
+5
+00:00:10,287 --> 00:00:11,584
+there was GOPHER.
+
+6
+00:00:11,604 --> 00:00:14,204
+Instead of clicking
+through colorful websites,
+
+7
+00:00:14,224 --> 00:00:16,244
+you navigated the
+internet through simple
+
+8
+00:00:16,264 --> 00:00:17,544
+text menus.
+
+9
+00:00:18,273 --> 00:00:19,413
+Want to find a file?
+
+10
+00:00:19,433 --> 00:00:20,694
+There was ARCHIE.
+
+11
+00:00:20,714 --> 00:00:22,754
+It indexed the file
+listings of public
+
+12
+00:00:22,774 --> 00:00:26,836
+FTP servers, years before
+web search engines.
+
+13
+00:00:26,856 --> 00:00:28,256
+And WAIS went further,
+
+14
+00:00:28,276 --> 00:00:31,256
+searching the text inside
+the documents themselves.
+
+15
+00:00:32,092 --> 00:00:33,534
+Then there was FINGER.
+
+16
+00:00:33,554 --> 00:00:35,154
+It let you ask a
+remote computer
+
+17
+00:00:35,174 --> 00:00:38,554
+about a user, sometimes
+revealing their login,
+
+18
+00:00:38,574 --> 00:00:41,174
+their status, or a
+personal message.
+
+19
+00:00:41,923 --> 00:00:43,265
+And there were others.
+
+20
+00:00:43,285 --> 00:00:45,625
+IPX, from Novell’s NetWare,
+
+21
+00:00:45,645 --> 00:00:47,345
+once powered
+office networks and
+
+22
+00:00:47,365 --> 00:00:48,908
+multiplayer games.
+
+23
+00:00:48,928 --> 00:00:51,468
+X.25 carried data across
+
+24
+00:00:51,488 --> 00:00:53,778
+telecommunications
+networks.
+
+25
+00:00:53,798 --> 00:00:55,718
+Different machines,
+different rules,
+
+26
+00:00:55,738 --> 00:00:56,978
+different languages.
+
+27
+00:00:57,768 --> 00:00:59,608
+But here’s the
+interesting part:
+
+28
+00:00:59,628 --> 00:01:01,770
+not everything
+old disappeared.
+
+29
+00:01:01,790 --> 00:01:05,310
+IRC and Usenet’s
+NNTP still survive,
+
+30
+00:01:05,330 --> 00:01:07,050
+and GOPHER still
+answers on a few
+
+31
+00:01:07,070 --> 00:01:08,456
+hundred servers.
+
+32
+00:01:08,476 --> 00:01:10,916
+Some communities keep
+using what the mainstream
+
+33
+00:01:10,936 --> 00:01:12,876
+internet left behind.
+
+34
+00:01:13,755 --> 00:01:15,935
+Protocols are the
+hidden languages of
+
+35
+00:01:15,955 --> 00:01:17,114
+the internet.
+
+36
+00:01:17,134 --> 00:01:19,374
+When they disappear
+from everyday use,
+
+37
+00:01:19,394 --> 00:01:21,392
+their history
+doesn’t vanish.
+
+38
+00:01:21,412 --> 00:01:23,332
+It becomes archaeology.
